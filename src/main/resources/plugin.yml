@@ -2,9 +2,9 @@ name: Falloutcraftr
 main: io.github.kuohsuanlo.falloutcraft.FalloutcraftPlugin
 version: ${version}
 commands:
-  pos:
-    description: reload falloutcraft.
-    usage: "reload falloutcraft"
+  fostatus:
+    description: check falloutcraft status.
+    usage: "/fostatus"
   debug:
     description: Toggles your debugging status for this plugin.
     usage: /debug

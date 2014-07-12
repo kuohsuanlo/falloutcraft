@@ -1,4 +1,3 @@
-
 package io.github.kuohsuanlo.falloutcraft;
 
 import java.io.BufferedReader;
@@ -21,6 +20,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -51,13 +52,17 @@ public class FalloutcraftPlayerListener implements Listener {
     	else{
     		plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) 0);
     	}
+    	if(plugin.falloutstatsThirst.containsKey(player.getPlayerListName())){
+    	}
+    	else{
+    		plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) 0);
+    	}
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         try {
-      	   	String path = "FalloutcraftDB";
-      	   	File file = new File(path);
+      	   	File file = new File(plugin.pathOfFalloutcraftDB_Radiation);
      	    file.createNewFile();
      	   
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
@@ -71,20 +76,284 @@ public class FalloutcraftPlayerListener implements Listener {
  			// TODO Auto-generated catch block
  			e.printStackTrace();
  		}
+        
+        try {
+      	   	File file = new File(plugin.pathOfFalloutcraftDB_Thirst);
+     	    file.createNewFile();
+     	   
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for(String p:plugin.falloutstatsThirst.keySet()){
+                bw.write(p + "\t" + plugin.falloutstatsThirst.get(p));
+                bw.newLine();
+            }
+            bw.flush();
+ 			bw.close();
+ 		} catch (IOException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
     }
-/*
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        if (plugin.isDebugging(event.getPlayer())) {
-            Location from = event.getFrom();
-            Location to = event.getTo();
-
-           // plugin.getLogger().info(String.format("From %.2f,%.2f,%.2f to %.2f,%.2f,%.2f", from.getX(), from.getY(), from.getZ(), to.getX(), to.getY(), to.getZ()));
-        }
-    }
-*/
     
+    @EventHandler
+    public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent e) {
+    	
+    	Player player = e.getPlayer();
+    	handleRadiationFoodDozen(player,e.getItem());
+    	handleRadiationEffect(player,plugin.falloutstatsRadiation.get(player.getPlayerListName()));
+    	
+    	handleThirstFoodDozen(player,e.getItem());
+    	handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
+    }
+    private int thirst_apple = -5;
+    private int thirst_baked_potato = 10;
+    private int thirst_bread = 5;
+    private int thirst_carrot = 5;
+    private int thirst_raw_fish = -10;
+    private int thirst_cooked_chicken = 10;
+    private int thirst_cooked_fish = -5;
+    private int thirst_cooked_porkchop = 10;
+    private int thirst_cookie = 1;
+    private int thirst_golen_apple = -10;//curing
+    private int thirst_golen_carrot = -10;//curing
+    private int thirst_melon = -5;
+    private int thirst_mushroom_stew = -10;
+    private int thirst_poisonous_potato = 50;
+    private int thirst_potato = 10;
+    private int thirst_pumpkin_pie = 5;
+    private int thirst_raw_beef = 15;
+    private int thirst_raw_chicken = 15;
+    private int thirst_raw_porkchop = 15;
+    private int thirst_rotten_flesh = 15;
+    private int thirst_spider_eye = 20;
+    private int thirst_steak = 10;
+    private int determineFoodThirst(ItemStack i){
+    	int randNum = (int) (Math.random()*randomFloat);
+    	int dozenNum=0;
+    	//dozenNum <0 == curing item
+    	if(i.getType().equals(Material.POTION)){
+    		if(i.getItemMeta().hasEnchant(Enchantment.FIRE_ASPECT)){
+    		}
+    		else if(i.getItemMeta().hasEnchant(Enchantment.ARROW_DAMAGE)){
+    		}
+    		else if(i.getItemMeta().hasEnchant(Enchantment.ARROW_FIRE)){
+    		}
+    		else if(i.getItemMeta().hasEnchant(Enchantment.ARROW_KNOCKBACK)){
+    		}
+    		else if(i.getItemMeta().hasEnchants()==false){
+    			dozenNum = -(int) ((Math.random()+0.5)*40);
+    		};
+    	}
+    	else if(i.getType().equals(Material.APPLE)){
+    		dozenNum = (int) (thirst_apple + randNum*(Math.signum(thirst_apple)));
+    	}
+    	else if(i.getType().equals(Material.BAKED_POTATO)){
+    		dozenNum = (int) (thirst_baked_potato + randNum*(Math.signum(thirst_baked_potato)));
+    	}
+    	else if(i.getType().equals(Material.BREAD)){
+    		dozenNum = (int) (thirst_bread + randNum*(Math.signum(thirst_bread)));
+    	}    
+    	else if(i.getType().equals(Material.CARROT)){
+    		dozenNum = (int) (thirst_carrot + randNum*(Math.signum(thirst_carrot)));
+    	} 
+    	else if(i.getType().equals(Material.RAW_FISH)){
+    		dozenNum = (int) (thirst_raw_fish + randNum*(Math.signum(thirst_raw_fish)));
+    	} 
+    	else if(i.getType().equals(Material.COOKED_CHICKEN)){
+    		dozenNum = (int) (thirst_cooked_chicken + randNum*(Math.signum(thirst_cooked_chicken)));
+    	} 
+    	else if(i.getType().equals(Material.COOKED_FISH)){
+    		dozenNum = (int) (thirst_cooked_fish + randNum*(Math.signum(thirst_cooked_fish)));
+    	} 
+    	else if(i.getType().equals(Material.GRILLED_PORK)){
+    		dozenNum = (int) (thirst_cooked_porkchop + randNum*(Math.signum(thirst_cooked_porkchop)));
+    	} 
+    	else if(i.getType().equals(Material.COOKIE)){
+    		dozenNum = (int) (thirst_cookie + randNum*(Math.signum(thirst_cookie)));
+    	} 
+    	else if(i.getType().equals(Material.GOLDEN_APPLE)){
+    		dozenNum = (int) (thirst_golen_apple + randNum*(Math.signum(thirst_golen_apple)));
+    	} 
+    	else if(i.getType().equals(Material.GOLDEN_CARROT)){
+    		dozenNum = (int) (thirst_golen_carrot + randNum*(Math.signum(thirst_golen_carrot)));
+    	}
+    	else if(i.getType().equals(Material.MELON)){
+    		dozenNum = (int) (thirst_melon + randNum*(Math.signum(thirst_melon)));
+    	}
+    	else if(i.getType().equals(Material.MUSHROOM_SOUP)){
+    		dozenNum = (int) (thirst_mushroom_stew + randNum*(Math.signum(thirst_mushroom_stew)));
+    	}
+    	else if(i.getType().equals(Material.POISONOUS_POTATO)){
+    		dozenNum = (int) (thirst_poisonous_potato + randNum*(Math.signum(thirst_poisonous_potato)));
+    	}
+    	else if(i.getType().equals(Material.POTATO)){
+    		dozenNum = (int) (thirst_potato + randNum*(Math.signum(thirst_potato)));
+    	}
+    	else if(i.getType().equals(Material.PUMPKIN_PIE)){
+    		dozenNum = (int) (thirst_pumpkin_pie + randNum*(Math.signum(thirst_pumpkin_pie)));
+    	}
+    	else if(i.getType().equals(Material.RAW_BEEF)){
+    		dozenNum = (int) (thirst_raw_beef + randNum*(Math.signum(thirst_raw_beef)));
+    	}
+    	else if(i.getType().equals(Material.RAW_CHICKEN)){
+    		dozenNum = (int) (thirst_raw_chicken + randNum*(Math.signum(thirst_raw_chicken)));
+    	}
+    	else if(i.getType().equals(Material.PORK)){
+    		dozenNum = (int) (thirst_raw_porkchop + randNum*(Math.signum(thirst_raw_porkchop)));
+    	}
+    	else if(i.getType().equals(Material.ROTTEN_FLESH)){
+    		dozenNum = (int) (thirst_rotten_flesh + randNum*(Math.signum(thirst_rotten_flesh)));
+    	}
+    	else if(i.getType().equals(Material.SPIDER_EYE)){
+    		dozenNum = (int) (thirst_spider_eye + randNum*(Math.signum(thirst_spider_eye)));
+    	}
+    	else if(i.getType().equals(Material.COOKED_BEEF)){
+    		dozenNum = (int) (thirst_steak + randNum*(Math.signum(thirst_steak)));
+    	}
+    	else{
+    		dozenNum = (int) (Math.random()*30);
+    	}
+    	return dozenNum;
+    	
+    }
+    
+    @EventHandler
+    public void onEntityDamagedByEnvironment(EntityDamageEvent e) {
+    	Player player;
+    	if((!(e.getEntity() instanceof Player))){ // not a player hit , or damage from player;
+    		return;
+    	}
+    	else{
+    		player = (Player)e.getEntity();
+    		handleThirstEnvironmentDozen(player,e.getCause());
+    		return;
+    	}
+  
+    	
+    }
+    private int thirst_environment_fire = 0;
+    private int thirst_environment_fire_tick = 5;
+    protected void handleThirstEnvironmentDozen(Player player,DamageCause d){
+    	int dozenNum=0;
+    	if (d==EntityDamageEvent.DamageCause.FIRE){
+			dozenNum = thirst_environment_fire;
+		}
+		else if(d==EntityDamageEvent.DamageCause.FIRE_TICK){
+			dozenNum = thirst_environment_fire_tick;
+		}
+    	int nowLevel=0;
+    	int lastLevel =(int) plugin.falloutstatsThirst.get(player.getPlayerListName()).floatValue();
 
+    	
+    	nowLevel = lastLevel+dozenNum;
+    	if(nowLevel<0){
+    		nowLevel=0;
+    	}
+    	plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) nowLevel);
+    	
+    	
+		if(nowLevel>=1000){
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡A²æ¤ô¦º¤F");
+			String message = (player.getPlayerListName() +" ¦]¬°¿N¶Ë¡A²æ¤ô¦º¤F¡A°®Àê±oÅÜ¦¨¤@­Óºë¬üªº¡±6¤ì¤D¥ì¡±f");
+			Server server = Bukkit.getServer();
+			server.broadcastMessage(message);
+		}
+		else if((nowLevel>=800  && lastLevel<800) ){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡A¡±cÄY­«²æ¤ô¡±f¡A»İ­n¥ß§Y¸É¥R¤ô¤À¡AÁ×§K¦º¤`");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡A¡±c¤¤«×²æ¤ô¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ¡A¤£®ÉÄ±±oÀY·w");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡A¡±c»´«×²æ¤ô¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ¡A¤£®ÉÄ±±oÀY·w");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡AÄ±±o¡±c¦³ÂI¤f´÷¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L³Ü¤U¡±eÃÄ¤ô¡±f¡A¥]§t¤@¯ë¡±e¤ô²~¡±f¨Ó¸Ñ´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+		else if(nowLevel<200  && lastLevel>=200){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¤£¦b·P¨ì¤f´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+
+    	
+    }
+    protected void handleThirstFoodDozen(Player player,ItemStack i){
+    	String name = i.getItemMeta().hasDisplayName() ? i.getItemMeta().getDisplayName() : i.getType().toString().replace("_", " ").toLowerCase();
+    	int dozenNum=determineFoodThirst(i);
+    	int nowLevel=0;
+    	int lastLevel =(int) plugin.falloutstatsThirst.get(player.getPlayerListName()).floatValue();
+
+    	
+    	nowLevel = lastLevel+dozenNum;
+    	if(nowLevel<0){
+    		nowLevel=0;
+    	}
+    	plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) nowLevel);
+    	
+    	
+    	if(dozenNum>0){
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" , ¤f´÷µ{«×¡±c¤W¤É¡±f¤F"+dozenNum+", "+"¥Ø«e¡±3¤f´÷µ{«×¡±f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
+        	}
+    	else if(dozenNum<0){
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" , ¤f´÷µ{«×¡±b¤U­°¡±f¤F"+-1*dozenNum+", "+"¥Ø«e¡±3¤f´÷µ{«×¡±f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
+    	       	
+    	}
+    	else {
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" ,¤°»ò¨Æ¤]¨Sµo¥Í");
+    	    
+    	}
+		if(nowLevel>=1000){
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A´÷¦º¤F");
+			String message = (player.getPlayerListName() +" ´÷¦º¤F¡A°®Àê±oÅÜ¦¨¤@­Óºë¬üªº¡±6¤ì¤D¥ì¡±f");
+			Server server = Bukkit.getServer();
+			server.broadcastMessage(message);
+		}
+		else if((nowLevel>=800  && lastLevel<800) ){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¡±cÄY­«²æ¤ô¡±f¡A»İ­n¥ß§Y¸É¥R¤ô¤À¡AÁ×§K¦º¤`");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¡±c¤¤«×²æ¤ô¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ¡A¤£®ÉÄ±±oÀY·w");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¡±c»´«×²æ¤ô¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ¡A¤£®ÉÄ±±oÀY·w");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §AÄ±±o¡±c¦³ÂI¤f´÷¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L³Ü¤U¡±eÃÄ¤ô¡±f¡A¥]§t¤@¯ë¡±e¤ô²~¡±f¨Ó¸Ñ´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+		else if(nowLevel<200  && lastLevel>=200){
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¤£¦b·P¨ì¤f´÷");
+			player.sendMessage("¡±7-----------------------------------------");
+		}
+
+    	
+    }
+    
+    
     @EventHandler
     public void onEntityDamgePlayerEvent(EntityDamageByEntityEvent e) {
     	Player player;
@@ -156,60 +425,54 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ è¢«è¼»å°„ç”Ÿç‰©æ”»æ“Š,è¼»å°„åŠ‘é‡Â§cä¸Šå‡Â§fäº†"+dozenNum+", "+"ç›®å‰Â§aè¼»å°„åŠ‘é‡Â§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A³Q¿ç®g¥Íª«§ğÀ»,¿ç®g¾¯¶q¡±c¤W¤É¡±f¤F"+dozenNum+", "+"¥Ø«e¡±a¿ç®g¾¯¶q¡±f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	}
     	else if(dozenNum==0){
     		return false;
     	}
 		if(nowLevel>=1000){
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fè¶…æ¨™ï¼Œç™¼å‡ºä¸€é“å¼·çƒˆçš„å…‰èŠ’ï¼Œéä¸€æœƒå°±æ¶ˆå¤±äº†");
-			String message = (player.getPlayerListName() +" ç™¼å‡ºä¸€é“å¼·çƒˆçš„å…‰èŠ’ï¼ŒåŒ–åšä¸€é™€å°å‹çš„Â§eè•ˆÂ§6ç‹€Â§cé›²Â§fï¼Œéä¸€æœƒå°±æ¶ˆå¤±äº†");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¶W¼Ğ¡Aµo¥X¤@¹D±j¯Pªº¥ú¨~¡A¹L¤@·|´N®ø¥¢¤F");
+			String message = (player.getPlayerListName() +" µo¥X¤@¹D±j¯Pªº¥ú¨~¡A¤Æ°µ¤@ªû¤p«¬ªº¡±e¿¸¡±6ª¬¡±c¶³¡±f¡A¹L¤@·|´N®ø¥¢¤F");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("Â§7-----------------------------------------");
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§céé‡ç´š");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cé£¢é¤“  / Â§cè™›å¼± / Â§cæŒ–æ˜ç·©é€Ÿ  / Â§0 å‡‹é›¶");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
-			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±c¹L¶q¯Å");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±c°§¾j  / ¡±cµê®z / ¡±c«õ±¸½w³t  / ¡±0 ­ä¹s");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
+			player.sendMessage("¡±7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("Â§7-----------------------------------------");
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§eä¸­é‡ç´š");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cé£¢é¤“  / Â§cè™›å¼± / Â§cæŒ–æ˜ç·©é€Ÿ ");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
-			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±e¤¤¶q¯Å");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±c°§¾j  / ¡±cµê®z / ¡±c«õ±¸½w³t ");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
+			player.sendMessage("¡±7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("Â§7-----------------------------------------");
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§aè¼•é‡ç´š");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cè™›å¼±");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
-			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±a»´¶q¯Å");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±cµê®z");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
+			player.sendMessage("¡±7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("Â§7-----------------------------------------");
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§bå¾®é‡ç´š");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦–        Â§7å“‡å—š! æˆ‘çš„çœ¼ç›ç™¼å‡ºè¢å…‰äº†!Â§f");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
-			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±b·L¶q¯Å");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø        ¡±7«z¶ã! §Úªº²´·úµo¥X¿Ã¥ú¤F!¡±f");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
+			player.sendMessage("¡±7-----------------------------------------");
 		}
 		else if(nowLevel<200){
-			//player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fç›®å‰ä¸æœƒé€ æˆä»»ä½•æ•ˆæœã€‚");
-			
+			//player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¥Ø«e¤£·|³y¦¨¥ô¦ó®ÄªG¡C");
+
 		}
 		return true;
 
     	
     }
-    @EventHandler
-    public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent e) {
-    	
-    	Player player = e.getPlayer();
-    	handleRadiationFoodDozen(player,e.getItem());
-    	handleRadiationEffect(player,plugin.falloutstatsRadiation.get(player.getPlayerListName()));
-    }
+
     private int randomFloat = 5;
     private int foodDozen_apple = 3;
     private int foodDozen_baked_potato = 10;
@@ -233,7 +496,6 @@ public class FalloutcraftPlayerListener implements Listener {
     private int foodDozen_rotten_flesh = 60;
     private int foodDozen_spider_eye = 40;
     private int foodDozen_steak = 10;
-    
     private int determineFoodDozen(ItemStack i){
     	int randNum = (int) (Math.random()*randomFloat);
     	int dozenNum=0;
@@ -327,6 +589,8 @@ public class FalloutcraftPlayerListener implements Listener {
     	return dozenNum;
     	
     }
+
+ 
     protected void handleRadiationFoodDozen(Player player,ItemStack i){
     	String name = i.getItemMeta().hasDisplayName() ? i.getItemMeta().getDisplayName() : i.getType().toString().replace("_", " ").toLowerCase();
     	int dozenNum=determineFoodDozen(i);
@@ -342,64 +606,86 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ é£Ÿç”¨äº† "+name+" , è¼»å°„åŠ‘é‡Â§cä¸Šå‡Â§fäº†"+dozenNum+", "+"ç›®å‰Â§aè¼»å°„åŠ‘é‡Â§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" , ¿ç®g¾¯¶q¡±c¤W¤É¡±f¤F"+dozenNum+", "+"¥Ø«e¡±a¿ç®g¾¯¶q¡±f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	}
     	else if(dozenNum<0){
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ é£Ÿç”¨äº† "+name+" , è¼»å°„åŠ‘é‡Â§bä¸‹é™Â§fäº†"+-1*dozenNum+", "+"ç›®å‰Â§aè¼»å°„åŠ‘é‡Â§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" , ¿ç®g¾¯¶q¡±b¤U­°¡±f¤F"+-1*dozenNum+", "+"¥Ø«e¡±a¿ç®g¾¯¶q¡±f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	    	
     	}
     	else {
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ é£Ÿç”¨äº† "+name+" ,ä»€éº¼äº‹ä¹Ÿæ²’ç™¼ç”Ÿ");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" ,¤°»ò¨Æ¤]¨Sµo¥Í");
     	    
     	}
 		if(nowLevel>=1000){
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fè¶…æ¨™ï¼Œç™¼å‡ºä¸€é“å¼·çƒˆçš„å…‰èŠ’ï¼Œéä¸€æœƒå°±æ¶ˆå¤±äº†");
-			String message = (player.getPlayerListName() +" ç™¼å‡ºä¸€é“å¼·çƒˆçš„å…‰èŠ’ï¼ŒåŒ–åšä¸€é™€å°å‹çš„Â§eè•ˆÂ§6ç‹€Â§cé›²Â§fï¼Œéä¸€æœƒå°±æ¶ˆå¤±äº†");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¶W¼Ğ¡Aµo¥X¤@¹D±j¯Pªº¥ú¨~¡A¹L¤@·|´N®ø¥¢¤F");
+			String message = (player.getPlayerListName() +" µo¥X¤@¹D±j¯Pªº¥ú¨~¡A¤Æ°µ¤@ªû¤p«¬ªº¡±e¿¸¡±6ª¬¡±c¶³¡±f¡A¹L¤@·|´N®ø¥¢¤F");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("Â§7-----------------------------------------");
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§céé‡ç´š");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cé£¢é¤“  / Â§cè™›å¼± / Â§cæŒ–æ˜ç·©é€Ÿ  / Â§0 å‡‹é›¶");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
-			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±c¹L¶q¯Å");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±c°§¾j  / ¡±cµê®z / ¡±c«õ±¸½w³t  / ¡±0 ­ä¹s");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
+			player.sendMessage("¡±7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("Â§7-----------------------------------------");
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§eä¸­é‡ç´š");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cé£¢é¤“  / Â§cè™›å¼± / Â§cæŒ–æ˜ç·©é€Ÿ ");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
-			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±e¤¤¶q¯Å");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±c°§¾j  / ¡±cµê®z / ¡±c«õ±¸½w³t ");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
+			player.sendMessage("¡±7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("Â§7-----------------------------------------");
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§aè¼•é‡ç´š");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cè™›å¼±");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
-			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±a»´¶q¯Å");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±cµê®z");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
+			player.sendMessage("¡±7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("Â§7-----------------------------------------");
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§bå¾®é‡ç´š");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦–        Â§7å“‡å—š! æˆ‘çš„çœ¼ç›ç™¼å‡ºè¢å…‰äº†!Â§f");
-    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
-			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±b·L¶q¯Å");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø        ¡±7«z¶ã! §Úªº²´·úµo¥X¿Ã¥ú¤F!¡±f");
+    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
+			player.sendMessage("¡±7-----------------------------------------");
 		}
-		else if(nowLevel<200){
-			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fç›®å‰ä¸æœƒé€ æˆä»»ä½•æ•ˆæœã€‚");
-			
+		else if(nowLevel<200  && lastLevel>=200){
+			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¥Ø«e¤£·|³y¦¨¥ô¦ó®ÄªG¡C");
+
 		}
 
     	
     }
-    @EventHandler
-    public void onPlayerDeathE(PlayerDeathEvent e){
-    	 if (e.getEntity() instanceof Player){
-        	plugin.falloutstatsRadiation.put(e.getEntity().getPlayerListName(), (float) 0);
+
+    protected void handleThirstEffect(Player player , float nowLevel){
+    	if(nowLevel>=1000){
+    		for (PotionEffect effect : player.getActivePotionEffects())
+    	        player.removePotionEffect(effect.getType());
+    		plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) 0);
+     		player.setHealth(0);
+     	}
+    	else if(nowLevel>=800){
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 1),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 400, 2),true);
+    	}
+    	else if(nowLevel>=600){
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 1),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 200, 2),true);
+    	}
+    	else if(nowLevel>=400){
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 100, 1),true);
+    	}
+    	else if(nowLevel>=200){
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 50, 1),true);
+    	}
+    	else if(nowLevel<200){
     		
-        }
+    	}
+    	
     }
+
     protected void handleRadiationEffect(Player player , float nowLevel){
     	if(nowLevel>=1000){
     		for (PotionEffect effect : player.getActivePotionEffects())
@@ -432,5 +718,12 @@ public class FalloutcraftPlayerListener implements Listener {
     		
     	}
     	
+    }
+    @EventHandler
+    public void onPlayerDeathEvent(PlayerDeathEvent e){
+    	 if (e.getEntity() instanceof Player){
+        	plugin.falloutstatsRadiation.put(e.getEntity().getPlayerListName(), (float) 0);
+        	plugin.falloutstatsThirst.put(e.getEntity().getPlayerListName(), (float) 0);
+        }
     }
 }
