@@ -12,6 +12,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Server;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -19,11 +21,14 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -56,6 +61,11 @@ public class FalloutcraftPlayerListener implements Listener {
     	}
     	else{
     		plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) 0);
+    	}
+    	if(plugin.falloutstatsFatigue.containsKey(player.getPlayerListName())){
+    	}
+    	else{
+    		plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) 0);
     	}
     }
 
@@ -92,6 +102,22 @@ public class FalloutcraftPlayerListener implements Listener {
  			// TODO Auto-generated catch block
  			e.printStackTrace();
  		}
+        
+        try {
+      	   	File file = new File(plugin.pathOfFalloutcraftDB_Fatigue);
+     	    file.createNewFile();
+     	   
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for(String p:plugin.falloutstatsFatigue.keySet()){
+                bw.write(p + "\t" + plugin.falloutstatsFatigue.get(p));
+                bw.newLine();
+            }
+            bw.flush();
+ 			bw.close();
+ 		} catch (IOException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
     }
     
     @EventHandler
@@ -105,13 +131,13 @@ public class FalloutcraftPlayerListener implements Listener {
     	handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
     }
     private int thirst_apple = -5;
-    private int thirst_baked_potato = 10;
-    private int thirst_bread = 5;
-    private int thirst_carrot = 5;
+    private int thirst_baked_potato = 40;
+    private int thirst_bread = 25;
+    private int thirst_carrot = 25;
     private int thirst_raw_fish = -10;
-    private int thirst_cooked_chicken = 10;
+    private int thirst_cooked_chicken = 40;
     private int thirst_cooked_fish = -5;
-    private int thirst_cooked_porkchop = 10;
+    private int thirst_cooked_porkchop = 40;
     private int thirst_cookie = 1;
     private int thirst_golen_apple = -10;//curing
     private int thirst_golen_carrot = -10;//curing
@@ -119,13 +145,13 @@ public class FalloutcraftPlayerListener implements Listener {
     private int thirst_mushroom_stew = -10;
     private int thirst_poisonous_potato = 50;
     private int thirst_potato = 10;
-    private int thirst_pumpkin_pie = 5;
-    private int thirst_raw_beef = 15;
-    private int thirst_raw_chicken = 15;
-    private int thirst_raw_porkchop = 15;
-    private int thirst_rotten_flesh = 15;
-    private int thirst_spider_eye = 20;
-    private int thirst_steak = 10;
+    private int thirst_pumpkin_pie = 60;
+    private int thirst_raw_beef = 40;
+    private int thirst_raw_chicken = 40;
+    private int thirst_raw_porkchop = 40;
+    private int thirst_rotten_flesh = 60;
+    private int thirst_spider_eye = 50;
+    private int thirst_steak = 40;
     private int determineFoodThirst(ItemStack i){
     	int randNum = (int) (Math.random()*randomFloat);
     	int dozenNum=0;
@@ -231,7 +257,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     }
     private int thirst_environment_fire = 0;
-    private int thirst_environment_fire_tick = 5;
+    private int thirst_environment_fire_tick = 20;
     protected void handleThirstEnvironmentDozen(Player player,DamageCause d){
     	int dozenNum=0;
     	if (d==EntityDamageEvent.DamageCause.FIRE){
@@ -353,7 +379,108 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     }
     
-    
+    protected void handleFatigueDozen(Player player,int fatigueIncreasedDozen){
+    	int dozenNum=fatigueIncreasedDozen;
+    	int nowLevel=0;
+    	int lastLevel =(int) plugin.falloutstatsFatigue.get(player.getPlayerListName()).floatValue();
+
+    	
+    	nowLevel = lastLevel+dozenNum;
+    	if(nowLevel<0){
+    		nowLevel=0;
+    	}
+    	if(nowLevel>1000){
+    		nowLevel=1000;
+    	}
+    	plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) nowLevel);
+    	
+    	
+    	if(dozenNum>0){
+    		player.sendMessage("§2[廢土生存]§f : 活動了一段時間  , 你的疲倦程度§c上升§f了"+dozenNum+", "+"目前§e疲倦程度§f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+        	}
+    	else if(dozenNum<0){
+    		player.sendMessage("§2[廢土生存]§f : 休息了一段時間  , 你的疲倦程度§b下降§f了"+(-1)*dozenNum+", "+"目前§e疲倦程度§f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+        	   	
+    	}
+    	else {
+    		player.sendMessage("§2[廢土生存]§f : 過了一段時間，你覺得體力沒有下降太多");
+    	    
+    	}
+		if(nowLevel>=1000  && lastLevel<1000){
+			player.sendMessage("§2[廢土生存]§f : 你覺得你在夢遊");
+			String message = (player.getPlayerListName() +" §c正§d在§e夢§f遊");
+			Server server = Bukkit.getServer();
+			server.broadcastMessage(message);
+		}
+		else if((nowLevel>=800  && lastLevel<800) ){
+			player.sendMessage("§7-----------------------------------------");
+			player.sendMessage("§2[廢土生存]§f : 你§c極度疲倦§f，幾乎把眼睛給閉上了");
+    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e躺在床上§f，休息恢復精神");
+			player.sendMessage("§7-----------------------------------------");
+		}
+		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
+			player.sendMessage("§7-----------------------------------------");
+			player.sendMessage("§2[廢土生存]§f : 你§c非常疲倦§f，不時恍神，覺得頭暈");
+    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e躺在床上§f，休息恢復精神");
+			player.sendMessage("§7-----------------------------------------");
+		}
+		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
+			player.sendMessage("§7-----------------------------------------");
+			player.sendMessage("§2[廢土生存]§f : 你§c有些疲倦§f，不時恍神");
+    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e躺在床上§f，休息恢復精神");
+			player.sendMessage("§7-----------------------------------------");
+		}
+		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
+			player.sendMessage("§7-----------------------------------------");
+			player.sendMessage("§2[廢土生存]§f : 你覺得精神不錯");
+    		player.sendMessage("§2[廢土生存]§f : 狀態回到正常");
+			player.sendMessage("§7-----------------------------------------");
+		}
+		else if(nowLevel<200  && lastLevel>=200){
+			player.sendMessage("§7-----------------------------------------");
+			player.sendMessage("§2[廢土生存]§f : 你充分休息，覺得精神百倍");
+    		player.sendMessage("§2[廢土生存]§f : 獲得抗性  : §b減少所有傷害§f 20%");
+			player.sendMessage("§7-----------------------------------------");
+		}
+
+    	
+    }
+    @EventHandler
+    public void onPlayerDeathEvent(PlayerDeathEvent e){
+    	 if (e.getEntity() instanceof Player){
+        	plugin.falloutstatsRadiation.put(e.getEntity().getPlayerListName(), (float) 0);
+        	plugin.falloutstatsThirst.put(e.getEntity().getPlayerListName(), (float) 0);
+        }
+    }
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		Action action = event.getAction();
+		Block block = event.getClickedBlock();
+		if (action == Action.RIGHT_CLICK_BLOCK && block.getType() == Material.BED_BLOCK){
+			World w = player.getWorld();
+			Long time = w.getTime();
+			if (time >= 0 && time <= 13000){
+				player.teleport(block.getLocation().add(0, 1, 0));		
+		    	handleFatigueDozen(player,-1000);
+				for (PotionEffect effect : player.getActivePotionEffects()){
+			        player.removePotionEffect(effect.getType());
+				}
+				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 50, 5),true);
+				player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 5),true);
+
+			}
+
+		}
+	}
+    @EventHandler
+    public void onPlayerOnBedResting(PlayerBedEnterEvent e) {
+    	Player player = e.getPlayer();
+    	handleFatigueDozen(player,-1000);
+		for (PotionEffect effect : player.getActivePotionEffects()){
+	        player.removePotionEffect(effect.getType());
+		}
+	}
     @EventHandler
     public void onEntityDamgePlayerEvent(EntityDamageByEntityEvent e) {
     	Player player;
@@ -658,6 +785,38 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     }
 
+    protected int fatiguePerDozen = 100;
+    protected int fatigueSecondsPerDozen = 1200; //20mins
+    protected void handleFatigueEffect(Player player , float nowLevel){
+    	if(nowLevel>=1000){
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 5),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 400, 5),true);
+    		/*
+    		for (PotionEffect effect : player.getActivePotionEffects())
+    	        player.removePotionEffect(effect.getType());
+    		plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) 0);
+     		player.setHealth(0);*/
+     	}
+    	else if(nowLevel>=800){
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 4),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 400, 5),true);
+    	}
+    	else if(nowLevel>=600){
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 2),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 200, 5),true);
+    	}
+    	else if(nowLevel>=400){
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 100, 5),true);
+    	}
+    	else if(nowLevel>=200){
+
+    	}
+    	else if(nowLevel<200){
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE , 1000, 1),true);
+    	}
+    	
+    }
     protected void handleThirstEffect(Player player , float nowLevel){
     	if(nowLevel>=1000){
     		for (PotionEffect effect : player.getActivePotionEffects())
@@ -685,7 +844,6 @@ public class FalloutcraftPlayerListener implements Listener {
     	}
     	
     }
-
     protected void handleRadiationEffect(Player player , float nowLevel){
     	if(nowLevel>=1000){
     		for (PotionEffect effect : player.getActivePotionEffects())
@@ -719,11 +877,5 @@ public class FalloutcraftPlayerListener implements Listener {
     	}
     	
     }
-    @EventHandler
-    public void onPlayerDeathEvent(PlayerDeathEvent e){
-    	 if (e.getEntity() instanceof Player){
-        	plugin.falloutstatsRadiation.put(e.getEntity().getPlayerListName(), (float) 0);
-        	plugin.falloutstatsThirst.put(e.getEntity().getPlayerListName(), (float) 0);
-        }
-    }
+
 }

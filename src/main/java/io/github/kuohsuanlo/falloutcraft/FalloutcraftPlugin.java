@@ -32,6 +32,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
     protected HashMap<String, Float> falloutstatsRadiation = new HashMap<String, Float>();
     protected HashMap<String, String> falloutstatsRadiationFromDB = new HashMap<String, String>();
     
+    protected String pathOfFalloutcraftDB_Fatigue="FalloutcraftDB_Fatigue";
     protected String pathOfFalloutcraftDB_Radiation="FalloutcraftDB_Radiation";
     protected String pathOfFalloutcraftDB_Thirst="FalloutcraftDB_Thirst";
     @Override
@@ -60,6 +61,22 @@ public class FalloutcraftPlugin extends JavaPlugin {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             for(String p:falloutstatsThirst.keySet()){
                 bw.write(p + "\t" + falloutstatsThirst.get(p));
+                bw.newLine();
+            }
+            bw.flush();
+ 			bw.close();
+ 		} catch (IOException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+        try {
+      	   	String path = pathOfFalloutcraftDB_Fatigue;
+      	   	File file = new File(path);
+     	    file.createNewFile();
+     	   
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for(String p:falloutstatsFatigue.keySet()){
+                bw.write(p + "\t" + falloutstatsFatigue.get(p));
                 bw.newLine();
             }
             bw.flush();
@@ -125,6 +142,35 @@ public class FalloutcraftPlugin extends JavaPlugin {
    			e.printStackTrace();
    		}
         
+        try {
+      	   	String path = pathOfFalloutcraftDB_Fatigue;
+      	   	File file = new File(path);
+      	   	if(file.exists()){
+      	   		BufferedReader in = new BufferedReader(new FileReader(path));
+      	   		String line = "";
+      	   		while ((line = in.readLine()) != null) {
+      	   			String parts[] = line.split("\t");
+      	   			falloutstatsFatigue.put(parts[0], Float.valueOf(parts[1]));
+      	   		}
+      	   		in.close();
+      	   	}
+            
+
+   		} catch (IOException e) {
+   			// TODO Auto-generated catch block
+   			e.printStackTrace();
+   		}
+        
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new  Runnable(){
+        	public void run(){
+        		Player[] nowList = getServer().getOnlinePlayers().clone();
+                for(int i=0;i<nowList.length;i++){
+                	if(Math.random()>=0.0){
+                		int fatigueRand = (int) ((Math.random()+0.5)*playerListener.fatiguePerDozen);
+                		playerListener.handleFatigueDozen(nowList[i].getPlayer(),fatigueRand);
+                	}
+                }
+        	}},0,playerListener.fatigueSecondsPerDozen*20);
         
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new  Runnable(){
         	public void run(){
@@ -132,13 +178,11 @@ public class FalloutcraftPlugin extends JavaPlugin {
                 for(int i=0;i<nowList.length;i++){
                 	playerListener.handleRadiationEffect(nowList[i], falloutstatsRadiation.get(nowList[i].getPlayerListName()).floatValue());
                 	playerListener.handleThirstEffect(nowList[i], falloutstatsThirst.get(nowList[i].getPlayerListName()).floatValue());
-                    
+                	playerListener.handleFatigueEffect(nowList[i], falloutstatsFatigue.get(nowList[i].getPlayerListName()).floatValue());
+                	
                 }
         	}},0,150);
-        
-        
     }
-
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {
             return debugees.get(player);

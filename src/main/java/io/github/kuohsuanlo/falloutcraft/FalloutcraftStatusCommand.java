@@ -31,7 +31,8 @@ public class FalloutcraftStatusCommand implements CommandExecutor {
 	        	sender.sendMessage("§7-----------§2廢土輻射狀態§7-----------");
 				sender.sendMessage("你目前§c輻射劑量§f:"+ plugin.falloutstatsRadiation.get(((Player)sender).getPlayerListName())+"/1000");
 				sender.sendMessage("你目前§3口渴程度§f:"+ plugin.falloutstatsThirst.get(((Player)sender).getPlayerListName())+"/1000");
-				;
+				sender.sendMessage("你目前§e疲倦程度§f:"+ plugin.falloutstatsFatigue.get(((Player)sender).getPlayerListName())+"/1000");
+				
 				return true;
 	        }
 	        else{
