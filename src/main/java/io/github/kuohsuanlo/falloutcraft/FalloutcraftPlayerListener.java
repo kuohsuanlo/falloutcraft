@@ -450,7 +450,8 @@ public class FalloutcraftPlayerListener implements Listener {
     	 if (e.getEntity() instanceof Player){
         	plugin.falloutstatsRadiation.put(e.getEntity().getPlayerListName(), (float) 0);
         	plugin.falloutstatsThirst.put(e.getEntity().getPlayerListName(), (float) 0);
-        }
+        	plugin.falloutstatsFatigue.put(e.getEntity().getPlayerListName(), (float) 0);
+    	 }
     }
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -786,7 +787,7 @@ public class FalloutcraftPlayerListener implements Listener {
     }
 
     protected int fatiguePerDozen = 100;
-    protected int fatigueSecondsPerDozen = 1200; //20mins
+    protected int fatigueSecondsPerDozen = 600; //20mins
     protected void handleFatigueEffect(Player player , float nowLevel){
     	if(nowLevel>=1000){
     		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 5),true);
@@ -813,7 +814,7 @@ public class FalloutcraftPlayerListener implements Listener {
 
     	}
     	else if(nowLevel<200){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE , 1000, 1),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE , 1000, 0),true);
     	}
     	
     }
