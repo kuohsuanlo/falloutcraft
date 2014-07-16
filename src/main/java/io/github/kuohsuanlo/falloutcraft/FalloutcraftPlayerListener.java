@@ -251,6 +251,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	else{
     		player = (Player)e.getEntity();
     		handleThirstEnvironmentDozen(player,e.getCause());
+    		handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
     		return;
     	}
   
@@ -258,13 +259,14 @@ public class FalloutcraftPlayerListener implements Listener {
     }
     private int thirst_environment_fire = 0;
     private int thirst_environment_fire_tick = 20;
+    private int thirst_environment_fire_tick_random = 20;
     protected void handleThirstEnvironmentDozen(Player player,DamageCause d){
     	int dozenNum=0;
     	if (d==EntityDamageEvent.DamageCause.FIRE){
 			dozenNum = thirst_environment_fire;
 		}
 		else if(d==EntityDamageEvent.DamageCause.FIRE_TICK){
-			dozenNum = thirst_environment_fire_tick;
+			dozenNum = thirst_environment_fire_tick+(int)(Math.random()*thirst_environment_fire_tick_random);
 		}
     	int nowLevel=0;
     	int lastLevel =(int) plugin.falloutstatsThirst.get(player.getPlayerListName()).floatValue();
@@ -278,39 +280,39 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	
 		if(nowLevel>=1000){
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡A²æ¤ô¦º¤F");
-			String message = (player.getPlayerListName() +" ¦]¬°¿N¶Ë¡A²æ¤ô¦º¤F¡A°®Àê±oÅÜ¦¨¤@­Óºë¬üªº¡±6¤ì¤D¥ì¡±f");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å› ç‚ºç‡’å‚·ï¼Œè„«æ°´æ­»äº†");
+			String message = (player.getPlayerListName() +" å› ç‚ºç‡’å‚·ï¼Œè„«æ°´æ­»äº†ï¼Œä¹¾ç‡¥å¾—è®Šæˆä¸€å€‹ç²¾ç¾çš„Â§6æœ¨ä¹ƒä¼ŠÂ§f");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡A¡±cÄY­«²æ¤ô¡±f¡A»İ­n¥ß§Y¸É¥R¤ô¤À¡AÁ×§K¦º¤`");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å› ç‚ºç‡’å‚·ï¼ŒÂ§cåš´é‡è„«æ°´Â§fï¼Œéœ€è¦ç«‹å³è£œå……æ°´åˆ†ï¼Œé¿å…æ­»äº¡");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eå–ä¸‹è—¥æ°´ï¼ŒåŒ…å«ä¸€èˆ¬æ°´ç“¶Â§fä¾†è§£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡A¡±c¤¤«×²æ¤ô¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ¡A¤£®ÉÄ±±oÀY·w");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å› ç‚ºç‡’å‚·ï¼ŒÂ§cä¸­åº¦è„«æ°´Â§fï¼Œæ™‚å¸¸æ…¢ä¸‹ä¾†å–˜å£æ°£ï¼Œä¸æ™‚è¦ºå¾—é ­æšˆ");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eå–ä¸‹è—¥æ°´ï¼ŒåŒ…å«ä¸€èˆ¬æ°´ç“¶Â§fä¾†è§£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡A¡±c»´«×²æ¤ô¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ¡A¤£®ÉÄ±±oÀY·w");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å› ç‚ºç‡’å‚·ï¼ŒÂ§cè¼•åº¦è„«æ°´Â§fï¼Œæ™‚å¸¸æ…¢ä¸‹ä¾†å–˜å£æ°£ï¼Œä¸æ™‚è¦ºå¾—é ­æšˆ");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eå–ä¸‹è—¥æ°´ï¼ŒåŒ…å«ä¸€èˆ¬æ°´ç“¶Â§fä¾†è§£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¦]¬°¿N¶Ë¡AÄ±±o¡±c¦³ÂI¤f´÷¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L³Ü¤U¡±eÃÄ¤ô¡±f¡A¥]§t¤@¯ë¡±e¤ô²~¡±f¨Ó¸Ñ´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å› ç‚ºç‡’å‚·ï¼Œè¦ºå¾—Â§cæœ‰é»å£æ¸´Â§fï¼Œæ™‚å¸¸æ…¢ä¸‹ä¾†å–˜å£æ°£");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éå–ä¸‹Â§eè—¥æ°´Â§fï¼ŒåŒ…å«ä¸€èˆ¬Â§eæ°´ç“¶Â§fä¾†è§£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¤£¦b·P¨ì¤f´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ ä¸å†æ„Ÿåˆ°å£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 
     	
@@ -330,50 +332,50 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" , ¤f´÷µ{«×¡±c¤W¤É¡±f¤F"+dozenNum+", "+"¥Ø«e¡±3¤f´÷µ{«×¡±f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ é£Ÿç”¨äº† "+name+" , å£æ¸´ç¨‹åº¦Â§cä¸Šå‡Â§fäº†"+dozenNum+", "+"ç›®å‰Â§3å£æ¸´ç¨‹åº¦Â§f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
         	}
     	else if(dozenNum<0){
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" , ¤f´÷µ{«×¡±b¤U­°¡±f¤F"+-1*dozenNum+", "+"¥Ø«e¡±3¤f´÷µ{«×¡±f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ é£Ÿç”¨äº† "+name+" , å£æ¸´ç¨‹åº¦Â§bä¸‹é™Â§fäº†"+-1*dozenNum+", "+"ç›®å‰Â§3å£æ¸´ç¨‹åº¦Â§f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
     	       	
     	}
     	else {
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" ,¤°»ò¨Æ¤]¨Sµo¥Í");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ é£Ÿç”¨äº† "+name+" ,ä»€éº¼äº‹ä¹Ÿæ²’ç™¼ç”Ÿ");
     	    
     	}
 		if(nowLevel>=1000){
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A´÷¦º¤F");
-			String message = (player.getPlayerListName() +" ´÷¦º¤F¡A°®Àê±oÅÜ¦¨¤@­Óºë¬üªº¡±6¤ì¤D¥ì¡±f");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ æ¸´æ­»äº†");
+			String message = (player.getPlayerListName() +" æ¸´æ­»äº†ï¼Œä¹¾ç‡¥å¾—è®Šæˆä¸€å€‹ç²¾ç¾çš„Â§6æœ¨ä¹ƒä¼ŠÂ§f");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¡±cÄY­«²æ¤ô¡±f¡A»İ­n¥ß§Y¸É¥R¤ô¤À¡AÁ×§K¦º¤`");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ Â§cåš´é‡è„«æ°´Â§fï¼Œéœ€è¦ç«‹å³è£œå……æ°´åˆ†ï¼Œé¿å…æ­»äº¡");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eå–ä¸‹è—¥æ°´ï¼ŒåŒ…å«ä¸€èˆ¬æ°´ç“¶Â§fä¾†è§£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¡±c¤¤«×²æ¤ô¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ¡A¤£®ÉÄ±±oÀY·w");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ Â§cä¸­åº¦è„«æ°´Â§fï¼Œæ™‚å¸¸æ…¢ä¸‹ä¾†å–˜å£æ°£ï¼Œä¸æ™‚è¦ºå¾—é ­æšˆ");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eå–ä¸‹è—¥æ°´ï¼ŒåŒ…å«ä¸€èˆ¬æ°´ç“¶Â§fä¾†è§£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¡±c»´«×²æ¤ô¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ¡A¤£®ÉÄ±±oÀY·w");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e³Ü¤UÃÄ¤ô¡A¥]§t¤@¯ë¤ô²~¡±f¨Ó¸Ñ´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ Â§cè¼•åº¦è„«æ°´Â§fï¼Œæ™‚å¸¸æ…¢ä¸‹ä¾†å–˜å£æ°£ï¼Œä¸æ™‚è¦ºå¾—é ­æšˆ");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eå–ä¸‹è—¥æ°´ï¼ŒåŒ…å«ä¸€èˆ¬æ°´ç“¶Â§fä¾†è§£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §AÄ±±o¡±c¦³ÂI¤f´÷¡±f¡A®É±`ºC¤U¨Ó³İ¤f®ğ");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L³Ü¤U¡±eÃÄ¤ô¡±f¡A¥]§t¤@¯ë¡±e¤ô²~¡±f¨Ó¸Ñ´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ è¦ºå¾—Â§cæœ‰é»å£æ¸´Â§fï¼Œæ™‚å¸¸æ…¢ä¸‹ä¾†å–˜å£æ°£");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éå–ä¸‹Â§eè—¥æ°´Â§fï¼ŒåŒ…å«ä¸€èˆ¬Â§eæ°´ç“¶Â§fä¾†è§£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¤£¦b·P¨ì¤f´÷");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ ä¸å†æ„Ÿåˆ°å£æ¸´");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 
     	
@@ -396,51 +398,51 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : ¬¡°Ê¤F¤@¬q®É¶¡  , §Aªº¯h­Âµ{«×¡±c¤W¤É¡±f¤F"+dozenNum+", "+"¥Ø«e¡±e¯h­Âµ{«×¡±f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : æ´»å‹•äº†ä¸€æ®µæ™‚é–“  , ä½ çš„ç–²å€¦ç¨‹åº¦Â§cä¸Šå‡Â§fäº†"+dozenNum+", "+"ç›®å‰Â§eç–²å€¦ç¨‹åº¦Â§f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
         	}
     	else if(dozenNum<0){
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : ¥ğ®§¤F¤@¬q®É¶¡  , §Aªº¯h­Âµ{«×¡±b¤U­°¡±f¤F"+(-1)*dozenNum+", "+"¥Ø«e¡±e¯h­Âµ{«×¡±f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä¼‘æ¯äº†ä¸€æ®µæ™‚é–“  , ä½ çš„ç–²å€¦ç¨‹åº¦Â§bä¸‹é™Â§fäº†"+(-1)*dozenNum+", "+"ç›®å‰Â§eç–²å€¦ç¨‹åº¦Â§f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
         	   	
     	}
     	else {
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : ¹L¤F¤@¬q®É¶¡¡A§AÄ±±oÅé¤O¨S¦³¤U­°¤Ó¦h");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : éäº†ä¸€æ®µæ™‚é–“ï¼Œä½ è¦ºå¾—é«”åŠ›æ²’æœ‰ä¸‹é™å¤ªå¤š");
     	    
     	}
 		if(nowLevel>=1000  && lastLevel<1000){
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §AÄ±±o§A¦b¹Ú¹C");
-			String message = (player.getPlayerListName() +" ¡±c¥¿¡±d¦b¡±e¹Ú¡±f¹C");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ è¦ºå¾—ä½ åœ¨å¤¢éŠ");
+			String message = (player.getPlayerListName() +" Â§cæ­£Â§dåœ¨Â§eå¤¢Â§féŠ");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¡±c·¥«×¯h­Â¡±f¡A´X¥G§â²´·úµ¹³¬¤W¤F");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e½ö¦b§É¤W¡±f¡A¥ğ®§«ì´_ºë¯«");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ Â§cæ¥µåº¦ç–²å€¦Â§fï¼Œå¹¾ä¹æŠŠçœ¼ç›çµ¦é–‰ä¸Šäº†");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eèººåœ¨åºŠä¸ŠÂ§fï¼Œä¼‘æ¯æ¢å¾©ç²¾ç¥");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¡±c«D±`¯h­Â¡±f¡A¤£®É«é¯«¡AÄ±±oÀY·w");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e½ö¦b§É¤W¡±f¡A¥ğ®§«ì´_ºë¯«");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ Â§céå¸¸ç–²å€¦Â§fï¼Œä¸æ™‚æç¥ï¼Œè¦ºå¾—é ­æšˆ");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eèººåœ¨åºŠä¸ŠÂ§fï¼Œä¼‘æ¯æ¢å¾©ç²¾ç¥");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¡±c¦³¨Ç¯h­Â¡±f¡A¤£®É«é¯«");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±e½ö¦b§É¤W¡±f¡A¥ğ®§«ì´_ºë¯«");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ Â§cæœ‰äº›ç–²å€¦Â§fï¼Œä¸æ™‚æç¥");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eèººåœ¨åºŠä¸ŠÂ§fï¼Œä¼‘æ¯æ¢å¾©ç²¾ç¥");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §AÄ±±oºë¯«¤£¿ù");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : ª¬ºA¦^¨ì¥¿±`");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ è¦ºå¾—ç²¾ç¥ä¸éŒ¯");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç‹€æ…‹å›åˆ°æ­£å¸¸");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥R¤À¥ğ®§¡AÄ±±oºë¯«¦Ê­¿");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o§Ü©Ê  : ¡±b´î¤Ö©Ò¦³¶Ë®`¡±f 20%");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å……åˆ†ä¼‘æ¯ï¼Œè¦ºå¾—ç²¾ç¥ç™¾å€");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æŠ—æ€§  : Â§bæ¸›å°‘æ‰€æœ‰å‚·å®³Â§f 20%");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 
     	
@@ -553,47 +555,47 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A³Q¿ç®g¥Íª«§ğÀ»,¿ç®g¾¯¶q¡±c¤W¤É¡±f¤F"+dozenNum+", "+"¥Ø«e¡±a¿ç®g¾¯¶q¡±f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ è¢«è¼»å°„ç”Ÿç‰©æ”»æ“Š,è¼»å°„åŠ‘é‡Â§cä¸Šå‡Â§fäº†"+dozenNum+", "+"ç›®å‰Â§aè¼»å°„åŠ‘é‡Â§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	}
     	else if(dozenNum==0){
     		return false;
     	}
 		if(nowLevel>=1000){
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¶W¼Ğ¡Aµo¥X¤@¹D±j¯Pªº¥ú¨~¡A¹L¤@·|´N®ø¥¢¤F");
-			String message = (player.getPlayerListName() +" µo¥X¤@¹D±j¯Pªº¥ú¨~¡A¤Æ°µ¤@ªû¤p«¬ªº¡±e¿¸¡±6ª¬¡±c¶³¡±f¡A¹L¤@·|´N®ø¥¢¤F");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fè¶…æ¨™ï¼Œç™¼å‡ºä¸€é“å¼·çƒˆçš„å…‰èŠ’ï¼Œéä¸€æœƒå°±æ¶ˆå¤±äº†");
+			String message = (player.getPlayerListName() +" ç™¼å‡ºä¸€é“å¼·çƒˆçš„å…‰èŠ’ï¼ŒåŒ–åšä¸€é™€å°å‹çš„Â§eè•ˆÂ§6ç‹€Â§cé›²Â§fï¼Œéä¸€æœƒå°±æ¶ˆå¤±äº†");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±c¹L¶q¯Å");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±c°§¾j  / ¡±cµê®z / ¡±c«õ±¸½w³t  / ¡±0 ­ä¹s");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§céé‡ç´š");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cé£¢é¤“  / Â§cè™›å¼± / Â§cæŒ–æ˜ç·©é€Ÿ  / Â§0 å‡‹é›¶");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±e¤¤¶q¯Å");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±c°§¾j  / ¡±cµê®z / ¡±c«õ±¸½w³t ");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§eä¸­é‡ç´š");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cé£¢é¤“  / Â§cè™›å¼± / Â§cæŒ–æ˜ç·©é€Ÿ ");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±a»´¶q¯Å");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±cµê®z");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§aè¼•é‡ç´š");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cè™›å¼±");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±b·L¶q¯Å");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø        ¡±7«z¶ã! §Úªº²´·úµo¥X¿Ã¥ú¤F!¡±f");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§bå¾®é‡ç´š");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦–        Â§7å“‡å—š! æˆ‘çš„çœ¼ç›ç™¼å‡ºè¢å…‰äº†!Â§f");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if(nowLevel<200){
-			//player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¥Ø«e¤£·|³y¦¨¥ô¦ó®ÄªG¡C");
+			//player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fç›®å‰ä¸æœƒé€ æˆä»»ä½•æ•ˆæœã€‚");
 
 		}
 		return true;
@@ -601,7 +603,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     }
 
-    private int randomFloat = 5;
+    private int randomFloat = 20;
     private int foodDozen_apple = 3;
     private int foodDozen_baked_potato = 10;
     private int foodDozen_bread = 5;
@@ -734,52 +736,52 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" , ¿ç®g¾¯¶q¡±c¤W¤É¡±f¤F"+dozenNum+", "+"¥Ø«e¡±a¿ç®g¾¯¶q¡±f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ é£Ÿç”¨äº† "+name+" , è¼»å°„åŠ‘é‡Â§cä¸Šå‡Â§fäº†"+dozenNum+", "+"ç›®å‰Â§aè¼»å°„åŠ‘é‡Â§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	}
     	else if(dozenNum<0){
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" , ¿ç®g¾¯¶q¡±b¤U­°¡±f¤F"+-1*dozenNum+", "+"¥Ø«e¡±a¿ç®g¾¯¶q¡±f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ é£Ÿç”¨äº† "+name+" , è¼»å°„åŠ‘é‡Â§bä¸‹é™Â§fäº†"+-1*dozenNum+", "+"ç›®å‰Â§aè¼»å°„åŠ‘é‡Â§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	    	
     	}
     	else {
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A­¹¥Î¤F "+name+" ,¤°»ò¨Æ¤]¨Sµo¥Í");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ é£Ÿç”¨äº† "+name+" ,ä»€éº¼äº‹ä¹Ÿæ²’ç™¼ç”Ÿ");
     	    
     	}
 		if(nowLevel>=1000){
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¶W¼Ğ¡Aµo¥X¤@¹D±j¯Pªº¥ú¨~¡A¹L¤@·|´N®ø¥¢¤F");
-			String message = (player.getPlayerListName() +" µo¥X¤@¹D±j¯Pªº¥ú¨~¡A¤Æ°µ¤@ªû¤p«¬ªº¡±e¿¸¡±6ª¬¡±c¶³¡±f¡A¹L¤@·|´N®ø¥¢¤F");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fè¶…æ¨™ï¼Œç™¼å‡ºä¸€é“å¼·çƒˆçš„å…‰èŠ’ï¼Œéä¸€æœƒå°±æ¶ˆå¤±äº†");
+			String message = (player.getPlayerListName() +" ç™¼å‡ºä¸€é“å¼·çƒˆçš„å…‰èŠ’ï¼ŒåŒ–åšä¸€é™€å°å‹çš„Â§eè•ˆÂ§6ç‹€Â§cé›²Â§fï¼Œéä¸€æœƒå°±æ¶ˆå¤±äº†");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±c¹L¶q¯Å");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±c°§¾j  / ¡±cµê®z / ¡±c«õ±¸½w³t  / ¡±0 ­ä¹s");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§céé‡ç´š");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cé£¢é¤“  / Â§cè™›å¼± / Â§cæŒ–æ˜ç·©é€Ÿ  / Â§0 å‡‹é›¶");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±e¤¤¶q¯Å");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±c°§¾j  / ¡±cµê®z / ¡±c«õ±¸½w³t ");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§eä¸­é‡ç´š");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cé£¢é¤“  / Â§cè™›å¼± / Â§cæŒ–æ˜ç·©é€Ÿ ");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±a»´¶q¯Å");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø / ¡±cµê®z");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§aè¼•é‡ç´š");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦– / Â§cè™›å¼±");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("¡±7-----------------------------------------");
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¨Ó¨ì : ¡±b·L¶q¯Å");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : Àò±o®ÄªG : ¡±a©]µø        ¡±7«z¶ã! §Úªº²´·úµo¥X¿Ã¥ú¤F!¡±f");
-    		player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §A¥i¥H³z¹L¡±eRad-Away¿ç®g§í¨î¾¯¡±f¨Ó­°§C¿ç®g¾¯¶q");
-			player.sendMessage("¡±7-----------------------------------------");
+			player.sendMessage("Â§7-----------------------------------------");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fä¾†åˆ° : Â§bå¾®é‡ç´š");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ç²å¾—æ•ˆæœ : Â§aå¤œè¦–        Â§7å“‡å—š! æˆ‘çš„çœ¼ç›ç™¼å‡ºè¢å…‰äº†!Â§f");
+    		player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ å¯ä»¥é€éÂ§eRad-Awayè¼»å°„æŠ‘åˆ¶åŠ‘Â§fä¾†é™ä½è¼»å°„åŠ‘é‡");
+			player.sendMessage("Â§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
-			player.sendMessage("¡±2[¼o¤g¥Í¦s]¡±f : §Aªº¡±c¿ç®g¾¯¶q¡±f¥Ø«e¤£·|³y¦¨¥ô¦ó®ÄªG¡C");
+			player.sendMessage("Â§2[å»¢åœŸç”Ÿå­˜]Â§f : ä½ çš„Â§cè¼»å°„åŠ‘é‡Â§fç›®å‰ä¸æœƒé€ æˆä»»ä½•æ•ˆæœã€‚");
 
 		}
 
