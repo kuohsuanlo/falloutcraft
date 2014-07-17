@@ -9,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -38,47 +41,56 @@ public class FalloutcraftPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         try {
-      	   	String path = pathOfFalloutcraftDB_Radiation;
-      	   	File file = new File(path);
+      	   	File file = new File(pathOfFalloutcraftDB_Radiation);
      	    file.createNewFile();
      	   
+
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            for(String p:falloutstatsRadiation.keySet()){
-                bw.write(p + "\t" + falloutstatsRadiation.get(p));
+            /*
+            for(String p:plugin.falloutstatsRadiation.keySet()){
+                bw.write(p + "\t" + plugin.falloutstatsRadiation.get(p));
                 bw.newLine();
-            }
+            }*/
+      	   for (Iterator<Entry<String, Float>> i = falloutstatsRadiation.entrySet().iterator(); i.hasNext();) {
+      		   Map.Entry<String, Float> entry = i.next();
+               bw.write(i + "\t" + falloutstatsRadiation.get(entry));
+               bw.newLine();
+     	    }
+     	    
             bw.flush();
  			bw.close();
  		} catch (IOException e) {
  			// TODO Auto-generated catch block
  			e.printStackTrace();
  		}
+        
         try {
-      	   	String path = pathOfFalloutcraftDB_Thirst;
-      	   	File file = new File(path);
+      	   	File file = new File(pathOfFalloutcraftDB_Thirst);
      	    file.createNewFile();
      	   
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            for(String p:falloutstatsThirst.keySet()){
-                bw.write(p + "\t" + falloutstatsThirst.get(p));
-                bw.newLine();
-            }
+       	   for (Iterator<Entry<String, Float>> i = falloutstatsThirst.entrySet().iterator(); i.hasNext();) {
+      		   Map.Entry<String, Float> entry = i.next();
+               bw.write(i + "\t" + falloutstatsThirst.get(entry));
+               bw.newLine();
+     	    }
             bw.flush();
  			bw.close();
  		} catch (IOException e) {
  			// TODO Auto-generated catch block
  			e.printStackTrace();
  		}
+        
         try {
-      	   	String path = pathOfFalloutcraftDB_Fatigue;
-      	   	File file = new File(path);
+      	   	File file = new File(pathOfFalloutcraftDB_Fatigue);
      	    file.createNewFile();
      	   
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            for(String p:falloutstatsFatigue.keySet()){
-                bw.write(p + "\t" + falloutstatsFatigue.get(p));
-                bw.newLine();
-            }
+			for (Iterator<Entry<String, Float>> i = falloutstatsFatigue.entrySet().iterator(); i.hasNext();) {
+	      		   Map.Entry<String, Float> entry = i.next();
+	               bw.write(i + "\t" + falloutstatsFatigue.get(entry));
+	               bw.newLine();
+			}
             bw.flush();
  			bw.close();
  		} catch (IOException e) {
