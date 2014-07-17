@@ -17,6 +17,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 /**
  * Sample plugin for Bukkit
@@ -38,6 +40,31 @@ public class FalloutcraftPlugin extends JavaPlugin {
     protected String pathOfFalloutcraftDB_Fatigue="FalloutcraftDB_Fatigue";
     protected String pathOfFalloutcraftDB_Radiation="FalloutcraftDB_Radiation";
     protected String pathOfFalloutcraftDB_Thirst="FalloutcraftDB_Thirst";
+    private int fatigueCounter = 0;
+    private int effectTicksPerRefresh = 150; 
+	private Runnable effectApplyingClock = new  Runnable(){
+    	public void run(){
+    		Player[] nowList = getServer().getOnlinePlayers().clone();
+            for(int i=0;i<nowList.length;i++){
+            	playerListener.handleRadiationEffect(nowList[i], falloutstatsRadiation.get(nowList[i].getPlayerListName()).floatValue());
+            	playerListener.handleThirstEffect(nowList[i], falloutstatsThirst.get(nowList[i].getPlayerListName()).floatValue());
+            	playerListener.handleFatigueEffect(nowList[i], falloutstatsFatigue.get(nowList[i].getPlayerListName()).floatValue());
+            	
+            }
+    		fatigueCounter++;
+    		if(fatigueCounter>=60){
+    			fatigueCounter=0;
+        		Player[] fatigueNowList = getServer().getOnlinePlayers().clone();
+                for(int i=0;i<fatigueNowList.length;i++){
+                	if(Math.random()>=0.0){
+                		int fatigueRand = (int) ((Math.random()+0.5)*playerListener.fatiguePerDozen);
+                		playerListener.handleFatigueDozen(fatigueNowList[i].getPlayer(),fatigueRand);
+                	}
+                }
+    		}
+    		
+
+    	}};
     @Override
     public void onDisable() {
         try {
@@ -46,17 +73,11 @@ public class FalloutcraftPlugin extends JavaPlugin {
      	   
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            /*
-            for(String p:plugin.falloutstatsRadiation.keySet()){
-                bw.write(p + "\t" + plugin.falloutstatsRadiation.get(p));
+            
+            for(String p:falloutstatsRadiation.keySet()){
+                bw.write(p + "\t" + falloutstatsRadiation.get(p));
                 bw.newLine();
-            }*/
-      	   for (Iterator<Entry<String, Float>> i = falloutstatsRadiation.entrySet().iterator(); i.hasNext();) {
-      		   Map.Entry<String, Float> entry = i.next();
-               bw.write(i + "\t" + falloutstatsRadiation.get(entry));
-               bw.newLine();
-     	    }
-     	    
+            }
             bw.flush();
  			bw.close();
  		} catch (IOException e) {
@@ -69,11 +90,12 @@ public class FalloutcraftPlugin extends JavaPlugin {
      	    file.createNewFile();
      	   
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-       	   for (Iterator<Entry<String, Float>> i = falloutstatsThirst.entrySet().iterator(); i.hasNext();) {
-      		   Map.Entry<String, Float> entry = i.next();
-               bw.write(i + "\t" + falloutstatsThirst.get(entry));
-               bw.newLine();
-     	    }
+            
+            for(String p:falloutstatsThirst.keySet()){
+                bw.write(p + "\t" + falloutstatsThirst.get(p));
+                bw.newLine();
+            }
+            
             bw.flush();
  			bw.close();
  		} catch (IOException e) {
@@ -86,11 +108,10 @@ public class FalloutcraftPlugin extends JavaPlugin {
      	    file.createNewFile();
      	   
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-			for (Iterator<Entry<String, Float>> i = falloutstatsFatigue.entrySet().iterator(); i.hasNext();) {
-	      		   Map.Entry<String, Float> entry = i.next();
-	               bw.write(i + "\t" + falloutstatsFatigue.get(entry));
-	               bw.newLine();
-			}
+            for(String p:falloutstatsFatigue.keySet()){
+                bw.write(p + "\t" + falloutstatsFatigue.get(p));
+                bw.newLine();
+            }
             bw.flush();
  			bw.close();
  		} catch (IOException e) {
@@ -173,28 +194,10 @@ public class FalloutcraftPlugin extends JavaPlugin {
    			e.printStackTrace();
    		}
         
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new  Runnable(){
-        	public void run(){
-        		Player[] nowList = getServer().getOnlinePlayers().clone();
-                for(int i=0;i<nowList.length;i++){
-                	if(Math.random()>=0.0){
-                		int fatigueRand = (int) ((Math.random()+0.5)*playerListener.fatiguePerDozen);
-                		playerListener.handleFatigueDozen(nowList[i].getPlayer(),fatigueRand);
-                	}
-                }
-        	}},0,playerListener.fatigueSecondsPerDozen*20);
-        
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new  Runnable(){
-        	public void run(){
-        		Player[] nowList = getServer().getOnlinePlayers().clone();
-                for(int i=0;i<nowList.length;i++){
-                	playerListener.handleRadiationEffect(nowList[i], falloutstatsRadiation.get(nowList[i].getPlayerListName()).floatValue());
-                	playerListener.handleThirstEffect(nowList[i], falloutstatsThirst.get(nowList[i].getPlayerListName()).floatValue());
-                	playerListener.handleFatigueEffect(nowList[i], falloutstatsFatigue.get(nowList[i].getPlayerListName()).floatValue());
-                	
-                }
-        	}},0,150);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, this.effectApplyingClock,0,this.effectTicksPerRefresh);
+        	
     }
+
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {
             return debugees.get(player);
