@@ -28,9 +28,9 @@ public class FalloutcraftStatusCommand implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("fostatus")) { // If the player typed /basic then do the following...
 	        if (sender instanceof Player) {
 	        	sender.sendMessage("§7-----------§2廢土輻射狀態§7-----------");
-				sender.sendMessage("§c輻射計量§f:"+ plugin.falloutstatsRadiation.get(((Player)sender).getPlayerListName())+"/1000");
-				sender.sendMessage("§3口渴程度§f:"+ plugin.falloutstatsThirst.get(((Player)sender).getPlayerListName())+"/1000");
-				sender.sendMessage("§e疲倦程度§f:"+ plugin.falloutstatsFatigue.get(((Player)sender).getPlayerListName())+"/1000");
+				sender.sendMessage("§c輻射計量§f:"+ plugin.playerFOOnlineList.get(((Player)sender).getPlayerListName()).PlayerRadiation+"/1000");
+				sender.sendMessage("§3口渴程度§f:"+ plugin.playerFOOnlineList.get(((Player)sender).getPlayerListName()).PlayerThirst+"/1000");
+				sender.sendMessage("§e疲倦程度§f:"+ plugin.playerFOOnlineList.get(((Player)sender).getPlayerListName()).PlayerFatigue+"/1000");
 
 				return true;
 	        }

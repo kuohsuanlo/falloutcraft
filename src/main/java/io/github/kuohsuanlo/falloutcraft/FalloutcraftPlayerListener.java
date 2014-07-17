@@ -1,5 +1,7 @@
 package io.github.kuohsuanlo.falloutcraft;
 
+
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -55,86 +57,32 @@ public class FalloutcraftPlayerListener implements Listener {
         //plugin.getLogger().info(event.getPlayer().getName() + " joined the server! :D");
     	
     	Player player = event.getPlayer();
-    	if(plugin.falloutstatsRadiation.containsKey(player.getPlayerListName())){
+    	/*if(plugin.playerFOOnlineList.containsKey(player.getPlayerListName())){
+    		event.getPlayer().getServer().broadcastMessage("Player Creating Failed");
     	}
     	else{
-    		plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) 0);
-    	}
-    	if(plugin.falloutstatsThirst.containsKey(player.getPlayerListName())){
-    	}
-    	else{
-    		plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) 0);
-    	}
-    	if(plugin.falloutstatsFatigue.containsKey(player.getPlayerListName())){
-    	}
-    	else{
-    		plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) 0);
-    	}
+    		event.getPlayer().getServer().broadcastMessage("Player Created");
+    		plugin.playerFOOnlineList.put(player.getPlayerListName(),new PlayerFOStatus("0","0","0"));	
+    		
+    	}*/
+    	player.sendMessage(player.getPlayerListName()+"/");
+    	plugin.playerFOOnlineList.put(player.getPlayerListName(),new PlayerFOStatus("0","0","0"));	
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        try {
-      	   	File file = new File(plugin.pathOfFalloutcraftDB_Radiation);
-     	    file.createNewFile();
-     	   
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            
-            for(String p:plugin.falloutstatsRadiation.keySet()){
-                bw.write(p + "\t" + plugin.falloutstatsRadiation.get(p));
-                bw.newLine();
-            }
-            bw.flush();
- 			bw.close();
- 		} catch (IOException e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
-        
-        try {
-      	   	File file = new File(plugin.pathOfFalloutcraftDB_Thirst);
-     	    file.createNewFile();
-     	   
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            
-            for(String p:plugin.falloutstatsThirst.keySet()){
-                bw.write(p + "\t" + plugin.falloutstatsThirst.get(p));
-                bw.newLine();
-            }
-            
-            bw.flush();
- 			bw.close();
- 		} catch (IOException e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
-        
-        try {
-      	   	File file = new File(plugin.pathOfFalloutcraftDB_Fatigue);
-     	    file.createNewFile();
-     	   
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            for(String p:plugin.falloutstatsFatigue.keySet()){
-                bw.write(p + "\t" + plugin.falloutstatsFatigue.get(p));
-                bw.newLine();
-            }
-            bw.flush();
- 			bw.close();
- 		} catch (IOException e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
+    	plugin.playerFOOnlineList.put(event.getPlayer().getPlayerListName(),plugin.playerFOOnlineList.get(event.getPlayer().getPlayerListName()));	
+    	
     }
     
     @EventHandler
     public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent e) {
     	Player player = e.getPlayer();
     	handleRadiationFoodDozen(player,e.getItem());
-    	handleRadiationEffect(player,plugin.falloutstatsRadiation.get(player.getPlayerListName()));
+    	handleRadiationEffect(player,plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation);
     	
     	handleThirstFoodDozen(player,e.getItem());
-    	handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
+    	handleThirstEffect(player,plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerThirst);
     }
     private int thirst_apple = -5;
     private int thirst_baked_potato = 40;
@@ -257,7 +205,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	else{
     		player = (Player)e.getEntity();
     		handleThirstEnvironmentDozen(player,e.getCause());
-    		handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
+    		handleThirstEffect(player,plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerThirst);
     		return;
     	}
   
@@ -275,14 +223,14 @@ public class FalloutcraftPlayerListener implements Listener {
 			dozenNum = thirst_environment_fire_tick+(int)(Math.random()*thirst_environment_fire_tick_random);
 		}
     	int nowLevel=0;
-    	int lastLevel =(int) plugin.falloutstatsThirst.get(player.getPlayerListName()).floatValue();
-
+    	int lastLevel =plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerThirst;
+    	
     	
     	nowLevel = lastLevel+dozenNum;
     	if(nowLevel<0){
     		nowLevel=0;
     	}
-    	plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) nowLevel);
+    	plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerThirst = nowLevel;
     	
     	
 		if(nowLevel>=1000){
@@ -327,21 +275,21 @@ public class FalloutcraftPlayerListener implements Listener {
     	String name = i.getItemMeta().hasDisplayName() ? i.getItemMeta().getDisplayName() : i.getType().toString().replace("_", " ").toLowerCase();
     	int dozenNum=determineFoodThirst(i);
     	int nowLevel=0;
-    	int lastLevel =(int) plugin.falloutstatsThirst.get(player.getPlayerListName()).floatValue();
+    	int lastLevel =plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerThirst;
 
     	
     	nowLevel = lastLevel+dozenNum;
     	if(nowLevel<0){
     		nowLevel=0;
     	}
-    	plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) nowLevel);
+    	plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerThirst=nowLevel;
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 口渴程度§c上升§f了"+dozenNum+", "+"目前§3口渴程度§f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 口渴程度§c上升§f了"+dozenNum+", "+"目前§3口渴程度§f:"+ plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerThirst+"/1000");
         	}
     	else if(dozenNum<0){
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 口渴程度§b下降§f了"+-1*dozenNum+", "+"目前§3口渴程度§f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 口渴程度§b下降§f了"+-1*dozenNum+", "+"目前§3口渴程度§f:"+ plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerThirst+"/1000");
     	       	
     	}
     	else {
@@ -390,7 +338,7 @@ public class FalloutcraftPlayerListener implements Listener {
     protected void handleFatigueDozen(Player player,int fatigueIncreasedDozen){
     	int dozenNum=fatigueIncreasedDozen;
     	int nowLevel=0;
-    	int lastLevel =(int) plugin.falloutstatsFatigue.get(player.getPlayerListName()).floatValue();
+    	int lastLevel =(int) plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerFatigue;
 
     	
     	nowLevel = lastLevel+dozenNum;
@@ -400,14 +348,14 @@ public class FalloutcraftPlayerListener implements Listener {
     	if(nowLevel>1000){
     		nowLevel=1000;
     	}
-    	plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) nowLevel);
+    	plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerFatigue=nowLevel;
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("§2[廢土生存]§f : 活動了一段時間  , 你的疲倦程度§c上升§f了"+dozenNum+", "+"目前§e疲倦程度§f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("§2[廢土生存]§f : 活動了一段時間  , 你的疲倦程度§c上升§f了"+dozenNum+", "+"目前§e疲倦程度§f:"+ plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerFatigue+"/1000");
         	}
     	else if(dozenNum<0){
-    		player.sendMessage("§2[廢土生存]§f : 休息了一段時間  , 你的疲倦程度§b下降§f了"+(-1)*dozenNum+", "+"目前§e疲倦程度§f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("§2[廢土生存]§f : 休息了一段時間  , 你的疲倦程度§b下降§f了"+(-1)*dozenNum+", "+"目前§e疲倦程度§f:"+ plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerFatigue+"/1000");
         	   	
     	}
     	else {
@@ -456,9 +404,9 @@ public class FalloutcraftPlayerListener implements Listener {
     @EventHandler
     public void onPlayerDeathEvent(PlayerDeathEvent e){
     	 if (e.getEntity() instanceof Player){
-        	plugin.falloutstatsRadiation.put(e.getEntity().getPlayerListName(), (float) 0);
-        	plugin.falloutstatsThirst.put(e.getEntity().getPlayerListName(), (float) 0);
-        	plugin.falloutstatsFatigue.put(e.getEntity().getPlayerListName(), (float) 0);
+    		 plugin.playerFOOnlineList.get(e.getEntity().getPlayerListName()).PlayerFatigue=0;
+    		 plugin.playerFOOnlineList.get(e.getEntity().getPlayerListName()).PlayerRadiation=0;
+    		 plugin.playerFOOnlineList.get(e.getEntity().getPlayerListName()).PlayerThirst=0;
     	 }
     }
     @EventHandler
@@ -502,7 +450,8 @@ public class FalloutcraftPlayerListener implements Listener {
     		
     		player = (Player)e.getEntity();
     		if(handleRadiationHitDozen(player,e.getDamager())){
-    			handleRadiationEffect(player,plugin.falloutstatsRadiation.get(player.getPlayerListName()));
+    			handleRadiationEffect(player,plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation);
+    	    	
     		}
     		return;
     	}
@@ -552,18 +501,17 @@ public class FalloutcraftPlayerListener implements Listener {
     protected boolean handleRadiationHitDozen(Player player,Entity e){
     	int dozenNum=0;
     	int nowLevel=0;
-    	int lastLevel =(int) plugin.falloutstatsRadiation.get(player.getPlayerListName()).floatValue();
-
+    	int lastLevel =(int) plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation;
+    	
     	dozenNum = determineHitDozen(e);
     	nowLevel = lastLevel+dozenNum;
     	if(nowLevel<0){
     		nowLevel=0;
     	}
-    	plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) nowLevel);
-    	
+    	plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation = nowLevel;
     	
     	if(dozenNum>0){
-    		player.sendMessage("§2[廢土生存]§f : 你被輻射生物攻擊,輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("§2[廢土生存]§f : 你被輻射生物攻擊,輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation+"/1000");
     	}
     	else if(dozenNum==0){
     		return false;
@@ -733,21 +681,21 @@ public class FalloutcraftPlayerListener implements Listener {
     	String name = i.getItemMeta().hasDisplayName() ? i.getItemMeta().getDisplayName() : i.getType().toString().replace("_", " ").toLowerCase();
     	int dozenNum=determineFoodDozen(i);
     	int nowLevel=0;
-    	int lastLevel =(int) plugin.falloutstatsRadiation.get(player.getPlayerListName()).floatValue();
-
+    	int lastLevel =(int) plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation;
+    	
     	
     	nowLevel = lastLevel+dozenNum;
     	if(nowLevel<0){
     		nowLevel=0;
     	}
-    	plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) nowLevel);
+    	plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation = nowLevel;
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation+"/1000");
     	}
     	else if(dozenNum<0){
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 輻射劑量§b下降§f了"+-1*dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 輻射劑量§b下降§f了"+-1*dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation+"/1000");
     	    	
     	}
     	else {
@@ -799,6 +747,7 @@ public class FalloutcraftPlayerListener implements Listener {
     protected int fatiguePerDozen = 100;
 
     protected void handleFatigueEffect(Player player , float nowLevel){
+    	player.sendMessage("Your Fatigue "+nowLevel);
     	if(nowLevel>=1000){
     		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 5),true);
     		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 400, 5),true);
@@ -843,13 +792,14 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     }
     protected void handleThirstEffect(Player player , float nowLevel){
+    	player.sendMessage("Your Thirst "+nowLevel);
     	if(nowLevel>=1000){
 	        for (Iterator<PotionEffect> i =player.getActivePotionEffects().iterator(); i.hasNext();) {
 	        	PotionEffect e = i.next();
 	        	player.removePotionEffect(e.getType());
 	        }
 	        player.setFireTicks(0);
-    		plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) 0);
+	        plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerThirst=0;
      		player.setHealth(0);
      	}
     	else if(nowLevel>=800){
@@ -885,12 +835,13 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     }
     protected void handleRadiationEffect(Player player , float nowLevel){
+    	player.sendMessage("Your Radiation "+nowLevel);
     	if(nowLevel>=1000){
 	        for (Iterator<PotionEffect> i =player.getActivePotionEffects().iterator(); i.hasNext();) {
 	        	PotionEffect e = i.next();
 	        	player.removePotionEffect(e.getType());
 	        }
-    		plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) 0);
+	        plugin.playerFOOnlineList.get(player.getPlayerListName()).PlayerRadiation=0;
     		player.getWorld().createExplosion(player.getLocation(), 0);
      		player.setHealth(0);
      	}
