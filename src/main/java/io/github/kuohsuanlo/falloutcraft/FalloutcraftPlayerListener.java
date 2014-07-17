@@ -778,14 +778,14 @@ public class FalloutcraftPlayerListener implements Listener {
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
 			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §c過量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §c挖掘緩速  / §0 凋零");
+    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視  / §c虛弱 / §c挖掘緩速  / §0 凋零");
     		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
 			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §e中量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §c挖掘緩速 ");
+    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視  / §c虛弱 / §c挖掘緩速 ");
     		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
@@ -914,7 +914,6 @@ public class FalloutcraftPlayerListener implements Listener {
     	else if(nowLevel>=800){
     		synchronized(this){
         		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER , 300, 1),true);
         		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 300, 1),true);
         		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 300, 1),true);
         		player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER , 100, 1),true);
@@ -924,7 +923,6 @@ public class FalloutcraftPlayerListener implements Listener {
     	else if(nowLevel>=600){
     		synchronized(this){
         		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER , 300, 1),true);
         		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 300, 1),true);
         		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 300, 1),true);
     		}
