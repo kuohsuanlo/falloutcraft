@@ -174,6 +174,18 @@ public class FalloutcraftPlugin extends JavaPlugin {
    		}
         
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new  Runnable(){
+        	@Override
+        	public void run(){
+        		Player[] nowList = getServer().getOnlinePlayers().clone();
+                for(int i=0;i<nowList.length;i++){
+                	playerListener.handleRadiationEffect(nowList[i], falloutstatsRadiation.get(nowList[i].getPlayerListName()).floatValue());
+                	playerListener.handleThirstEffect(nowList[i], falloutstatsThirst.get(nowList[i].getPlayerListName()).floatValue());
+                	playerListener.handleFatigueEffect(nowList[i], falloutstatsFatigue.get(nowList[i].getPlayerListName()).floatValue());
+                	
+                }
+        	}},0,150);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new  Runnable(){
+        	@Override
         	public void run(){
         		Player[] nowList = getServer().getOnlinePlayers().clone();
                 for(int i=0;i<nowList.length;i++){
@@ -184,16 +196,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
                 }
         	}},0,playerListener.fatigueSecondsPerDozen*20);
         
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new  Runnable(){
-        	public void run(){
-        		Player[] nowList = getServer().getOnlinePlayers().clone();
-                for(int i=0;i<nowList.length;i++){
-                	playerListener.handleRadiationEffect(nowList[i], falloutstatsRadiation.get(nowList[i].getPlayerListName()).floatValue());
-                	playerListener.handleThirstEffect(nowList[i], falloutstatsThirst.get(nowList[i].getPlayerListName()).floatValue());
-                	playerListener.handleFatigueEffect(nowList[i], falloutstatsFatigue.get(nowList[i].getPlayerListName()).floatValue());
-                	
-                }
-        	}},0,150);
+
     }
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {
