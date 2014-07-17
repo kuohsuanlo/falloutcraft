@@ -815,8 +815,11 @@ public class FalloutcraftPlayerListener implements Listener {
     protected int fatigueSecondsPerDozen = 600; //20mins
     protected void handleFatigueEffect(Player player , float nowLevel){
     	if(nowLevel>=1000){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 5),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 400, 5),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 5),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 400, 5),true);
+    		}
+
     		/*
     		for (PotionEffect effect : player.getActivePotionEffects())
     	        player.removePotionEffect(effect.getType());
@@ -824,22 +827,35 @@ public class FalloutcraftPlayerListener implements Listener {
      		player.setHealth(0);*/
      	}
     	else if(nowLevel>=800){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 4),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 400, 5),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 4),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 400, 5),true);
+    		
+    		}
+
     	}
     	else if(nowLevel>=600){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 2),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 200, 5),true);
+
+    		synchronized(this){
+    			player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 2),true);
+    			player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 200, 5),true);
+    		
+    		}
     	}
     	else if(nowLevel>=400){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 100, 5),true);
+
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 100, 5),true);
+    		}
     	}
     	else if(nowLevel>=200){
 
     	}
     	else if(nowLevel<200){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE , 1000, 0),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE , 1000, 0),true);
+    		}
     	}
     	
     }
@@ -854,19 +870,31 @@ public class FalloutcraftPlayerListener implements Listener {
      		player.setHealth(0);
      	}
     	else if(nowLevel>=800){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 400, 2),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 400, 2),true);
+    		}
+
     	}
     	else if(nowLevel>=600){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 200, 2),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 200, 2),true);
+    		}
+
     	}
     	else if(nowLevel>=400){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 100, 1),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 100, 1),true);
+    		}
+
     	}
     	else if(nowLevel>=200){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 50, 1),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 50, 1),true);
+    		}
+
     	}
     	else if(nowLevel<200){
     		
@@ -884,24 +912,36 @@ public class FalloutcraftPlayerListener implements Listener {
      		player.setHealth(0);
      	}
     	else if(nowLevel>=800){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER , 300, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 300, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 300, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER , 100, 1),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER , 300, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 300, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 300, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER , 100, 1),true);
+    		}
+
     	}
     	else if(nowLevel>=600){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER , 300, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 300, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 300, 1),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER , 300, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 300, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 300, 1),true);
+    		}
+
     	}
     	else if(nowLevel>=400){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 300, 1),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 300, 1),true);
+    		}
+
     	}
     	else if(nowLevel>=200){
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
+    		synchronized(this){
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
+    		}
+
     	}
     	else if(nowLevel<200){
     		
