@@ -24,7 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Dinnerbone
  */
 public class FalloutcraftPlugin extends JavaPlugin {
-    private final FalloutcraftPlayerListener playerListener = new FalloutcraftPlayerListener(this);
+	protected final FalloutcraftPlayerListener playerListener = new FalloutcraftPlayerListener(this);
     private final FalloutcraftBlockListener blockListener = new FalloutcraftBlockListener();
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
     protected HashMap<String, Float> falloutstatsHunger = new HashMap<String, Float>();
@@ -38,6 +38,8 @@ public class FalloutcraftPlugin extends JavaPlugin {
     protected String pathOfFalloutcraftDB_Fatigue="FalloutcraftDB_Fatigue";
     protected String pathOfFalloutcraftDB_Radiation="FalloutcraftDB_Radiation";
     protected String pathOfFalloutcraftDB_Thirst="FalloutcraftDB_Thirst";
+    
+    protected FOCraftPlayerStatusUpdateTriggerThread BukkitSchedulerSuck;
     @Override
     public void onDisable() {
         try {
@@ -53,7 +55,8 @@ public class FalloutcraftPlugin extends JavaPlugin {
             }*/
       	   for (Iterator<Entry<String, Float>> i = falloutstatsRadiation.entrySet().iterator(); i.hasNext();) {
       		   Map.Entry<String, Float> entry = i.next();
-               bw.write(i + "\t" + falloutstatsRadiation.get(entry));
+      		   
+               bw.write(entry.getKey() + "\t" + entry.getValue());
                bw.newLine();
      	    }
      	    
@@ -71,7 +74,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
        	   for (Iterator<Entry<String, Float>> i = falloutstatsThirst.entrySet().iterator(); i.hasNext();) {
       		   Map.Entry<String, Float> entry = i.next();
-               bw.write(i + "\t" + falloutstatsThirst.get(entry));
+               bw.write(entry.getKey() + "\t" + entry.getValue());
                bw.newLine();
      	    }
             bw.flush();
@@ -88,7 +91,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			for (Iterator<Entry<String, Float>> i = falloutstatsFatigue.entrySet().iterator(); i.hasNext();) {
 	      		   Map.Entry<String, Float> entry = i.next();
-	               bw.write(i + "\t" + falloutstatsFatigue.get(entry));
+	               bw.write(entry.getKey() + "\t" + entry.getValue());
 	               bw.newLine();
 			}
             bw.flush();
@@ -173,28 +176,10 @@ public class FalloutcraftPlugin extends JavaPlugin {
    			e.printStackTrace();
    		}
         
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new  Runnable(){
-        	@Override
-        	public void run(){
-        		Player[] nowList = getServer().getOnlinePlayers().clone();
-                for(int i=0;i<nowList.length;i++){
-                	playerListener.handleRadiationEffect(nowList[i], falloutstatsRadiation.get(nowList[i].getPlayerListName()).floatValue());
-                	playerListener.handleThirstEffect(nowList[i], falloutstatsThirst.get(nowList[i].getPlayerListName()).floatValue());
-                	playerListener.handleFatigueEffect(nowList[i], falloutstatsFatigue.get(nowList[i].getPlayerListName()).floatValue());
-                	
-                }
-        	}},0,150);
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new  Runnable(){
-        	@Override
-        	public void run(){
-        		Player[] nowList = getServer().getOnlinePlayers().clone();
-                for(int i=0;i<nowList.length;i++){
-                	if(Math.random()>=0.0){
-                		int fatigueRand = (int) ((Math.random()+0.5)*playerListener.fatiguePerDozen);
-                		playerListener.handleFatigueDozen(nowList[i].getPlayer(),fatigueRand);
-                	}
-                }
-        	}},0,playerListener.fatigueSecondsPerDozen*20);
+        BukkitSchedulerSuck = new FOCraftPlayerStatusUpdateTriggerThread(7000,this);
+        
+        BukkitSchedulerSuck.start();
+
         
 
     }

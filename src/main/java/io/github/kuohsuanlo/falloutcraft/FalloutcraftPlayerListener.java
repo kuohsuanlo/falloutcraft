@@ -39,6 +39,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Handle events for all Player related events
@@ -70,67 +71,14 @@ public class FalloutcraftPlayerListener implements Listener {
     	else{
     		plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) 0);
     	}
+    	player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    	plugin.BukkitSchedulerSuck.addPlayer(player);
+
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        try {
-      	   	File file = new File(plugin.pathOfFalloutcraftDB_Radiation);
-     	    file.createNewFile();
-     	   
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            /*
-            for(String p:plugin.falloutstatsRadiation.keySet()){
-                bw.write(p + "\t" + plugin.falloutstatsRadiation.get(p));
-                bw.newLine();
-            }*/
-      	   for (Iterator<Entry<String, Float>> i = plugin.falloutstatsRadiation.entrySet().iterator(); i.hasNext();) {
-      		   Map.Entry<String, Float> entry = i.next();
-               bw.write(i + "\t" + plugin.falloutstatsRadiation.get(entry));
-               bw.newLine();
-     	    }
-     	    
-            bw.flush();
- 			bw.close();
- 		} catch (IOException e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
         
-        try {
-      	   	File file = new File(plugin.pathOfFalloutcraftDB_Thirst);
-     	    file.createNewFile();
-     	   
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-       	   for (Iterator<Entry<String, Float>> i = plugin.falloutstatsThirst.entrySet().iterator(); i.hasNext();) {
-      		   Map.Entry<String, Float> entry = i.next();
-               bw.write(i + "\t" + plugin.falloutstatsThirst.get(entry));
-               bw.newLine();
-     	    }
-            bw.flush();
- 			bw.close();
- 		} catch (IOException e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
-        
-        try {
-      	   	File file = new File(plugin.pathOfFalloutcraftDB_Fatigue);
-     	    file.createNewFile();
-     	   
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-			for (Iterator<Entry<String, Float>> i = plugin.falloutstatsFatigue.entrySet().iterator(); i.hasNext();) {
-	      		   Map.Entry<String, Float> entry = i.next();
-	               bw.write(i + "\t" + plugin.falloutstatsFatigue.get(entry));
-	               bw.newLine();
-			}
-            bw.flush();
- 			bw.close();
- 		} catch (IOException e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
     }
     
     @EventHandler
@@ -138,10 +86,13 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	Player player = e.getPlayer();
     	handleRadiationFoodDozen(player,e.getItem());
-    	handleRadiationEffect(player,plugin.falloutstatsRadiation.get(player.getPlayerListName()));
+    	//handleRadiationEffect(player,plugin.falloutstatsRadiation.get(player.getPlayerListName()));
     	
     	handleThirstFoodDozen(player,e.getItem());
-    	handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
+    	//handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
+    	
+    	player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+		
     }
     private int thirst_apple = -5;
     private int thirst_baked_potato = 40;
@@ -264,7 +215,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	else{
     		player = (Player)e.getEntity();
     		handleThirstEnvironmentDozen(player,e.getCause());
-    		handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
+    		player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
     		return;
     	}
   
@@ -469,6 +420,10 @@ public class FalloutcraftPlayerListener implements Listener {
         	plugin.falloutstatsFatigue.put(e.getEntity().getPlayerListName(), (float) 0);
     	 }
     }
+    
+    
+
+     
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -481,14 +436,7 @@ public class FalloutcraftPlayerListener implements Listener {
 				player.teleport(block.getLocation().add(0, 1, 0));		
 		    	handleFatigueDozen(player,-1000);
 
-
-		        for (Iterator<PotionEffect> i =player.getActivePotionEffects().iterator(); i.hasNext();) {
-		        	PotionEffect e = i.next();
-		        	player.removePotionEffect(e.getType());
-		        }
-				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 50, 5),true);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 5),true);
-		        
+		    	event.getPlayer().getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_Sleep(player,plugin), 1);
 			}
 
 		}
@@ -497,22 +445,24 @@ public class FalloutcraftPlayerListener implements Listener {
     public void onPlayerOnBedResting(PlayerBedEnterEvent event) {
     	Player player = event.getPlayer();
     	handleFatigueDozen(player,-1000);
-        for (Iterator<PotionEffect> i =player.getActivePotionEffects().iterator(); i.hasNext();) {
-        	PotionEffect effect = i.next();
-        	player.removePotionEffect(effect.getType());
-        }
+    	event.getPlayer().getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_Sleep(player,plugin), 1);
 	}
+    
+    
+
     @EventHandler
-    public void onEntityDamgePlayerEvent(EntityDamageByEntityEvent e) {
+    public void onEntityDamgePlayerEvent(EntityDamageByEntityEvent event) {
     	Player player;
-    	if((!(e.getEntity() instanceof Player))  ||  (e.getDamager() instanceof Player)){ // not a player hit , or damage from player;
+    	if((!(event.getEntity() instanceof Player))  ||  (event.getDamager() instanceof Player)){ // not a player hit , or damage from player;
     		return;
     	}
     	else{
     		
-    		player = (Player)e.getEntity();
-    		if(handleRadiationHitDozen(player,e.getDamager())){
-    			handleRadiationEffect(player,plugin.falloutstatsRadiation.get(player.getPlayerListName()));
+    		player = (Player)event.getEntity();
+    		if(handleRadiationHitDozen(player,event.getDamager())){
+    			
+    			player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    			
     		}
     		return;
     	}
@@ -913,7 +863,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	else if(nowLevel>=600){
         		player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION , 1000, 1),true);
         		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 300, 1),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.POISON , 300, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.POISON , 20, 0),true);
 
     	}
     	else if(nowLevel>=400){
