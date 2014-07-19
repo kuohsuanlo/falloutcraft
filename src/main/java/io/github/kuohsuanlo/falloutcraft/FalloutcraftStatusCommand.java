@@ -27,10 +27,10 @@ public class FalloutcraftStatusCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("fostatus")) { // If the player typed /basic then do the following...
 	        if (sender instanceof Player) {
-	        	sender.sendMessage("Â§7-----------Â§2å»¢åœŸè¼»å°„ç‹€æ…‹Â§7-----------");
-				sender.sendMessage("Â§cè¼»å°„è¨ˆé‡Â§f:"+ plugin.playerFOOnlineList.get(((Player)sender).getPlayerListName()).PlayerRadiation+"/1000");
-				sender.sendMessage("Â§3å£æ¸´ç¨‹åº¦Â§f:"+ plugin.playerFOOnlineList.get(((Player)sender).getPlayerListName()).PlayerThirst+"/1000");
-				sender.sendMessage("Â§eç–²å€¦ç¨‹åº¦Â§f:"+ plugin.playerFOOnlineList.get(((Player)sender).getPlayerListName()).PlayerFatigue+"/1000");
+	        	sender.sendMessage("¡±7-----------¡±2¼o¤g¿ç®gª¬ºA¡±7-----------");
+				sender.sendMessage("¡±c¿ç®g­p¶q¡±f:"+ plugin.falloutstatsRadiation.get(((Player)sender).getPlayerListName())+"/1000");
+				sender.sendMessage("¡±3¤f´÷µ{«×¡±f:"+ plugin.falloutstatsThirst.get(((Player)sender).getPlayerListName())+"/1000");
+				sender.sendMessage("¡±e¯h­Âµ{«×¡±f:"+ plugin.falloutstatsFatigue.get(((Player)sender).getPlayerListName())+"/1000");
 
 				return true;
 	        }
