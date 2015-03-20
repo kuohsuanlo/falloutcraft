@@ -243,44 +243,76 @@ public class FalloutcraftPlayerListener implements Listener {
     	plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) nowLevel);
     	
     	if(nowLevel>=1000){
-			player.sendMessage("§2[廢土生存]§f : 你因為燒傷，脫水死了");
+			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，脫水死了");
 			String message = (player.getPlayerListName() +" 因為燒傷，脫水死了，乾燥得變成一個精美的§6木乃伊§f");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你因為燒傷，§c嚴重脫水§f，需要立即補充水分，避免死亡");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，§c嚴重脫水§f，需要立即補充水分，避免死亡");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你因為燒傷，§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你因為燒傷，§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你因為燒傷，覺得§c有點口渴§f，時常慢下來喘口氣");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過喝下§e藥水§f，包含一般§e水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，覺得§c有點口渴§f，時常慢下來喘口氣");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過喝下§e藥水§f，包含一般§e水瓶§f來解渴");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你不再感到口渴");
+			player.sendMessage(FALLOUTCRAFT+" : 你不再感到口渴");
 			player.sendMessage("§7-----------------------------------------");
 		}
 
 
     	
     }
+    
+    public final String FALLOUTCRAFT = "§2[廢土生存]§f : ";
+    public final String YOU_HAVE_EATEN = "你食用了";
+    public final String THRIST_LEVEL_INCREASE = "口渴程度§c上升§f了";
+    public final String THRIST_LEVEL_DECREASE = "口渴程度§b下降§f了";   
+    public final String YOUR_THRIST_LEVEL = "目前§3口渴程度§f";
+    public final String NOTHING_HAPPENED = "什麼事也沒發生";
+    public final String HAS_DIED_DUE_TO_THRIST="渴死了，乾燥得變成一個精美的§6木乃伊§f";
+    public final String YOUR_DEHYDRATION_0_200_MES = "你不再感到口渴";
+    public final String YOUR_DEHYDRATION_201_400_MES = "你覺得§c有點口渴§f，時常慢下來喘口氣";
+    public final String YOUR_DEHYDRATION_401_600_MES = "你§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈";
+    public final String YOUR_DEHYDRATION_601_800_MES = "你§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈";
+    public final String YOUR_DEHYDRATION_801_999_MES = "你§c嚴重脫水§f，需要立即補充水分，避免死亡";
+    public final String YOUR_DEHYDRATION_DEATH_MES = "你渴死了";
+    public final String YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL = "你可以透過§e喝下藥水，包含一般水瓶§f來解渴";
+    
+    public final String YOUR_TIREDNESS_INCREASE = "活動了一段時間  , 你的疲倦程度§c上升§f了";
+    public final String YOUR_TIREDNESS_DECREASE = "休息了一段時間  , 你的疲倦程度§b下降§f了";
+    public final String YOUR_TIREDNESS_THE_SAME = "過了一段時間，你覺得體力沒有下降太多";
+    public final String YOUR_TIRERNESS_LEVEL = "目前§e疲倦程度§f";
+    
+    public final String YOUR_TIRERNESS_0_200_MES = "你充分休息，覺得精神百倍";
+    public final String YOUR_TIRERNESS_201_400_MES = "你覺得精神不錯";
+    public final String YOUR_TIRERNESS_401_600_MES = "你§c有些疲倦§f，不時恍神";
+    public final String YOUR_TIRERNESS_601_800_MES = "你§c非常疲倦§f，不時恍神，覺得頭暈";
+    public final String YOUR_TIRERNESS_801_999_MES = "你§c極度疲倦§f，幾乎把眼睛給閉上了";
+    public final String YOUR_TIRERNESS_1000_MES = "你覺得你在夢遊";
+    public final String IS_SLEEP_WALKING=" §c正§d在§e夢§f遊";
+    public final String YOUR_STATUS_IS_NORMAL = "狀態回到正常";
+    public final String YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING = "獲得抗性  : §b減少所有傷害§f 20%";
+    public final String YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING = "你可以透過§e躺在床上§f，休息恢復精神";
+    
     protected void handleThirstFoodDozen(Player player,ItemStack i){
     	String name = i.getItemMeta().hasDisplayName() ? i.getItemMeta().getDisplayName() : i.getType().toString().replace("_", " ").toLowerCase();
     	int dozenNum=determineFoodThirst(i);
@@ -296,49 +328,49 @@ public class FalloutcraftPlayerListener implements Listener {
     	
 
     	if(dozenNum>0){
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 口渴程度§c上升§f了"+dozenNum+", "+"目前§3口渴程度§f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" , "+THRIST_LEVEL_INCREASE+dozenNum+", "+YOUR_THRIST_LEVEL+":"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
         	}
     	else if(dozenNum<0){
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 口渴程度§b下降§f了"+-1*dozenNum+", "+"目前§3口渴程度§f:"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" , "+THRIST_LEVEL_DECREASE+-1*dozenNum+", "+YOUR_THRIST_LEVEL+":"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
     	       	
     	}
     	else {
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" ,什麼事也沒發生");
+    		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" ,"+NOTHING_HAPPENED);
     	    
     	}
 		if(nowLevel>=1000){
-			player.sendMessage("§2[廢土生存]§f : 你渴死了");
-			String message = (player.getPlayerListName() +" 渴死了，乾燥得變成一個精美的§6木乃伊§f");
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_DEATH_MES);
+			String message = (player.getPlayerListName() +" "+HAS_DIED_DUE_TO_THRIST);
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你§c嚴重脫水§f，需要立即補充水分，避免死亡");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_801_999_MES);
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_601_800_MES);
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_401_600_MES);
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你覺得§c有點口渴§f，時常慢下來喘口氣");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過喝下§e藥水§f，包含一般§e水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_201_400_MES);
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你不再感到口渴");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_0_200_MES);
 			player.sendMessage("§7-----------------------------------------");
 		}
 
@@ -363,50 +395,50 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage("§2[廢土生存]§f : 活動了一段時間  , 你的疲倦程度§c上升§f了"+dozenNum+", "+"目前§e疲倦程度§f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIREDNESS_INCREASE+dozenNum+", "+YOUR_TIRERNESS_LEVEL+":"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
         	}
     	else if(dozenNum<0){
-    		player.sendMessage("§2[廢土生存]§f : 休息了一段時間  , 你的疲倦程度§b下降§f了"+(-1)*dozenNum+", "+"目前§e疲倦程度§f:"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIREDNESS_DECREASE+(-1)*dozenNum+", "+YOUR_TIRERNESS_LEVEL+":"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
         	   	
     	}
     	else {
-    		player.sendMessage("§2[廢土生存]§f : 過了一段時間，你覺得體力沒有下降太多");
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIREDNESS_THE_SAME);
     	    
     	}
 		if(nowLevel>=1000  && lastLevel<1000){
-			player.sendMessage("§2[廢土生存]§f : 你覺得你在夢遊");
-			String message = (player.getPlayerListName() +" §c正§d在§e夢§f遊");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_1000_MES);
+			String message = (player.getPlayerListName() +" "+IS_SLEEP_WALKING);
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你§c極度疲倦§f，幾乎把眼睛給閉上了");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e躺在床上§f，休息恢復精神");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_801_999_MES);
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你§c非常疲倦§f，不時恍神，覺得頭暈");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e躺在床上§f，休息恢復精神");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_601_800_MES);
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你§c有些疲倦§f，不時恍神");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§e躺在床上§f，休息恢復精神");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_401_600_MES);
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你覺得精神不錯");
-    		player.sendMessage("§2[廢土生存]§f : 狀態回到正常");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_201_400_MES);
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOUR_STATUS_IS_NORMAL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你充分休息，覺得精神百倍");
-    		player.sendMessage("§2[廢土生存]§f : 獲得抗性  : §b減少所有傷害§f 20%");
+			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_0_200_MES);
+    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING);
 			player.sendMessage("§7-----------------------------------------");
 		}
 
@@ -523,47 +555,47 @@ public class FalloutcraftPlayerListener implements Listener {
     	
 
     	if(dozenNum>0){
-    		player.sendMessage("§2[廢土生存]§f : 你被輻射生物攻擊,輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+" : 你被輻射生物攻擊,輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	}
     	else if(dozenNum==0){
     		return false;
     	}
 		if(nowLevel>=1000){
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
 			String message = (player.getPlayerListName() +" 發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §c過量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §0 凋零");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §c過量級");
+    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §0 凋零");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §e中量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §b中毒 ");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §e中量級");
+    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §b中毒 ");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §a輕量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視 / §c虛弱");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §a輕量級");
+    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視 / §c虛弱");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §b微量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §b微量級");
+    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200){
-			//player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f目前不會造成任何效果。");
+			//player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f目前不會造成任何效果。");
 
 		}
 		return true;
@@ -703,52 +735,52 @@ public class FalloutcraftPlayerListener implements Listener {
     	plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) nowLevel);
     	
     	if(dozenNum>0){
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(YOU_HAVE_EATEN+name+" , 輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	}
     	else if(dozenNum<0){
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" , 輻射劑量§b下降§f了"+-1*dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(YOU_HAVE_EATEN+name+" , 輻射劑量§b下降§f了"+-1*dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	    	
     	}
     	else {
-    		player.sendMessage("§2[廢土生存]§f : 你食用了 "+name+" ,什麼事也沒發生");
+    		player.sendMessage(YOU_HAVE_EATEN+name+" ,什麼事也沒發生");
     	    
     	}
 		if(nowLevel>=1000){
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
 			String message = (player.getPlayerListName() +" 發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了");
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §c過量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視  / §c虛弱  / §0 凋零");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §c過量級");
+    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視  / §c虛弱  / §0 凋零");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §e中量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視  / §c虛弱 / §b中毒 ");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §e中量級");
+    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視  / §c虛弱 / §b中毒 ");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §a輕量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視 / §c虛弱");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §a輕量級");
+    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視 / §c虛弱");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f來到 : §b微量級");
-    		player.sendMessage("§2[廢土生存]§f : 獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
-    		player.sendMessage("§2[廢土生存]§f : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §b微量級");
+    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
+    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
-			player.sendMessage("§2[廢土生存]§f : 你的§c輻射劑量§f目前不會造成任何效果。");
+			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f目前不會造成任何效果。");
 
 		}
 
