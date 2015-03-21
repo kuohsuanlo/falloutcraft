@@ -18,6 +18,8 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -49,51 +51,215 @@ public class FalloutcraftPlayerListener implements Listener {
     private final FalloutcraftPlugin plugin;
     public FalloutcraftPlayerListener(FalloutcraftPlugin instance) {
         plugin = instance;
+        loadMessages();
+        loadConfig();
     }
+    protected String pathOfMessageyml="./plugins/Falloutcraft/messages.yml";
+    public static HashMap<String, String> messageData = new HashMap<String, String>();
+    private void loadMessages(){
+    	File f = new File(pathOfMessageyml);
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            configConstructing();
+        }
+       
+        FileConfiguration config = YamlConfiguration.loadConfiguration(f);
+        for (String message : config.getConfigurationSection("").getKeys(false)) {
+            messageData.put(message, config.getString(message));
+        }
+       
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        //plugin.getLogger().info(event.getPlayer().getName() + " joined the server! :D");
     	
-    	Player player = event.getPlayer();
-    	if(plugin.falloutstatsRadiation.containsKey(player.getPlayerListName())){
-    	}
-    	else{
-    		plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) 0);
-    	}
-    	if(plugin.falloutstatsThirst.containsKey(player.getPlayerListName())){
-    	}
-    	else{
-    		plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) 0);
-    	}
-    	if(plugin.falloutstatsFatigue.containsKey(player.getPlayerListName())){
-    	}
-    	else{
-    		plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) 0);
-    	}
-    	player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
-    	plugin.BukkitSchedulerSuck.addPlayer(player);
-
     }
+    private void loadConfig(){
+    	
+    	FALLOUTCRAFT = messageData.get("FALLOUTCRAFT");
+    	YOU_HAVE_EATEN = messageData.get("YOU_HAVE_EATEN");
+    	THRIST_LEVEL_INCREASE = messageData.get("THRIST_LEVEL_INCREASE");
+    	THRIST_LEVEL_DECREASE = messageData.get("THRIST_LEVEL_DECREASE");
+    	YOUR_THRIST_LEVEL = messageData.get("YOUR_THRIST_LEVEL");
+    	NOTHING_HAPPENED = messageData.get("NOTHING_HAPPENED");
+    	HAS_DIED_DUE_TO_THRIST = messageData.get("HAS_DIED_DUE_TO_THRIST");
+    	YOUR_DEHYDRATION_0_200_MES = messageData.get("YOUR_DEHYDRATION_0_200_MES");
+    	YOUR_DEHYDRATION_201_400_MES = messageData.get("YOUR_DEHYDRATION_201_400_MES");
+    	YOUR_DEHYDRATION_401_600_MES = messageData.get("YOUR_DEHYDRATION_401_600_MES");
+    	YOUR_DEHYDRATION_601_800_MES = messageData.get("YOUR_DEHYDRATION_601_800_MES");
+    	YOUR_DEHYDRATION_801_999_MES = messageData.get("YOUR_DEHYDRATION_801_999_MES");
+    	YOUR_DEHYDRATION_DEATH_MES = messageData.get("YOUR_DEHYDRATION_DEATH_MES");
+    	YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL = messageData.get("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL");
+    	    
+    	YOUR_TIREDNESS_INCREASE = messageData.get("YOUR_TIREDNESS_INCREASE");
+    	YOUR_TIREDNESS_DECREASE = messageData.get("YOUR_TIREDNESS_DECREASE");
+    	YOUR_TIREDNESS_THE_SAME = messageData.get("YOUR_TIREDNESS_THE_SAME");
+    	YOUR_TIRERNESS_LEVEL = messageData.get("YOUR_TIRERNESS_LEVEL");
+    	    
+    	YOUR_TIRERNESS_0_200_MES = messageData.get("YOUR_TIRERNESS_0_200_MES");
+    	YOUR_TIRERNESS_201_400_MES = messageData.get("YOUR_TIRERNESS_201_400_MES");
+    	YOUR_TIRERNESS_401_600_MES = messageData.get("YOUR_TIRERNESS_401_600_MES");
+    	YOUR_TIRERNESS_601_800_MES = messageData.get("YOUR_TIRERNESS_601_800_MES");
+    	YOUR_TIRERNESS_801_999_MES = messageData.get("YOUR_TIRERNESS_801_999_MES");
+    	YOUR_TIRERNESS_1000_MES = messageData.get("YOUR_TIRERNESS_1000_MES");
+    	IS_SLEEP_WALKING = messageData.get("IS_SLEEP_WALKING");
+    	YOUR_STATUS_IS_NORMAL = messageData.get("YOUR_STATUS_IS_NORMAL");
+    	YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING = messageData.get("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING");
+    	YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING = messageData.get("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING");
+    	    
+    	YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE = messageData.get("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE");
+    	YOUR_RADIATION_LEVEL = messageData.get("YOUR_RADIATION_LEVEL");
+    	//YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = "你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量";
+    	YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = messageData.get("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY");
+    	YOU_DIED_BECAUSE_OF_RADIATION = messageData.get("YOU_DIED_BECAUSE_OF_RADIATION");
+    	SOMEONE_DIED_BECAUSE_OF_RADIATION = messageData.get("SOMEONE_DIED_BECAUSE_OF_RADIATION");
+    	YOUR_RADIATION_0_200_MES = messageData.get("YOUR_RADIATION_0_200_MES");
+    	YOUR_RADIATION_201_400_MES = messageData.get("YOUR_RADIATION_201_400_MES");
+    	YOUR_RADIATION_401_600_MES = messageData.get("YOUR_RADIATION_401_600_MES");
+    	YOUR_RADIATION_601_800_MES = messageData.get("YOUR_RADIATION_601_800_MES");
+    	YOUR_RADIATION_801_999_MES = messageData.get("YOUR_RADIATION_801_999_MES");
+    	YOUR_GAIN_NO_EFFECT = messageData.get("YOUR_GAIN_NO_EFFECT");
+    	YOU_GAIN_EFFECT_N = messageData.get("YOU_GAIN_EFFECT_N");
+    	YOU_GAIN_EFFECT_N_F = messageData.get("YOU_GAIN_EFFECT_N_F");
+    	YOU_GAIN_EFFECT_N_F_H_P = messageData.get("YOU_GAIN_EFFECT_N_F_H_P");
+    	YOU_GAIN_EFFECT_N_F_H_W = messageData.get("YOU_GAIN_EFFECT_N_F_H_W");
+    	YOU_REST_WELL = messageData.get("YOU_REST_WELL");
+    	RADIATION_LEVEL_INCREASE = messageData.get("RADIATION_LEVEL_INCREASE");
+    	RADIATION_LEVEL_DECREASE = messageData.get("RADIATION_LEVEL_DECREASE");
+    	RADIATION_THRIST_LEVEL = messageData.get("RADIATION_THRIST_LEVEL");
 
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
+    	FALLOUTCRART_STATUS = messageData.get("FALLOUTCRART_STATUS");
+    	FALLOUTCRART_R_LEVEL_STATUS = messageData.get("FALLOUTCRART_R_LEVEL_STATUS");
+    	FALLOUTCRART_D_LEVEL_STATUS = messageData.get("FALLOUTCRART_D_LEVEL_STATUS");
+    	FALLOUTCRART_T_LEVEL_STATUS = messageData.get("FALLOUTCRART_T_LEVEL_STATUS");
+    }
+    private void setMessage(String name, String message) {
+        File f = new File(pathOfMessageyml);
+        FileConfiguration config = YamlConfiguration.loadConfiguration(f);
+        if (!config.isSet(name)) {
+            config.set(name, message);
+            try {
+                config.save(f);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         
     }
-    
-    @EventHandler
-    public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent e) {
-    	
-    	Player player = e.getPlayer();
-    	handleRadiationFoodDozen(player,e.getItem());
-    	//handleRadiationEffect(player,plugin.falloutstatsRadiation.get(player.getPlayerListName()));
-    	
-    	handleThirstFoodDozen(player,e.getItem());
-    	//handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
-    	
-    	player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
-		
+    private void configConstructing(){
+    	//https://bukkit.org/threads/tutorial-creating-a-messages-yml-file.154337/
+    	setMessage("thirst_apple","-5");
+    	setMessage("thirst_baked_potato","40");
+    	setMessage("thirst_bread","25");
+    	setMessage("thirst_carrot","25");
+    	setMessage("thirst_raw_fish","-10");
+    	setMessage("thirst_cooked_chicken","40");
+    	setMessage("thirst_cooked_fish","-5");
+    	setMessage("thirst_cooked_porkchop","40");
+    	setMessage("thirst_cookie","1");
+    	setMessage("thirst_golen_apple","-10");//curing
+    	setMessage("thirst_golen_carrot","-10");//curing
+    	setMessage("thirst_melon","-5");
+    	setMessage("thirst_mushroom_stew","-10");
+    	setMessage("thirst_poisonous_potato","50");
+    	setMessage("thirst_potato","10");
+    	setMessage("thirst_pumpkin_pie","60");
+    	setMessage("thirst_raw_beef","40");
+    	setMessage("thirst_raw_chicken","40");
+    	setMessage("thirst_raw_porkchop","40");
+    	setMessage("thirst_rotten_flesh","60");
+    	setMessage("thirst_spider_eye","50");
+    	setMessage("thirst_steak","40");
+    	         
+    	setMessage("thirst_environment_fire","0");
+    	setMessage("thirst_environment_fire_tick","20");
+    	setMessage("thirst_environment_fire_tick_random","20");
+    	         
+    	setMessage("hitDozen_creeper","20");
+    	setMessage("hitDozen_skeleton","1");
+    	setMessage("hitDozen_spider","1");
+    	setMessage("hitDozen_zombie","1");
+    	         
+    	setMessage("randomFloat","20");
+    	setMessage("foodDozen_apple","3");
+    	setMessage("foodDozen_baked_potato","10");
+    	setMessage("foodDozen_bread","5");
+    	setMessage("foodDozen_carrot","3");
+    	setMessage("foodDozen_raw_fish","10");
+    	setMessage("foodDozen_cooked_chicken","10");
+    	setMessage("foodDozen_cooked_fish","5");
+    	setMessage("foodDozen_cooked_porkchop","10");
+    	setMessage("foodDozen_cookie","1");
+    	setMessage("foodDozen_golen_apple","-40");//curing
+    	setMessage("foodDozen_golen_carrot","-30");//curing
+    	setMessage("foodDozen_melon","3");
+    	setMessage("foodDozen_mushroom_stew","10");
+    	setMessage("foodDozen_poisonous_potato","50");
+    	setMessage("foodDozen_potato","5");
+    	setMessage("foodDozen_pumpkin_pie","5");
+    	setMessage("foodDozen_raw_beef","15");
+    	setMessage("foodDozen_raw_chicken","15");
+    	         
+    	setMessage("FALLOUTCRAFT","§2[廢土生存]§f : ");
+    	setMessage("YOU_HAVE_EATEN","你食用了");
+    	setMessage("THRIST_LEVEL_INCREASE","口渴程度§c上升§f了");
+    	setMessage("THRIST_LEVEL_DECREASE","口渴程度§b下降§f了");   
+    	setMessage("YOUR_THRIST_LEVEL","目前§3口渴程度§f");
+    	setMessage("NOTHING_HAPPENED","什麼事也沒發生");
+    	setMessage("HAS_DIED_DUE_TO_THRIST","脫水死了，乾燥得變成一個精美的§6木乃伊§f");
+    	setMessage("YOUR_DEHYDRATION_0_200_MES","你不再感到口渴");
+    	setMessage("YOUR_DEHYDRATION_201_400_MES","你覺得§c有點口渴§f，時常慢下來喘口氣");
+    	setMessage("YOUR_DEHYDRATION_401_600_MES","你§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
+    	setMessage("YOUR_DEHYDRATION_601_800_MES","你§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
+    	setMessage("YOUR_DEHYDRATION_801_999_MES","你§c嚴重脫水§f，需要立即補充水分，避免死亡");
+    	setMessage("YOUR_DEHYDRATION_DEATH_MES","你脫水死亡了");
+    	setMessage("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+    	 
+    	setMessage("YOUR_TIREDNESS_INCREASE","活動了一段時間  , 你的疲倦程度§c上升§f了");
+    	setMessage("YOUR_TIREDNESS_DECREASE","休息了一段時間  , 你的疲倦程度§b下降§f了");
+    	setMessage("YOUR_TIREDNESS_THE_SAME","過了一段時間，你覺得體力沒有下降太多");
+    	setMessage("YOUR_TIRERNESS_LEVEL","目前§e疲倦程度§f");
+    	 
+    	setMessage("YOUR_TIRERNESS_0_200_MES","你充分休息，覺得精神百倍");
+    	setMessage("YOUR_TIRERNESS_201_400_MES","你覺得精神不錯");
+    	setMessage("YOUR_TIRERNESS_401_600_MES","你§c有些疲倦§f，不時恍神");
+    	setMessage("YOUR_TIRERNESS_601_800_MES","你§c非常疲倦§f，不時恍神，覺得頭暈");
+    	setMessage("YOUR_TIRERNESS_801_999_MES","你§c極度疲倦§f，幾乎把眼睛給閉上了");
+    	setMessage("YOUR_TIRERNESS_1000_MES","你覺得你在夢遊");
+    	setMessage("IS_SLEEP_WALKING","§c正§d在§e夢§f遊");
+    	setMessage("YOUR_STATUS_IS_NORMAL","狀態回到正常");
+    	setMessage("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","獲得抗性  : §b減少所有傷害§f 20%");
+    	setMessage("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING","你可以透過§e躺在床上§f，休息恢復精神");
+    	 
+    	setMessage("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","你被輻射生物攻擊,輻射劑量§c上升§f了");
+    	setMessage("YOUR_RADIATION_LEVEL","目前§a輻射劑量§f");
+    	//setMessage("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+    	setMessage("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§e喝水§f來降低輻射劑量");
+    	setMessage("YOU_DIED_BECAUSE_OF_RADIATION","你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
+    	setMessage("SOMEONE_DIED_BECAUSE_OF_RADIATION","發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了");
+    	setMessage("YOUR_RADIATION_0_200_MES","");
+    	setMessage("YOUR_RADIATION_201_400_MES","你的§c輻射劑量§f來到 : §b微量級");
+    	setMessage("YOUR_RADIATION_401_600_MES","你的§c輻射劑量§f來到 : §a輕量級");
+    	setMessage("YOUR_RADIATION_601_800_MES","你的§c輻射劑量§f來到 : §e中量級");
+    	setMessage("YOUR_RADIATION_801_999_MES","你的§c輻射劑量§f來到 : §c過量級");
+    	setMessage("YOUR_GAIN_NO_EFFECT","你的§c輻射劑量§f目前不會造成任何效果");
+    	setMessage("YOU_GAIN_EFFECT_N","獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
+    	setMessage("YOU_GAIN_EFFECT_N_F","獲得效果 : §a夜視 / §c虛弱");
+    	setMessage("YOU_GAIN_EFFECT_N_F_H_P","獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §b中毒 ");
+    	setMessage("YOU_GAIN_EFFECT_N_F_H_W","獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §0 凋零");
+    	setMessage("YOU_REST_WELL","你充分的休息，恢復了體力");
+    	setMessage("RADIATION_LEVEL_INCREASE","輻射劑量§c上升§f了");
+    	setMessage("RADIATION_LEVEL_DECREASE","輻射劑量§b下降§f了");   
+    	setMessage("RADIATION_THRIST_LEVEL","目前§a輻射劑量§f:");
+
+    	setMessage("FALLOUTCRART_STATUS","§7-----------§2廢土輻射狀態§7-----------");
+    	setMessage("FALLOUTCRART_R_LEVEL_STATUS","§c輻射計量§f:");
+    	setMessage("FALLOUTCRART_D_LEVEL_STATUS","§3口渴程度§f:");
+    	setMessage("FALLOUTCRART_T_LEVEL_STATUS","§e疲倦程度§f:");
     }
+    //Configuration
     private int thirst_apple = -5;
     private int thirst_baked_potato = 40;
     private int thirst_bread = 25;
@@ -116,6 +282,161 @@ public class FalloutcraftPlayerListener implements Listener {
     private int thirst_rotten_flesh = 60;
     private int thirst_spider_eye = 50;
     private int thirst_steak = 40;
+    
+    private int thirst_environment_fire = 0;
+    private int thirst_environment_fire_tick = 20;
+    private int thirst_environment_fire_tick_random = 20;
+    
+    private int hitDozen_creeper = 20;
+    private int hitDozen_skeleton = 1;
+    private int hitDozen_spider = 1;
+    private int hitDozen_zombie = 1;
+    
+    private int randomFloat = 20;
+    private int foodDozen_apple = 3;
+    private int foodDozen_baked_potato = 10;
+    private int foodDozen_bread = 5;
+    private int foodDozen_carrot = 3;
+    private int foodDozen_raw_fish = 10;
+    private int foodDozen_cooked_chicken = 10;
+    private int foodDozen_cooked_fish = 5;
+    private int foodDozen_cooked_porkchop = 10;
+    private int foodDozen_cookie = 1;
+    private int foodDozen_golen_apple = -40;//curing
+    private int foodDozen_golen_carrot = -30;//curing
+    private int foodDozen_melon = 3;
+    private int foodDozen_mushroom_stew = 10;
+    private int foodDozen_poisonous_potato = 50;
+    private int foodDozen_potato = 5;
+    private int foodDozen_pumpkin_pie = 5;
+    private int foodDozen_raw_beef = 15;
+    private int foodDozen_raw_chicken = 15;
+    
+    public String FALLOUTCRAFT = "§2[廢土生存]§f : ";
+    public String YOU_HAVE_EATEN = "你食用了";
+    public String THRIST_LEVEL_INCREASE = "口渴程度§c上升§f了";
+    public String THRIST_LEVEL_DECREASE = "口渴程度§b下降§f了";   
+    public String YOUR_THRIST_LEVEL = "目前§3口渴程度§f";
+    public String NOTHING_HAPPENED = "什麼事也沒發生";
+    public String HAS_DIED_DUE_TO_THRIST="脫水死了，乾燥得變成一個精美的§6木乃伊§f";
+    public String YOUR_DEHYDRATION_0_200_MES = "你不再感到口渴";
+    public String YOUR_DEHYDRATION_201_400_MES = "你覺得§c有點口渴§f，時常慢下來喘口氣";
+    public String YOUR_DEHYDRATION_401_600_MES = "你§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈";
+    public String YOUR_DEHYDRATION_601_800_MES = "你§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈";
+    public String YOUR_DEHYDRATION_801_999_MES = "你§c嚴重脫水§f，需要立即補充水分，避免死亡";
+    public String YOUR_DEHYDRATION_DEATH_MES = "你脫水死亡了";
+    public String YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL = "你可以透過§e喝下藥水，包含一般水瓶§f來解渴";
+    
+    public String YOUR_TIREDNESS_INCREASE = "活動了一段時間  , 你的疲倦程度§c上升§f了";
+    public String YOUR_TIREDNESS_DECREASE = "休息了一段時間  , 你的疲倦程度§b下降§f了";
+    public String YOUR_TIREDNESS_THE_SAME = "過了一段時間，你覺得體力沒有下降太多";
+    public String YOUR_TIRERNESS_LEVEL = "目前§e疲倦程度§f";
+    
+    public String YOUR_TIRERNESS_0_200_MES = "你充分休息，覺得精神百倍";
+    public String YOUR_TIRERNESS_201_400_MES = "你覺得精神不錯";
+    public String YOUR_TIRERNESS_401_600_MES = "你§c有些疲倦§f，不時恍神";
+    public String YOUR_TIRERNESS_601_800_MES = "你§c非常疲倦§f，不時恍神，覺得頭暈";
+    public String YOUR_TIRERNESS_801_999_MES = "你§c極度疲倦§f，幾乎把眼睛給閉上了";
+    public String YOUR_TIRERNESS_1000_MES = "你覺得你在夢遊";
+    public String IS_SLEEP_WALKING=" §c正§d在§e夢§f遊";
+    public String YOUR_STATUS_IS_NORMAL = "狀態回到正常";
+    public String YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING = "獲得抗性  : §b減少所有傷害§f 20%";
+    public String YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING = "你可以透過§e躺在床上§f，休息恢復精神";
+    
+    public String YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE = "你被輻射生物攻擊,輻射劑量§c上升§f了";
+    public String YOUR_RADIATION_LEVEL = "目前§a輻射劑量§f";
+//    public String YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = "你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量";
+    public String YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = "你可以透過§e喝水§f來降低輻射劑量";
+    public String YOU_DIED_BECAUSE_OF_RADIATION="你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了";
+    public String SOMEONE_DIED_BECAUSE_OF_RADIATION ="發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了";
+    public String YOUR_RADIATION_0_200_MES ="";
+    public String YOUR_RADIATION_201_400_MES ="你的§c輻射劑量§f來到 : §b微量級";
+    public String YOUR_RADIATION_401_600_MES ="你的§c輻射劑量§f來到 : §a輕量級";
+    public String YOUR_RADIATION_601_800_MES ="你的§c輻射劑量§f來到 : §e中量級";
+    public String YOUR_RADIATION_801_999_MES ="你的§c輻射劑量§f來到 : §c過量級";
+    public String YOUR_GAIN_NO_EFFECT = "你的§c輻射劑量§f目前不會造成任何效果";
+    public String YOU_GAIN_EFFECT_N = "獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f";
+    public String YOU_GAIN_EFFECT_N_F = "獲得效果 : §a夜視 / §c虛弱";
+    public String YOU_GAIN_EFFECT_N_F_H_P = "獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §b中毒 ";
+    public String YOU_GAIN_EFFECT_N_F_H_W = "獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §0 凋零";
+    public String YOU_REST_WELL = "你充分的休息，恢復了體力";
+    public String RADIATION_LEVEL_INCREASE = "輻射劑量§c上升§f了";
+    public String RADIATION_LEVEL_DECREASE = "輻射劑量§b下降§f了";   
+    public String RADIATION_THRIST_LEVEL = "目前§a輻射劑量§f:";
+
+    public String FALLOUTCRART_STATUS = "§7-----------§2廢土輻射狀態§7-----------";
+    public String FALLOUTCRART_R_LEVEL_STATUS = "§c輻射計量§f:";
+    public String FALLOUTCRART_D_LEVEL_STATUS = "§3口渴程度§f:";
+    public String FALLOUTCRART_T_LEVEL_STATUS = "§e疲倦程度§f:";
+    
+
+    
+
+    //
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        
+    }
+    
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        //plugin.getLogger().info(event.getPlayer().getName() + " joined the server! :D");
+    	
+    	Player player = event.getPlayer();
+    	if(plugin.falloutstatsRadiation.containsKey(player.getPlayerListName())){
+    	}
+    	else{
+    		plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) 0);
+    	}
+    	if(plugin.falloutstatsThirst.containsKey(player.getPlayerListName())){
+    	}
+    	else{
+    		plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) 0);
+    	}
+    	if(plugin.falloutstatsFatigue.containsKey(player.getPlayerListName())){
+    	}
+    	else{
+    		plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) 0);
+    	}
+
+    	player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    	plugin.BukkitSchedulerSuck.addPlayer(player);
+
+    }
+
+
+    
+    @EventHandler
+    public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent e) {
+    	
+    	Player player = e.getPlayer();
+    	handleRadiationFoodDozen(player,e.getItem());
+    	//handleRadiationEffect(player,plugin.falloutstatsRadiation.get(player.getPlayerListName()));
+    	
+    	handleThirstFoodDozen(player,e.getItem());
+    	//handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
+    	
+    	player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    }
+
+    
+    @EventHandler
+    public void onEntityDamagedByEnvironment(EntityDamageEvent e) {
+    	Player player;
+    	if((!(e.getEntity() instanceof Player))){ // not a player hit , or damage from player;
+    		return;
+    	}
+    	else{
+    		player = (Player)e.getEntity();
+    		handleThirstEnvironmentDozen(player,e.getCause());
+    		player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    		return;
+    	}
+  
+    	
+    }   
+
+    
     private int determineFoodThirst(ItemStack i){
     	int randNum = (int) (Math.random()*randomFloat);
     	int dozenNum=0;
@@ -205,25 +526,9 @@ public class FalloutcraftPlayerListener implements Listener {
     	return dozenNum;
     	
     }
+
+
     
-    @EventHandler
-    public void onEntityDamagedByEnvironment(EntityDamageEvent e) {
-    	Player player;
-    	if((!(e.getEntity() instanceof Player))){ // not a player hit , or damage from player;
-    		return;
-    	}
-    	else{
-    		player = (Player)e.getEntity();
-    		handleThirstEnvironmentDozen(player,e.getCause());
-    		player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
-    		return;
-    	}
-  
-    	
-    }
-    private int thirst_environment_fire = 0;
-    private int thirst_environment_fire_tick = 20;
-    private int thirst_environment_fire_tick_random = 20;
     protected void handleThirstEnvironmentDozen(Player player,DamageCause d){
     	int dozenNum=0;
     	if (d==EntityDamageEvent.DamageCause.FIRE){
@@ -243,38 +548,38 @@ public class FalloutcraftPlayerListener implements Listener {
     	plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) nowLevel);
     	
     	if(nowLevel>=1000){
-			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，脫水死了");
-			String message = (player.getPlayerListName() +" 因為燒傷，脫水死了，乾燥得變成一個精美的§6木乃伊§f");
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_DEATH_MES);
+			String message = (player.getPlayerListName() +HAS_DIED_DUE_TO_THRIST);
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，§c嚴重脫水§f，需要立即補充水分，避免死亡");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_801_999_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_601_800_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_401_600_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你因為燒傷，覺得§c有點口渴§f，時常慢下來喘口氣");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過喝下§e藥水§f，包含一般§e水瓶§f來解渴");
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_201_400_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你不再感到口渴");
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_0_200_MES);
 			player.sendMessage("§7-----------------------------------------");
 		}
 
@@ -282,36 +587,8 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     }
     
-    public final String FALLOUTCRAFT = "§2[廢土生存]§f : ";
-    public final String YOU_HAVE_EATEN = "你食用了";
-    public final String THRIST_LEVEL_INCREASE = "口渴程度§c上升§f了";
-    public final String THRIST_LEVEL_DECREASE = "口渴程度§b下降§f了";   
-    public final String YOUR_THRIST_LEVEL = "目前§3口渴程度§f";
-    public final String NOTHING_HAPPENED = "什麼事也沒發生";
-    public final String HAS_DIED_DUE_TO_THRIST="渴死了，乾燥得變成一個精美的§6木乃伊§f";
-    public final String YOUR_DEHYDRATION_0_200_MES = "你不再感到口渴";
-    public final String YOUR_DEHYDRATION_201_400_MES = "你覺得§c有點口渴§f，時常慢下來喘口氣";
-    public final String YOUR_DEHYDRATION_401_600_MES = "你§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈";
-    public final String YOUR_DEHYDRATION_601_800_MES = "你§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈";
-    public final String YOUR_DEHYDRATION_801_999_MES = "你§c嚴重脫水§f，需要立即補充水分，避免死亡";
-    public final String YOUR_DEHYDRATION_DEATH_MES = "你渴死了";
-    public final String YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL = "你可以透過§e喝下藥水，包含一般水瓶§f來解渴";
+
     
-    public final String YOUR_TIREDNESS_INCREASE = "活動了一段時間  , 你的疲倦程度§c上升§f了";
-    public final String YOUR_TIREDNESS_DECREASE = "休息了一段時間  , 你的疲倦程度§b下降§f了";
-    public final String YOUR_TIREDNESS_THE_SAME = "過了一段時間，你覺得體力沒有下降太多";
-    public final String YOUR_TIRERNESS_LEVEL = "目前§e疲倦程度§f";
-    
-    public final String YOUR_TIRERNESS_0_200_MES = "你充分休息，覺得精神百倍";
-    public final String YOUR_TIRERNESS_201_400_MES = "你覺得精神不錯";
-    public final String YOUR_TIRERNESS_401_600_MES = "你§c有些疲倦§f，不時恍神";
-    public final String YOUR_TIRERNESS_601_800_MES = "你§c非常疲倦§f，不時恍神，覺得頭暈";
-    public final String YOUR_TIRERNESS_801_999_MES = "你§c極度疲倦§f，幾乎把眼睛給閉上了";
-    public final String YOUR_TIRERNESS_1000_MES = "你覺得你在夢遊";
-    public final String IS_SLEEP_WALKING=" §c正§d在§e夢§f遊";
-    public final String YOUR_STATUS_IS_NORMAL = "狀態回到正常";
-    public final String YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING = "獲得抗性  : §b減少所有傷害§f 20%";
-    public final String YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING = "你可以透過§e躺在床上§f，休息恢復精神";
     
     protected void handleThirstFoodDozen(Player player,ItemStack i){
     	String name = i.getItemMeta().hasDisplayName() ? i.getItemMeta().getDisplayName() : i.getType().toString().replace("_", " ").toLowerCase();
@@ -346,31 +623,31 @@ public class FalloutcraftPlayerListener implements Listener {
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_801_999_MES);
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_801_999_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_601_800_MES);
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_601_800_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_401_600_MES);
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_401_600_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_201_400_MES);
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_201_400_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_DEHYDRATION_0_200_MES);
+			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_0_200_MES);
 			player.sendMessage("§7-----------------------------------------");
 		}
 
@@ -395,50 +672,50 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	
     	if(dozenNum>0){
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIREDNESS_INCREASE+dozenNum+", "+YOUR_TIRERNESS_LEVEL+":"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+YOUR_TIREDNESS_INCREASE+dozenNum+", "+YOUR_TIRERNESS_LEVEL+":"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
         	}
     	else if(dozenNum<0){
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIREDNESS_DECREASE+(-1)*dozenNum+", "+YOUR_TIRERNESS_LEVEL+":"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+YOUR_TIREDNESS_DECREASE+(-1)*dozenNum+", "+YOUR_TIRERNESS_LEVEL+":"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
         	   	
     	}
     	else {
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIREDNESS_THE_SAME);
+    		player.sendMessage(FALLOUTCRAFT+YOUR_TIREDNESS_THE_SAME);
     	    
     	}
 		if(nowLevel>=1000  && lastLevel<1000){
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_1000_MES);
+			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_1000_MES);
 			String message = (player.getPlayerListName() +" "+IS_SLEEP_WALKING);
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_801_999_MES);
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
+			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_801_999_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_601_800_MES);
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
+			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_601_800_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_401_600_MES);
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
+			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_401_600_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_201_400_MES);
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOUR_STATUS_IS_NORMAL);
+			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_201_400_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOUR_STATUS_IS_NORMAL);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : "+YOUR_TIRERNESS_0_200_MES);
-    		player.sendMessage(FALLOUTCRAFT+" : "+YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING);
+			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_0_200_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING);
 			player.sendMessage("§7-----------------------------------------");
 		}
 
@@ -451,11 +728,7 @@ public class FalloutcraftPlayerListener implements Listener {
         	plugin.falloutstatsThirst.put(e.getEntity().getPlayerListName(), (float) 0);
         	plugin.falloutstatsFatigue.put(e.getEntity().getPlayerListName(), (float) 0);
     	 }
-    }
-    
-    
-
-     
+    } 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -469,6 +742,7 @@ public class FalloutcraftPlayerListener implements Listener {
 		    	handleFatigueDozen(player,-1000);
 
 		    	event.getPlayer().getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_Sleep(player,plugin), 1);
+		    	player.sendMessage(FALLOUTCRAFT+YOU_REST_WELL);
 			}
 
 		}
@@ -479,8 +753,6 @@ public class FalloutcraftPlayerListener implements Listener {
     	handleFatigueDozen(player,-1000);
     	event.getPlayer().getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_Sleep(player,plugin), 1);
 	}
-    
-    
 
     @EventHandler
     public void onEntityDamgePlayerEvent(EntityDamageByEntityEvent event) {
@@ -501,14 +773,13 @@ public class FalloutcraftPlayerListener implements Listener {
   
     	
     }
-    private int hitDozen_creeper = 20;
-    private int hitDozen_skeleton = 1;
-    private int hitDozen_spider = 1;
-    private int hitDozen_zombie = 1;
+
+    
     private int hitDozen_slime = 1;
     private int hitDozen_ghast = 10;
     private int hitDozen_zombie_pigman = 1;
     private int hitDozen_ender = 1;
+
     private int determineHitDozen(Entity e){
     	if(e.getType()==EntityType.CREEPER){// hit by creeper
         	return hitDozen_creeper;
@@ -555,43 +826,43 @@ public class FalloutcraftPlayerListener implements Listener {
     	
 
     	if(dozenNum>0){
-    		player.sendMessage(FALLOUTCRAFT+" : 你被輻射生物攻擊,輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE+dozenNum+", "+YOUR_RADIATION_LEVEL+":"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	}
     	else if(dozenNum==0){
     		return false;
     	}
 		if(nowLevel>=1000){
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
-			String message = (player.getPlayerListName() +" 發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了");
+			player.sendMessage(FALLOUTCRAFT+YOU_DIED_BECAUSE_OF_RADIATION);
+			String message = (player.getPlayerListName() +" "+SOMEONE_DIED_BECAUSE_OF_RADIATION);
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §c過量級");
-    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §0 凋零");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_801_999_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F_H_W);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §e中量級");
-    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §b中毒 ");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_601_800_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F_H_P);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §a輕量級");
-    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視 / §c虛弱");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_401_600_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §b微量級");
-    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_201_400_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200){
@@ -603,25 +874,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     }
 
-    private int randomFloat = 20;
-    private int foodDozen_apple = 3;
-    private int foodDozen_baked_potato = 10;
-    private int foodDozen_bread = 5;
-    private int foodDozen_carrot = 3;
-    private int foodDozen_raw_fish = 10;
-    private int foodDozen_cooked_chicken = 10;
-    private int foodDozen_cooked_fish = 5;
-    private int foodDozen_cooked_porkchop = 10;
-    private int foodDozen_cookie = 1;
-    private int foodDozen_golen_apple = -40;//curing
-    private int foodDozen_golen_carrot = -30;//curing
-    private int foodDozen_melon = 3;
-    private int foodDozen_mushroom_stew = 10;
-    private int foodDozen_poisonous_potato = 50;
-    private int foodDozen_potato = 5;
-    private int foodDozen_pumpkin_pie = 5;
-    private int foodDozen_raw_beef = 15;
-    private int foodDozen_raw_chicken = 15;
+
     private int foodDozen_raw_porkchop = 15;
     private int foodDozen_rotten_flesh = 60;
     private int foodDozen_spider_eye = 40;
@@ -644,7 +897,8 @@ public class FalloutcraftPlayerListener implements Listener {
     			dozenNum = -1*(int) ((Math.random()+0.5)*2000);
     		}
     		else if(i.getItemMeta().hasEnchants()==false){
-    			dozenNum = (int) ((Math.random()-0.3)*20);
+    			//dozenNum = (int) ((Math.random()-0.3)*20);
+    			dozenNum = -1*(int) ((Math.random()+0.5)*20);
     		};
     	}
     	else if(i.getType().equals(Material.APPLE)){
@@ -720,7 +974,9 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     }
 
- 
+
+
+    
     protected void handleRadiationFoodDozen(Player player,ItemStack i){
     	String name = i.getItemMeta().hasDisplayName() ? i.getItemMeta().getDisplayName() : i.getType().toString().replace("_", " ").toLowerCase();
     	int dozenNum=determineFoodDozen(i);
@@ -735,52 +991,52 @@ public class FalloutcraftPlayerListener implements Listener {
     	plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) nowLevel);
     	
     	if(dozenNum>0){
-    		player.sendMessage(YOU_HAVE_EATEN+name+" , 輻射劑量§c上升§f了"+dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" , "+RADIATION_LEVEL_INCREASE+dozenNum+", "+RADIATION_THRIST_LEVEL+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	}
     	else if(dozenNum<0){
-    		player.sendMessage(YOU_HAVE_EATEN+name+" , 輻射劑量§b下降§f了"+-1*dozenNum+", "+"目前§a輻射劑量§f:"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" , "+RADIATION_LEVEL_DECREASE+-1*dozenNum+", "+RADIATION_THRIST_LEVEL+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
     	    	
     	}
     	else {
-    		player.sendMessage(YOU_HAVE_EATEN+name+" ,什麼事也沒發生");
+    		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" ,"+NOTHING_HAPPENED);
     	    
     	}
 		if(nowLevel>=1000){
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
-			String message = (player.getPlayerListName() +" 發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了");
+			player.sendMessage(FALLOUTCRAFT+YOU_DIED_BECAUSE_OF_RADIATION);
+			String message = (player.getPlayerListName() +" "+SOMEONE_DIED_BECAUSE_OF_RADIATION);
 			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §c過量級");
-    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視  / §c虛弱  / §0 凋零");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_801_999_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F_H_W);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §e中量級");
-    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視  / §c虛弱 / §b中毒 ");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_601_800_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F_H_P);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §a輕量級");
-    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視 / §c虛弱");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_401_600_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
 			player.sendMessage("§7-----------------------------------------");
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f來到 : §b微量級");
-    		player.sendMessage(FALLOUTCRAFT+" : 獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
-    		player.sendMessage(FALLOUTCRAFT+" : 你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_201_400_MES);
+    		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N);
+    		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
 			player.sendMessage("§7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
-			player.sendMessage(FALLOUTCRAFT+" : 你的§c輻射劑量§f目前不會造成任何效果。");
+			player.sendMessage(FALLOUTCRAFT+YOUR_GAIN_NO_EFFECT);
 
 		}
 

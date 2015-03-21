@@ -35,11 +35,11 @@ public class FalloutcraftPlugin extends JavaPlugin {
     protected HashMap<String, Float> falloutstatsRadiation = new HashMap<String, Float>();
     protected HashMap<String, String> falloutstatsRadiationFromDB = new HashMap<String, String>();
     
-    protected String pathOfFalloutcraftDB_Fatigue="FalloutcraftDB_Fatigue";
-    protected String pathOfFalloutcraftDB_Radiation="FalloutcraftDB_Radiation";
-    protected String pathOfFalloutcraftDB_Thirst="FalloutcraftDB_Thirst";
+    protected String pathOfFalloutcraftDB_Fatigue="./plugins/Falloutcraft/FalloutcraftDB_Fatigue";
+    protected String pathOfFalloutcraftDB_Radiation="./plugins/Falloutcraft/FalloutcraftDB_Radiation";
+    protected String pathOfFalloutcraftDB_Thirst="./plugins/Falloutcraft/FalloutcraftDB_Thirst";
     
-    protected FOCraftPlayerStatusUpdateTriggerThread BukkitSchedulerSuck;
+    protected SyncPlayerTask_FOCraft_StatusUpdate BukkitSchedulerSuck;
     @Override
     public void onDisable() {
         try {
@@ -113,11 +113,17 @@ public class FalloutcraftPlugin extends JavaPlugin {
 
         // Register our commands
         getCommand("fostatus").setExecutor(new FalloutcraftStatusCommand(this));
+        getCommand("foupdate").setExecutor(new FalloutcraftEffectCommand(this));
         getCommand("debug").setExecutor(new FalloutcraftDebugCommand(this));
 
         // EXAMPLE: Custom code, here we just output some info so we can check all is well
         PluginDescriptionFile pdfFile = this.getDescription();
         getLogger().info( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
+        
+        new File("./plugins/Falloutcraft").mkdirs();
+        
+      
+        
         
         try {
       	   	String path = pathOfFalloutcraftDB_Radiation;
@@ -175,10 +181,9 @@ public class FalloutcraftPlugin extends JavaPlugin {
    			// TODO Auto-generated catch block
    			e.printStackTrace();
    		}
-        
-        BukkitSchedulerSuck = new FOCraftPlayerStatusUpdateTriggerThread(7000,this);
-        
-        BukkitSchedulerSuck.start();
+        BukkitSchedulerSuck = new SyncPlayerTask_FOCraft_StatusUpdate(0,this);
+    	//player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+        this.getServer().getScheduler().scheduleSyncRepeatingTask(this, BukkitSchedulerSuck, 0, 20);
 
         
 

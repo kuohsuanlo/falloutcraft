@@ -19,18 +19,19 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class FalloutcraftStatusCommand implements CommandExecutor {
     private final FalloutcraftPlugin plugin;
-
+    private final FalloutcraftPlayerListener listener;
     public FalloutcraftStatusCommand(FalloutcraftPlugin plugin) {
         this.plugin = plugin;
+        this.listener = plugin.playerListener;
     }
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("fostatus")) { // If the player typed /basic then do the following...
 	        if (sender instanceof Player) {
-	        	sender.sendMessage("§7-----------§2廢土輻射狀態§7-----------");
-				sender.sendMessage("§c輻射計量§f:"+ plugin.falloutstatsRadiation.get(((Player)sender).getPlayerListName())+"/1000");
-				sender.sendMessage("§3口渴程度§f:"+ plugin.falloutstatsThirst.get(((Player)sender).getPlayerListName())+"/1000");
-				sender.sendMessage("§e疲倦程度§f:"+ plugin.falloutstatsFatigue.get(((Player)sender).getPlayerListName())+"/1000");
+	        	sender.sendMessage(listener.FALLOUTCRART_STATUS);
+				sender.sendMessage(listener.FALLOUTCRART_R_LEVEL_STATUS+ plugin.falloutstatsRadiation.get(((Player)sender).getPlayerListName())+"/1000");
+				sender.sendMessage(listener.FALLOUTCRART_D_LEVEL_STATUS+ plugin.falloutstatsThirst.get(((Player)sender).getPlayerListName())+"/1000");
+				sender.sendMessage(listener.FALLOUTCRART_T_LEVEL_STATUS+ plugin.falloutstatsFatigue.get(((Player)sender).getPlayerListName())+"/1000");
 
 				return true;
 	        }
@@ -38,14 +39,6 @@ public class FalloutcraftStatusCommand implements CommandExecutor {
 	        	return false;
 	        }
 
-		} else if (cmd.getName().equalsIgnoreCase("foreload")) {
-			if (!(sender instanceof Player)) {
-				sender.sendMessage("This command can only be run by a player.");
-			} else {
-				Player player = (Player) sender;
-				// do something
-			}
-			return true;
 		}
 		return false;
 	}

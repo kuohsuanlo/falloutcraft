@@ -5,6 +5,24 @@ commands:
   fostatus:
     description: check falloutcraft status.
     usage: "/fostatus"
+  foupdate:
+    description: update falloutcraft status effect.
+    usage: "/foupdate"
   debug:
     description: Toggles your debugging status for this plugin.
     usage: /debug
+    
+permissions:
+    falloutcraft.*:
+        description: Gives access to all doorman commands
+        children:
+            doorman.kick: true
+            doorman.ban: true
+            doorman.knock: true
+            doorman.denied: false
+    falloutcraft.fostatus:
+        description: check falloutcraft status.
+        default: true
+    falloutcraft.foupdate:
+        description: instantly update the effect supposed to be on player.
+        default: op
