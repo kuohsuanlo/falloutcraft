@@ -53,9 +53,12 @@ public class FalloutcraftPlayerListener implements Listener {
         plugin = instance;
         loadMessages();
         loadConfig();
+
     }
     protected String pathOfMessageyml="./plugins/Falloutcraft/messages.yml";
+    protected String pathOfMessageEngyml="./plugins/Falloutcraft/messages_eng.yml";
     public static HashMap<String, String> messageData = new HashMap<String, String>();
+    public static HashMap<String, String> messageData_eng = new HashMap<String, String>();
     private void loadMessages(){
     	File f = new File(pathOfMessageyml);
         if (!f.exists()) {
@@ -71,9 +74,22 @@ public class FalloutcraftPlayerListener implements Listener {
         for (String message : config.getConfigurationSection("").getKeys(false)) {
             messageData.put(message, config.getString(message));
         }
+        
+        
+    	File f_eng = new File(pathOfMessageEngyml);
+        if (!f_eng.exists()) {
+            try {
+            	f_eng.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            configConstructing_eng();
+        }
        
-
-    	
+        FileConfiguration config_eng = YamlConfiguration.loadConfiguration(f_eng);
+        for (String message : config_eng.getConfigurationSection("").getKeys(false)) {
+        	messageData_eng.put(message, config_eng.getString(message));
+        }
     }
     private void loadConfig(){
     	
@@ -147,6 +163,131 @@ public class FalloutcraftPlayerListener implements Listener {
 
         }
         
+    }
+    private void setMessage_eng(String name, String message) {
+        File f = new File(pathOfMessageEngyml);
+        FileConfiguration config = YamlConfiguration.loadConfiguration(f);
+        if (!config.isSet(name)) {
+            config.set(name, message);
+            try {
+                config.save(f);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        
+    }
+    private void configConstructing_eng(){
+    	//https://bukkit.org/threads/tutorial-creating-a-messages-yml-file.154337/
+    	setMessage_eng("thirst_apple","-5");
+    	setMessage_eng("thirst_baked_potato","40");
+    	setMessage_eng("thirst_bread","25");
+    	setMessage_eng("thirst_carrot","25");
+    	setMessage_eng("thirst_raw_fish","-10");
+    	setMessage_eng("thirst_cooked_chicken","40");
+    	setMessage_eng("thirst_cooked_fish","-5");
+    	setMessage_eng("thirst_cooked_porkchop","40");
+    	setMessage_eng("thirst_cookie","1");
+    	setMessage_eng("thirst_golen_apple","-10");//curing
+    	setMessage_eng("thirst_golen_carrot","-10");//curing
+    	setMessage_eng("thirst_melon","-5");
+    	setMessage_eng("thirst_mushroom_stew","-10");
+    	setMessage_eng("thirst_poisonous_potato","50");
+    	setMessage_eng("thirst_potato","10");
+    	setMessage_eng("thirst_pumpkin_pie","60");
+    	setMessage_eng("thirst_raw_beef","40");
+    	setMessage_eng("thirst_raw_chicken","40");
+    	setMessage_eng("thirst_raw_porkchop","40");
+    	setMessage_eng("thirst_rotten_flesh","60");
+    	setMessage_eng("thirst_spider_eye","50");
+    	setMessage_eng("thirst_steak","40");
+    	         
+    	setMessage_eng("thirst_environment_fire","0");
+    	setMessage_eng("thirst_environment_fire_tick","20");
+    	setMessage_eng("thirst_environment_fire_tick_random","20");
+    	         
+    	setMessage_eng("hitDozen_creeper","20");
+    	setMessage_eng("hitDozen_skeleton","1");
+    	setMessage_eng("hitDozen_spider","1");
+    	setMessage_eng("hitDozen_zombie","1");
+    	         
+    	setMessage_eng("randomFloat","20");
+    	setMessage_eng("foodDozen_apple","3");
+    	setMessage_eng("foodDozen_baked_potato","10");
+    	setMessage_eng("foodDozen_bread","5");
+    	setMessage_eng("foodDozen_carrot","3");
+    	setMessage_eng("foodDozen_raw_fish","10");
+    	setMessage_eng("foodDozen_cooked_chicken","10");
+    	setMessage_eng("foodDozen_cooked_fish","5");
+    	setMessage_eng("foodDozen_cooked_porkchop","10");
+    	setMessage_eng("foodDozen_cookie","1");
+    	setMessage_eng("foodDozen_golen_apple","-40");//curing
+    	setMessage_eng("foodDozen_golen_carrot","-30");//curing
+    	setMessage_eng("foodDozen_melon","3");
+    	setMessage_eng("foodDozen_mushroom_stew","10");
+    	setMessage_eng("foodDozen_poisonous_potato","50");
+    	setMessage_eng("foodDozen_potato","5");
+    	setMessage_eng("foodDozen_pumpkin_pie","5");
+    	setMessage_eng("foodDozen_raw_beef","15");
+    	setMessage_eng("foodDozen_raw_chicken","15");
+    	         
+    	setMessage_eng("FALLOUTCRAFT","§2[Falloutcraft]§f : ");
+    	setMessage_eng("YOU_HAVE_EATEN","You have eaten ");
+    	setMessage_eng("THRIST_LEVEL_INCREASE","Dehydration level§c increases§f ");
+    	setMessage_eng("THRIST_LEVEL_DECREASE","Dehydration level§b decreases§f ");   
+    	setMessage_eng("YOUR_THRIST_LEVEL","Your §Dehydration level§f");
+    	setMessage_eng("NOTHING_HAPPENED","nothing happened.");
+    	setMessage_eng("HAS_DIED_DUE_TO_THRIST","has died due to §6dehydration§f");
+    	setMessage_eng("YOUR_DEHYDRATION_0_200_MES","You no longer feels thristy.");
+    	setMessage_eng("YOUR_DEHYDRATION_201_400_MES","你覺得§c有點口渴§f，時常慢下來喘口氣");
+    	setMessage_eng("YOUR_DEHYDRATION_401_600_MES","你§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
+    	setMessage_eng("YOUR_DEHYDRATION_601_800_MES","你§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
+    	setMessage_eng("YOUR_DEHYDRATION_801_999_MES","你§c嚴重脫水§f，需要立即補充水分，避免死亡");
+    	setMessage_eng("YOUR_DEHYDRATION_DEATH_MES","你脫水死亡了");
+    	setMessage_eng("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+    	 
+    	setMessage_eng("YOUR_TIREDNESS_INCREASE","活動了一段時間  , 你的疲倦程度§c上升§f了");
+    	setMessage_eng("YOUR_TIREDNESS_DECREASE","休息了一段時間  , 你的疲倦程度§b下降§f了");
+    	setMessage_eng("YOUR_TIREDNESS_THE_SAME","過了一段時間，你覺得體力沒有下降太多");
+    	setMessage_eng("YOUR_TIRERNESS_LEVEL","目前§e疲倦程度§f");
+    	 
+    	setMessage_eng("YOUR_TIRERNESS_0_200_MES","你充分休息，覺得精神百倍");
+    	setMessage_eng("YOUR_TIRERNESS_201_400_MES","你覺得精神不錯");
+    	setMessage_eng("YOUR_TIRERNESS_401_600_MES","你§c有些疲倦§f，不時恍神");
+    	setMessage_eng("YOUR_TIRERNESS_601_800_MES","你§c非常疲倦§f，不時恍神，覺得頭暈");
+    	setMessage_eng("YOUR_TIRERNESS_801_999_MES","你§c極度疲倦§f，幾乎把眼睛給閉上了");
+    	setMessage_eng("YOUR_TIRERNESS_1000_MES","你覺得你在夢遊");
+    	setMessage_eng("IS_SLEEP_WALKING","§c正§d在§e夢§f遊");
+    	setMessage_eng("YOUR_STATUS_IS_NORMAL","狀態回到正常");
+    	setMessage_eng("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","獲得抗性  : §b減少所有傷害§f 20%");
+    	setMessage_eng("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING","你可以透過§e躺在床上§f，休息恢復精神");
+    	 
+    	setMessage_eng("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","你被輻射生物攻擊,輻射劑量§c上升§f了");
+    	setMessage_eng("YOUR_RADIATION_LEVEL","目前§a輻射劑量§f");
+    	//setMessage_eng("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+    	setMessage_eng("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§e喝水§f來降低輻射劑量");
+    	setMessage_eng("YOU_DIED_BECAUSE_OF_RADIATION","你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
+    	setMessage_eng("SOMEONE_DIED_BECAUSE_OF_RADIATION","發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了");
+    	setMessage_eng("YOUR_RADIATION_0_200_MES","");
+    	setMessage_eng("YOUR_RADIATION_201_400_MES","你的§c輻射劑量§f來到 : §b微量級");
+    	setMessage_eng("YOUR_RADIATION_401_600_MES","你的§c輻射劑量§f來到 : §a輕量級");
+    	setMessage_eng("YOUR_RADIATION_601_800_MES","你的§c輻射劑量§f來到 : §e中量級");
+    	setMessage_eng("YOUR_RADIATION_801_999_MES","你的§c輻射劑量§f來到 : §c過量級");
+    	setMessage_eng("YOUR_GAIN_NO_EFFECT","你的§c輻射劑量§f目前不會造成任何效果");
+    	setMessage_eng("YOU_GAIN_EFFECT_N","獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
+    	setMessage_eng("YOU_GAIN_EFFECT_N_F","獲得效果 : §a夜視 / §c虛弱");
+    	setMessage_eng("YOU_GAIN_EFFECT_N_F_H_P","獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §b中毒 ");
+    	setMessage_eng("YOU_GAIN_EFFECT_N_F_H_W","獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §0 凋零");
+    	setMessage_eng("YOU_REST_WELL","你充分的休息，恢復了體力");
+    	setMessage_eng("RADIATION_LEVEL_INCREASE","輻射劑量§c上升§f了");
+    	setMessage_eng("RADIATION_LEVEL_DECREASE","輻射劑量§b下降§f了");   
+    	setMessage_eng("RADIATION_THRIST_LEVEL","目前§a輻射劑量§f:");
+
+    	setMessage_eng("FALLOUTCRART_STATUS","§7-----------§2廢土輻射狀態§7-----------");
+    	setMessage_eng("FALLOUTCRART_R_LEVEL_STATUS","§c輻射計量§f:");
+    	setMessage_eng("FALLOUTCRART_D_LEVEL_STATUS","§3口渴程度§f:");
+    	setMessage_eng("FALLOUTCRART_T_LEVEL_STATUS","§e疲倦程度§f:");
     }
     private void configConstructing(){
     	//https://bukkit.org/threads/tutorial-creating-a-messages-yml-file.154337/
