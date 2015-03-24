@@ -1,4 +1,4 @@
-name: Falloutcraftr
+name: Falloutcraft
 main: io.github.kuohsuanlo.falloutcraft.FalloutcraftPlugin
 version: ${version}
 commands:

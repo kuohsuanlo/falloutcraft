@@ -56,14 +56,30 @@ public class FalloutcraftPlayerListener implements Listener {
 
     }
     protected String pathOfMessageyml="./plugins/Falloutcraft/messages.yml";
-    protected String pathOfMessageEngyml="./plugins/Falloutcraft/messages_eng.yml";
+    protected String pathOfMessage_zhTWyml="./plugins/Falloutcraft/messages_zhTW.yml";
+    public static HashMap<String, String> messageData_zhTW = new HashMap<String, String>();
     public static HashMap<String, String> messageData = new HashMap<String, String>();
-    public static HashMap<String, String> messageData_eng = new HashMap<String, String>();
     private void loadMessages(){
+    	File f_zhTW = new File(pathOfMessage_zhTWyml);
+        if (!f_zhTW.exists()) {
+            try {
+            	f_zhTW.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            configConstructing_zhTW();
+        }
+       
+        FileConfiguration config_zhTW = YamlConfiguration.loadConfiguration(f_zhTW);
+        for (String message : config_zhTW.getConfigurationSection("").getKeys(false)) {
+        	messageData_zhTW.put(message, config_zhTW.getString(message));
+        }
+        
+        
     	File f = new File(pathOfMessageyml);
         if (!f.exists()) {
             try {
-                f.createNewFile();
+            	f.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -72,23 +88,7 @@ public class FalloutcraftPlayerListener implements Listener {
        
         FileConfiguration config = YamlConfiguration.loadConfiguration(f);
         for (String message : config.getConfigurationSection("").getKeys(false)) {
-            messageData.put(message, config.getString(message));
-        }
-        
-        
-    	File f_eng = new File(pathOfMessageEngyml);
-        if (!f_eng.exists()) {
-            try {
-            	f_eng.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            configConstructing_eng();
-        }
-       
-        FileConfiguration config_eng = YamlConfiguration.loadConfiguration(f_eng);
-        for (String message : config_eng.getConfigurationSection("").getKeys(false)) {
-        	messageData_eng.put(message, config_eng.getString(message));
+        	messageData.put(message, config.getString(message));
         }
     }
     private void loadConfig(){
@@ -164,8 +164,8 @@ public class FalloutcraftPlayerListener implements Listener {
         }
         
     }
-    private void setMessage_eng(String name, String message) {
-        File f = new File(pathOfMessageEngyml);
+    private void setMessage_zhTW(String name, String message) {
+        File f = new File(pathOfMessage_zhTWyml);
         FileConfiguration config = YamlConfiguration.loadConfiguration(f);
         if (!config.isSet(name)) {
             config.set(name, message);
@@ -177,117 +177,6 @@ public class FalloutcraftPlayerListener implements Listener {
 
         }
         
-    }
-    private void configConstructing_eng(){
-    	//https://bukkit.org/threads/tutorial-creating-a-messages-yml-file.154337/
-    	setMessage_eng("thirst_apple","-5");
-    	setMessage_eng("thirst_baked_potato","40");
-    	setMessage_eng("thirst_bread","25");
-    	setMessage_eng("thirst_carrot","25");
-    	setMessage_eng("thirst_raw_fish","-10");
-    	setMessage_eng("thirst_cooked_chicken","40");
-    	setMessage_eng("thirst_cooked_fish","-5");
-    	setMessage_eng("thirst_cooked_porkchop","40");
-    	setMessage_eng("thirst_cookie","1");
-    	setMessage_eng("thirst_golen_apple","-10");//curing
-    	setMessage_eng("thirst_golen_carrot","-10");//curing
-    	setMessage_eng("thirst_melon","-5");
-    	setMessage_eng("thirst_mushroom_stew","-10");
-    	setMessage_eng("thirst_poisonous_potato","50");
-    	setMessage_eng("thirst_potato","10");
-    	setMessage_eng("thirst_pumpkin_pie","60");
-    	setMessage_eng("thirst_raw_beef","40");
-    	setMessage_eng("thirst_raw_chicken","40");
-    	setMessage_eng("thirst_raw_porkchop","40");
-    	setMessage_eng("thirst_rotten_flesh","60");
-    	setMessage_eng("thirst_spider_eye","50");
-    	setMessage_eng("thirst_steak","40");
-    	         
-    	setMessage_eng("thirst_environment_fire","0");
-    	setMessage_eng("thirst_environment_fire_tick","20");
-    	setMessage_eng("thirst_environment_fire_tick_random","20");
-    	         
-    	setMessage_eng("hitDozen_creeper","20");
-    	setMessage_eng("hitDozen_skeleton","1");
-    	setMessage_eng("hitDozen_spider","1");
-    	setMessage_eng("hitDozen_zombie","1");
-    	         
-    	setMessage_eng("randomFloat","20");
-    	setMessage_eng("foodDozen_apple","3");
-    	setMessage_eng("foodDozen_baked_potato","10");
-    	setMessage_eng("foodDozen_bread","5");
-    	setMessage_eng("foodDozen_carrot","3");
-    	setMessage_eng("foodDozen_raw_fish","10");
-    	setMessage_eng("foodDozen_cooked_chicken","10");
-    	setMessage_eng("foodDozen_cooked_fish","5");
-    	setMessage_eng("foodDozen_cooked_porkchop","10");
-    	setMessage_eng("foodDozen_cookie","1");
-    	setMessage_eng("foodDozen_golen_apple","-40");//curing
-    	setMessage_eng("foodDozen_golen_carrot","-30");//curing
-    	setMessage_eng("foodDozen_melon","3");
-    	setMessage_eng("foodDozen_mushroom_stew","10");
-    	setMessage_eng("foodDozen_poisonous_potato","50");
-    	setMessage_eng("foodDozen_potato","5");
-    	setMessage_eng("foodDozen_pumpkin_pie","5");
-    	setMessage_eng("foodDozen_raw_beef","15");
-    	setMessage_eng("foodDozen_raw_chicken","15");
-    	         
-    	setMessage_eng("FALLOUTCRAFT","§2[Falloutcraft]§f : ");
-    	setMessage_eng("YOU_HAVE_EATEN","You have eaten ");
-    	setMessage_eng("THRIST_LEVEL_INCREASE","Dehydration level§c increases§f ");
-    	setMessage_eng("THRIST_LEVEL_DECREASE","Dehydration level§b decreases§f ");   
-    	setMessage_eng("YOUR_THRIST_LEVEL","Your §Dehydration level§f");
-    	setMessage_eng("NOTHING_HAPPENED","nothing happened.");
-    	setMessage_eng("HAS_DIED_DUE_TO_THRIST","has died due to §6dehydration§f");
-    	setMessage_eng("YOUR_DEHYDRATION_0_200_MES","You no longer feels thristy.");
-    	setMessage_eng("YOUR_DEHYDRATION_201_400_MES","You feel §cthirsty§f. You sometimes take a rest.");
-    	setMessage_eng("YOUR_DEHYDRATION_401_600_MES","You are §cslightly dehydrated§f, feeling dizzy sometimes.");
-    	setMessage_eng("YOUR_DEHYDRATION_601_800_MES","You are §cdehydrated§f, feeling dizzy sometimes.");
-    	setMessage_eng("YOUR_DEHYDRATION_801_999_MES","You are §cseverely dehydrated§f, feeling dizzy sometimes.");
-    	setMessage_eng("YOUR_DEHYDRATION_DEATH_MES","You died due to the dehydration.");
-    	setMessage_eng("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","You can decrease the dehydration through §edrinking potion or water§f");
-    	 
-    	setMessage_eng("YOUR_TIREDNESS_INCREASE","working for a while, you fatigue level §cincreases§f");
-    	setMessage_eng("YOUR_TIREDNESS_DECREASE","resting for a while, you fatigue level §bdecreases§f");
-    	setMessage_eng("YOUR_TIREDNESS_THE_SAME","working for a while, you feel still the same.");
-    	setMessage_eng("YOUR_TIRERNESS_LEVEL","Current §efatigue level§f");
-    	 
-    	setMessage_eng("YOUR_TIRERNESS_0_200_MES","You are well-rested and feel energetic.");
-    	setMessage_eng("YOUR_TIRERNESS_201_400_MES","You feel energetic.");
-    	setMessage_eng("YOUR_TIRERNESS_401_600_MES","you are §ca little tired§f. You sometimes close your eyes.");
-    	setMessage_eng("YOUR_TIRERNESS_601_800_MES","you are §cvery tired§f. You sometimes close your eyes and feel dizzy.");
-    	setMessage_eng("YOUR_TIRERNESS_801_999_MES","you are §extremly tired§f. You feel very dizzy.");
-    	setMessage_eng("YOUR_TIRERNESS_1000_MES","You seem to dreamwalking.");
-    	setMessage_eng("IS_SLEEP_WALKING","§cdre§damw§ealk§fing");
-    	setMessage_eng("YOUR_STATUS_IS_NORMAL","Your status is now normal.");
-    	setMessage_eng("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","gain resistance buff : §bdecrease damage from all sources §f 20%");
-    	setMessage_eng("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING", "You can §elie in a bed§f to rest and recuperate energy.");
-    	 
-    	setMessage_eng("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","You are under radiant creature attacks. Radiation level §cincreased §f");
-    	setMessage_eng("YOUR_RADIATION_LEVEL","Current §aradiation level§f");
-    	//setMessage_eng("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
-    	setMessage_eng("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","You can decrease the radiation level through §edrinking potion or water§f");
-    	setMessage_eng("YOU_DIED_BECAUSE_OF_RADIATION","You have excessvie §cradiation level§f. Your body exploded, and disappeared after a while.");
-    	setMessage_eng("SOMEONE_DIED_BECAUSE_OF_RADIATION","'s body exploded, becoming a §emushroom§6-shaped§c-cloud§f, and disappeared after a while.");
-    	setMessage_eng("YOUR_RADIATION_0_200_MES","");
-    	setMessage_eng("YOUR_RADIATION_201_400_MES","Your current §cradiation level§f : §b*---");
-    	setMessage_eng("YOUR_RADIATION_401_600_MES","Your current §cradiation level§f : §a**--");
-    	setMessage_eng("YOUR_RADIATION_601_800_MES","Your current §cradiation level§f : §e***-");
-    	setMessage_eng("YOUR_RADIATION_801_999_MES","Your current §cradiation level§f : §c****");
-    	setMessage_eng("YOUR_GAIN_NO_EFFECT","Your current §cradiation level§f doesn't effect anything.");
-    	setMessage_eng("YOU_GAIN_EFFECT_N","You gain effects : §anight-vision§7 Wow! my eyes emit fluorescence!§f");
-    	setMessage_eng("YOU_GAIN_EFFECT_N_F","You gain effects : §anight-vision / §cfatigue");
-    	setMessage_eng("YOU_GAIN_EFFECT_N_F_H_P","You gain effects : §anight-vision / §chunger / §cfatigue / §bpoisoned ");
-    	setMessage_eng("YOU_GAIN_EFFECT_N_F_H_W","You gain effects : §anight-vision / §chunger / §cfatigue / §0withered ");
-    	setMessage_eng("YOU_REST_WELL","you are well rested and refreshed");
-    	setMessage_eng("RADIATION_LEVEL_INCREASE","Radiation level§c increases§f ");
-    	setMessage_eng("RADIATION_LEVEL_DECREASE","Radiation level§b decreases§f ");   
-    	setMessage_eng("RADIATION_THRIST_LEVEL","Current §aradiation level§f:");
-
-    	setMessage_eng("FALLOUTCRART_STATUS","§7-----------§2Falloutcraft status§7-----------");
-    	setMessage_eng("FALLOUTCRART_R_LEVEL_STATUS","§cRadiation   level§f:");
-    	setMessage_eng("FALLOUTCRART_D_LEVEL_STATUS","§3Dehydration level§f:");
-    	setMessage_eng("FALLOUTCRART_T_LEVEL_STATUS","§eFatigue     level§f:");
     }
     private void configConstructing(){
     	//https://bukkit.org/threads/tutorial-creating-a-messages-yml-file.154337/
@@ -343,62 +232,174 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage("foodDozen_raw_beef","15");
     	setMessage("foodDozen_raw_chicken","15");
     	         
-    	setMessage("FALLOUTCRAFT","§2[廢土生存]§f : ");
-    	setMessage("YOU_HAVE_EATEN","你食用了");
-    	setMessage("THRIST_LEVEL_INCREASE","口渴程度§c上升§f了");
-    	setMessage("THRIST_LEVEL_DECREASE","口渴程度§b下降§f了");   
-    	setMessage("YOUR_THRIST_LEVEL","目前§3口渴程度§f");
-    	setMessage("NOTHING_HAPPENED","什麼事也沒發生");
-    	setMessage("HAS_DIED_DUE_TO_THRIST","脫水死了，乾燥得變成一個精美的§6木乃伊§f");
-    	setMessage("YOUR_DEHYDRATION_0_200_MES","你不再感到口渴");
-    	setMessage("YOUR_DEHYDRATION_201_400_MES","你覺得§c有點口渴§f，時常慢下來喘口氣");
-    	setMessage("YOUR_DEHYDRATION_401_600_MES","你§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
-    	setMessage("YOUR_DEHYDRATION_601_800_MES","你§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
-    	setMessage("YOUR_DEHYDRATION_801_999_MES","你§c嚴重脫水§f，需要立即補充水分，避免死亡");
-    	setMessage("YOUR_DEHYDRATION_DEATH_MES","你脫水死亡了");
-    	setMessage("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
-    	 
-    	setMessage("YOUR_TIREDNESS_INCREASE","活動了一段時間  , 你的疲倦程度§c上升§f了");
-    	setMessage("YOUR_TIREDNESS_DECREASE","休息了一段時間  , 你的疲倦程度§b下降§f了");
-    	setMessage("YOUR_TIREDNESS_THE_SAME","過了一段時間，你覺得體力沒有下降太多");
-    	setMessage("YOUR_TIRERNESS_LEVEL","目前§e疲倦程度§f");
-    	 
-    	setMessage("YOUR_TIRERNESS_0_200_MES","你充分休息，覺得精神百倍");
-    	setMessage("YOUR_TIRERNESS_201_400_MES","你覺得精神不錯");
-    	setMessage("YOUR_TIRERNESS_401_600_MES","你§c有些疲倦§f，不時恍神");
-    	setMessage("YOUR_TIRERNESS_601_800_MES","你§c非常疲倦§f，不時恍神，覺得頭暈");
-    	setMessage("YOUR_TIRERNESS_801_999_MES","你§c極度疲倦§f，幾乎把眼睛給閉上了");
-    	setMessage("YOUR_TIRERNESS_1000_MES","你覺得你在夢遊");
-    	setMessage("IS_SLEEP_WALKING","§c正§d在§e夢§f遊");
-    	setMessage("YOUR_STATUS_IS_NORMAL","狀態回到正常");
-    	setMessage("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","獲得抗性  : §b減少所有傷害§f 20%");
-    	setMessage("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING","你可以透過§e躺在床上§f，休息恢復精神");
-    	 
-    	setMessage("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","你被輻射生物攻擊,輻射劑量§c上升§f了");
-    	setMessage("YOUR_RADIATION_LEVEL","目前§a輻射劑量§f");
-    	//setMessage("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
-    	setMessage("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§e喝水§f來降低輻射劑量");
-    	setMessage("YOU_DIED_BECAUSE_OF_RADIATION","你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
-    	setMessage("SOMEONE_DIED_BECAUSE_OF_RADIATION","發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了");
-    	setMessage("YOUR_RADIATION_0_200_MES","");
-    	setMessage("YOUR_RADIATION_201_400_MES","你的§c輻射劑量§f來到 : §b微量級");
-    	setMessage("YOUR_RADIATION_401_600_MES","你的§c輻射劑量§f來到 : §a輕量級");
-    	setMessage("YOUR_RADIATION_601_800_MES","你的§c輻射劑量§f來到 : §e中量級");
-    	setMessage("YOUR_RADIATION_801_999_MES","你的§c輻射劑量§f來到 : §c過量級");
-    	setMessage("YOUR_GAIN_NO_EFFECT","你的§c輻射劑量§f目前不會造成任何效果");
-    	setMessage("YOU_GAIN_EFFECT_N","獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
-    	setMessage("YOU_GAIN_EFFECT_N_F","獲得效果 : §a夜視 / §c虛弱");
-    	setMessage("YOU_GAIN_EFFECT_N_F_H_P","獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §b中毒 ");
-    	setMessage("YOU_GAIN_EFFECT_N_F_H_W","獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §0 凋零");
-    	setMessage("YOU_REST_WELL","你充分的休息，恢復了體力");
-    	setMessage("RADIATION_LEVEL_INCREASE","輻射劑量§c上升§f了");
-    	setMessage("RADIATION_LEVEL_DECREASE","輻射劑量§b下降§f了");   
-    	setMessage("RADIATION_THRIST_LEVEL","目前§a輻射劑量§f:");
+    	setMessage("FALLOUTCRAFT","§2[Falloutcraft]§f : ");
+    	setMessage("YOU_HAVE_EATEN","You have eaten : ");
+    	setMessage("THRIST_LEVEL_INCREASE","dehydration §cincreased§f ");
+    	setMessage("THRIST_LEVEL_DECREASE","dehydration §bdecreased§f ");   
+    	setMessage("YOUR_THRIST_LEVEL","\nCurrent §3dehydration level§f");
 
-    	setMessage("FALLOUTCRART_STATUS","§7-----------§2廢土輻射狀態§7-----------");
-    	setMessage("FALLOUTCRART_R_LEVEL_STATUS","§c輻射計量§f:");
-    	setMessage("FALLOUTCRART_D_LEVEL_STATUS","§3口渴程度§f:");
-    	setMessage("FALLOUTCRART_T_LEVEL_STATUS","§e疲倦程度§f:");
+    	setMessage("NOTHING_HAPPENED","nothing happened.");
+    	setMessage("HAS_DIED_DUE_TO_THRIST","has died due to §6dehydration§f");
+    	setMessage("YOUR_DEHYDRATION_0_200_MES","You no longer feel thristy.");
+    	setMessage("YOUR_DEHYDRATION_201_400_MES","You feel §cthirsty§f. You sometimes take a rest.");
+    	setMessage("YOUR_DEHYDRATION_401_600_MES","You are §cslightly dehydrated§f, feeling dizzy sometimes.");
+    	setMessage("YOUR_DEHYDRATION_601_800_MES","You are §cdehydrated§f, feeling dizzy sometimes.");
+    	setMessage("YOUR_DEHYDRATION_801_999_MES","You are §cseverely dehydrated§f, feeling dizzy sometimes.");
+    	setMessage("YOUR_DEHYDRATION_DEATH_MES","You died due to the dehydration.");
+    	setMessage("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","You can decrease the dehydration through §edrinking potion or water§f");
+    	 
+    	setMessage("YOUR_TIREDNESS_INCREASE","Working for a while, your fatigue level §cincreased§f ");
+    	setMessage("YOUR_TIREDNESS_DECREASE","Resting for a while, your fatigue level §bdecreased§f ");
+    	setMessage("YOUR_TIREDNESS_THE_SAME","Working for a while, your energy doesn't drain much.");
+    	setMessage("YOUR_TIRERNESS_LEVEL","\nCurrent §efatigue level§f");
+    	 
+    	setMessage("YOUR_TIRERNESS_0_200_MES","You are well-rested and feel energetic.");
+    	setMessage("YOUR_TIRERNESS_201_400_MES","You feel energetic.");
+    	setMessage("YOUR_TIRERNESS_401_600_MES","you are §ca little tired§f. You sometimes close your eyes.");
+    	setMessage("YOUR_TIRERNESS_601_800_MES","you are §cvery tired§f. You sometimes close your eyes and feel dizzy.");
+    	setMessage("YOUR_TIRERNESS_801_999_MES","you are §extremly tired§f. You feel very dizzy.");
+    	setMessage("YOUR_TIRERNESS_1000_MES","You seem to dreamwalking.");
+    	setMessage("IS_SLEEP_WALKING","§cdre§damw§ealk§fing");
+    	setMessage("YOUR_STATUS_IS_NORMAL","Your status is now normal.");
+    	setMessage("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","gain resistance buff : §bdecrease damage from all sources §f 20%");
+    	setMessage("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING", "You can §elie in a bed§f to rest and recuperate energy.");
+    	 
+    	setMessage("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","You are under radiant creature attacks. Radiation level §cincreased §f");
+    	setMessage("YOUR_RADIATION_LEVEL","\nCurrent §aradiation level§f");
+    	//setMessage_eng("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+    	setMessage("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","You can decrease the radiation level through §edrinking potion or water§f");
+    	setMessage("YOU_DIED_BECAUSE_OF_RADIATION","You have excessvie §cradiation level§f. Your body exploded, and disappeared after a while.");
+    	setMessage("SOMEONE_DIED_BECAUSE_OF_RADIATION","'s body exploded, becoming a §emushroom§6-shaped§c-cloud§f, and disappeared after a while.");
+    	setMessage("YOUR_RADIATION_0_200_MES","");
+    	setMessage("YOUR_RADIATION_201_400_MES","Your §cradiation sickness§f : §b*---");
+    	setMessage("YOUR_RADIATION_401_600_MES","Your §cradiation sickness§f : §a**--");
+    	setMessage("YOUR_RADIATION_601_800_MES","Your §cradiation sickness§f : §e***-");
+    	setMessage("YOUR_RADIATION_801_999_MES","Your §cradiation sickness§f : §c****");
+    	setMessage("YOUR_GAIN_NO_EFFECT","Your current §cradiation level§f doesn't effect anything.");
+    	setMessage("YOU_GAIN_EFFECT_N","You gain effects : §anight-vision§7 Wow! my eyes emit fluorescence!§f");
+    	setMessage("YOU_GAIN_EFFECT_N_F","You gain effects : §anight-vision / §cfatigue");
+    	setMessage("YOU_GAIN_EFFECT_N_F_H_P","You gain effects : §anight-vision / §chunger / §cfatigue / §bpoisoned ");
+    	setMessage("YOU_GAIN_EFFECT_N_F_H_W","You gain effects : §anight-vision / §chunger / §cfatigue / §0withered ");
+    	setMessage("YOU_REST_WELL","you are well rested and refreshed");
+    	setMessage("RADIATION_LEVEL_INCREASE","radiation §cincreased§f ");
+    	setMessage("RADIATION_LEVEL_DECREASE","radiation §bdecreased§f ");   
+    	setMessage("RADIATION_THRIST_LEVEL","\nCurrent §aradiation level§f:");
+
+    	setMessage("FALLOUTCRART_STATUS","§7-----------§2Falloutcraft status§7-----------");
+    	setMessage("FALLOUTCRART_R_LEVEL_STATUS","§cRadiation   level§f:");
+    	setMessage("FALLOUTCRART_D_LEVEL_STATUS","§3Dehydration level§f:");
+    	setMessage("FALLOUTCRART_T_LEVEL_STATUS","§eFatigue     level§f:");
+    }
+    private void configConstructing_zhTW(){
+    	//https://bukkit.org/threads/tutorial-creating-a-messages-yml-file.154337/
+    	setMessage_zhTW("thirst_apple","-5");
+    	setMessage_zhTW("thirst_baked_potato","40");
+    	setMessage_zhTW("thirst_bread","25");
+    	setMessage_zhTW("thirst_carrot","25");
+    	setMessage_zhTW("thirst_raw_fish","-10");
+    	setMessage_zhTW("thirst_cooked_chicken","40");
+    	setMessage_zhTW("thirst_cooked_fish","-5");
+    	setMessage_zhTW("thirst_cooked_porkchop","40");
+    	setMessage_zhTW("thirst_cookie","1");
+    	setMessage_zhTW("thirst_golen_apple","-10");//curing
+    	setMessage_zhTW("thirst_golen_carrot","-10");//curing
+    	setMessage_zhTW("thirst_melon","-5");
+    	setMessage_zhTW("thirst_mushroom_stew","-10");
+    	setMessage_zhTW("thirst_poisonous_potato","50");
+    	setMessage_zhTW("thirst_potato","10");
+    	setMessage_zhTW("thirst_pumpkin_pie","60");
+    	setMessage_zhTW("thirst_raw_beef","40");
+    	setMessage_zhTW("thirst_raw_chicken","40");
+    	setMessage_zhTW("thirst_raw_porkchop","40");
+    	setMessage_zhTW("thirst_rotten_flesh","60");
+    	setMessage_zhTW("thirst_spider_eye","50");
+    	setMessage_zhTW("thirst_steak","40");
+    	         
+    	setMessage_zhTW("thirst_environment_fire","0");
+    	setMessage_zhTW("thirst_environment_fire_tick","20");
+    	setMessage_zhTW("thirst_environment_fire_tick_random","20");
+    	         
+    	setMessage_zhTW("hitDozen_creeper","20");
+    	setMessage_zhTW("hitDozen_skeleton","1");
+    	setMessage_zhTW("hitDozen_spider","1");
+    	setMessage_zhTW("hitDozen_zombie","1");
+    	         
+    	setMessage_zhTW("randomFloat","20");
+    	setMessage_zhTW("foodDozen_apple","3");
+    	setMessage_zhTW("foodDozen_baked_potato","10");
+    	setMessage_zhTW("foodDozen_bread","5");
+    	setMessage_zhTW("foodDozen_carrot","3");
+    	setMessage_zhTW("foodDozen_raw_fish","10");
+    	setMessage_zhTW("foodDozen_cooked_chicken","10");
+    	setMessage_zhTW("foodDozen_cooked_fish","5");
+    	setMessage_zhTW("foodDozen_cooked_porkchop","10");
+    	setMessage_zhTW("foodDozen_cookie","1");
+    	setMessage_zhTW("foodDozen_golen_apple","-40");//curing
+    	setMessage_zhTW("foodDozen_golen_carrot","-30");//curing
+    	setMessage_zhTW("foodDozen_melon","3");
+    	setMessage_zhTW("foodDozen_mushroom_stew","10");
+    	setMessage_zhTW("foodDozen_poisonous_potato","50");
+    	setMessage_zhTW("foodDozen_potato","5");
+    	setMessage_zhTW("foodDozen_pumpkin_pie","5");
+    	setMessage_zhTW("foodDozen_raw_beef","15");
+    	setMessage_zhTW("foodDozen_raw_chicken","15");
+    	         
+    	setMessage_zhTW("FALLOUTCRAFT","§2[廢土生存]§f : ");
+    	setMessage_zhTW("YOU_HAVE_EATEN","你食用了");
+    	setMessage_zhTW("THRIST_LEVEL_INCREASE","口渴程度§c上升§f了");
+    	setMessage_zhTW("THRIST_LEVEL_DECREASE","口渴程度§b下降§f了");   
+    	setMessage_zhTW("YOUR_THRIST_LEVEL","目前§3口渴程度§f");
+    	setMessage_zhTW("NOTHING_HAPPENED","什麼事也沒發生");
+    	setMessage_zhTW("HAS_DIED_DUE_TO_THRIST","脫水死了，乾燥得變成一個精美的§6木乃伊§f");
+    	setMessage_zhTW("YOUR_DEHYDRATION_0_200_MES","你不再感到口渴");
+    	setMessage_zhTW("YOUR_DEHYDRATION_201_400_MES","你覺得§c有點口渴§f，時常慢下來喘口氣");
+    	setMessage_zhTW("YOUR_DEHYDRATION_401_600_MES","你§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
+    	setMessage_zhTW("YOUR_DEHYDRATION_601_800_MES","你§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
+    	setMessage_zhTW("YOUR_DEHYDRATION_801_999_MES","你§c嚴重脫水§f，需要立即補充水分，避免死亡");
+    	setMessage_zhTW("YOUR_DEHYDRATION_DEATH_MES","你脫水死亡了");
+    	setMessage_zhTW("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
+    	 
+    	setMessage_zhTW("YOUR_TIREDNESS_INCREASE","活動了一段時間  , 你的疲倦程度§c上升§f了");
+    	setMessage_zhTW("YOUR_TIREDNESS_DECREASE","休息了一段時間  , 你的疲倦程度§b下降§f了");
+    	setMessage_zhTW("YOUR_TIREDNESS_THE_SAME","過了一段時間，你覺得體力沒有下降太多");
+    	setMessage_zhTW("YOUR_TIRERNESS_LEVEL","目前§e疲倦程度§f");
+    	 
+    	setMessage_zhTW("YOUR_TIRERNESS_0_200_MES","你充分休息，覺得精神百倍");
+    	setMessage_zhTW("YOUR_TIRERNESS_201_400_MES","你覺得精神不錯");
+    	setMessage_zhTW("YOUR_TIRERNESS_401_600_MES","你§c有些疲倦§f，不時恍神");
+    	setMessage_zhTW("YOUR_TIRERNESS_601_800_MES","你§c非常疲倦§f，不時恍神，覺得頭暈");
+    	setMessage_zhTW("YOUR_TIRERNESS_801_999_MES","你§c極度疲倦§f，幾乎把眼睛給閉上了");
+    	setMessage_zhTW("YOUR_TIRERNESS_1000_MES","你覺得你在夢遊");
+    	setMessage_zhTW("IS_SLEEP_WALKING","§c正§d在§e夢§f遊");
+    	setMessage_zhTW("YOUR_STATUS_IS_NORMAL","狀態回到正常");
+    	setMessage_zhTW("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","獲得抗性  : §b減少所有傷害§f 20%");
+    	setMessage_zhTW("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING","你可以透過§e躺在床上§f，休息恢復精神");
+    	 
+    	setMessage_zhTW("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","你被輻射生物攻擊,輻射劑量§c上升§f了");
+    	setMessage_zhTW("YOUR_RADIATION_LEVEL","目前§a輻射劑量§f");
+    	//setMessage_zhTW("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
+    	setMessage_zhTW("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§e喝水§f來降低輻射劑量");
+    	setMessage_zhTW("YOU_DIED_BECAUSE_OF_RADIATION","你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
+    	setMessage_zhTW("SOMEONE_DIED_BECAUSE_OF_RADIATION","發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了");
+    	setMessage_zhTW("YOUR_RADIATION_0_200_MES","");
+    	setMessage_zhTW("YOUR_RADIATION_201_400_MES","你的§c輻射劑量§f來到 : §b微量級");
+    	setMessage_zhTW("YOUR_RADIATION_401_600_MES","你的§c輻射劑量§f來到 : §a輕量級");
+    	setMessage_zhTW("YOUR_RADIATION_601_800_MES","你的§c輻射劑量§f來到 : §e中量級");
+    	setMessage_zhTW("YOUR_RADIATION_801_999_MES","你的§c輻射劑量§f來到 : §c過量級");
+    	setMessage_zhTW("YOUR_GAIN_NO_EFFECT","你的§c輻射劑量§f目前不會造成任何效果");
+    	setMessage_zhTW("YOU_GAIN_EFFECT_N","獲得效果 : §a夜視        §7哇嗚! 我的眼睛發出螢光了!§f");
+    	setMessage_zhTW("YOU_GAIN_EFFECT_N_F","獲得效果 : §a夜視 / §c虛弱");
+    	setMessage_zhTW("YOU_GAIN_EFFECT_N_F_H_P","獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §b中毒 ");
+    	setMessage_zhTW("YOU_GAIN_EFFECT_N_F_H_W","獲得效果 : §a夜視 / §c飢餓  / §c虛弱 / §0 凋零");
+    	setMessage_zhTW("YOU_REST_WELL","你充分的休息，恢復了體力");
+    	setMessage_zhTW("RADIATION_LEVEL_INCREASE","輻射劑量§c上升§f了");
+    	setMessage_zhTW("RADIATION_LEVEL_DECREASE","輻射劑量§b下降§f了");   
+    	setMessage_zhTW("RADIATION_THRIST_LEVEL","目前§a輻射劑量§f:");
+
+    	setMessage_zhTW("FALLOUTCRART_STATUS","§7-----------§2廢土輻射狀態§7-----------");
+    	setMessage_zhTW("FALLOUTCRART_R_LEVEL_STATUS","§c輻射計量§f:");
+    	setMessage_zhTW("FALLOUTCRART_D_LEVEL_STATUS","§3口渴程度§f:");
+    	setMessage_zhTW("FALLOUTCRART_T_LEVEL_STATUS","§e疲倦程度§f:");
     }
     //Configuration
     private int thirst_apple = -5;
@@ -516,7 +517,7 @@ public class FalloutcraftPlayerListener implements Listener {
     //
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        
+     
     }
     
     @EventHandler
@@ -529,11 +530,13 @@ public class FalloutcraftPlayerListener implements Listener {
     	else{
     		plugin.falloutstatsRadiation.put(player.getPlayerListName(), (float) 0);
     	}
+    	
     	if(plugin.falloutstatsThirst.containsKey(player.getPlayerListName())){
     	}
     	else{
     		plugin.falloutstatsThirst.put(player.getPlayerListName(), (float) 0);
     	}
+    	
     	if(plugin.falloutstatsFatigue.containsKey(player.getPlayerListName())){
     	}
     	else{
