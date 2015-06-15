@@ -21,7 +21,7 @@ public class FalloutcraftEffectCommand implements CommandExecutor {
     private final FalloutcraftPlugin plugin;
     private final FalloutcraftPlayerListener listener;
     private int fatigueCounter = 0;
-    private int fatigueCounter_MAX = 1200;//seconds
+    private int fatigueCounter_MAX = 1;//secondss
     private int statusCounter = 0;
     private int statusCounter_MAX = 20;
     public FalloutcraftEffectCommand(FalloutcraftPlugin plugin) {
@@ -48,20 +48,20 @@ public class FalloutcraftEffectCommand implements CommandExecutor {
 	  	    	if(fatigueCounter > fatigueCounter_MAX  ){
 	  	    		
 					//sender.sendMessage("MaintainedList.size() : "+plugin.BukkitSchedulerSuck.MaintainedList.size());
-	  	    		for(int i=0;i<plugin.BukkitSchedulerSuck.MaintainedList.size();i++){
-	  	    			boolean ith_online = false;
-		  	    		for (Player player : plugin.getServer().getOnlinePlayers()) {
-		  	    			ith_online = player.getPlayerListName().equals( plugin.BukkitSchedulerSuck.MaintainedList.get(i).getPlayerListName());
-		  	    		}	  	    			
-	  	    				
+	  	    		for (Player player : plugin.getServer().getOnlinePlayers()) {
 	  	    			
-			  	    	if( ith_online==true){
-	                		int fatigueRand = (int) ((Math.random()+0.5)*plugin.playerListener.fatiguePerDozen);
-	                		plugin.playerListener.handleFatigueDozen(plugin.BukkitSchedulerSuck.MaintainedList.get(i),fatigueRand);
-	                		fatigueCounter=0;
-	                		ith_online=false;
-				  	    }
-	  	    		}
+	  	    			if( plugin.BukkitSchedulerSuck.MaintainedList.contains(player) ){
+	  	    				int fatigueRand = (int) ((Math.random()+0.5)*plugin.playerListener.fatiguePerDozen);
+	  	    				int i = plugin.BukkitSchedulerSuck.MaintainedList.indexOf(player);
+	  	    				if (i<plugin.BukkitSchedulerSuck.MaintainedList.size()){
+		                		plugin.playerListener.handleFatigueDozen(plugin.BukkitSchedulerSuck.MaintainedList.get(i),fatigueRand);
+		                		fatigueCounter=0;
+	  	    				}
+
+	  	    			}
+	  	    			
+	  	    		}	
+	  	    		
 		        }
 
 				return true;

@@ -257,7 +257,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage("YOUR_TIRERNESS_201_400_MES","You feel energetic.");
     	setMessage("YOUR_TIRERNESS_401_600_MES","you are ¡±ca little tired¡±f. You sometimes close your eyes.");
     	setMessage("YOUR_TIRERNESS_601_800_MES","you are ¡±cvery tired¡±f. You sometimes close your eyes and feel dizzy.");
-    	setMessage("YOUR_TIRERNESS_801_999_MES","you are ¡±extremly tired¡±f. You feel very dizzy.");
+    	setMessage("YOUR_TIRERNESS_801_999_MES","you are ¡±eextremly tired¡±f. You feel very dizzy.");
     	setMessage("YOUR_TIRERNESS_1000_MES","You seem to dreamwalking.");
     	setMessage("IS_SLEEP_WALKING","¡±cdre¡±damw¡±ealk¡±fing");
     	setMessage("YOUR_STATUS_IS_NORMAL","Your status is now normal.");
