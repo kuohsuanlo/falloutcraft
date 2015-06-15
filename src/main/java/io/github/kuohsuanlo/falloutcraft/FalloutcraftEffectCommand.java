@@ -37,6 +37,7 @@ public class FalloutcraftEffectCommand implements CommandExecutor {
 	        	statusCounter++;
 	        	if(statusCounter > statusCounter_MAX  ){
 	        		for(int i=0;i<plugin.BukkitSchedulerSuck.MaintainedList.size();i++){
+	        			//Add  if (maintained player in getnowonlineplayer ) do vvvvvv
 			      		//plugin.BukkitSchedulerSuck.MaintainedList.get(i).sendMessage("SyncPlayerTask_FOCraft_PlayerLoop");
 			      		plugin.playerListener.handleRadiationEffect(plugin.BukkitSchedulerSuck.MaintainedList.get(i),plugin.falloutstatsRadiation.get(plugin.BukkitSchedulerSuck.MaintainedList.get(i).getPlayerListName()));
 			      		plugin.playerListener.handleThirstEffect(plugin.BukkitSchedulerSuck.MaintainedList.get(i),plugin.falloutstatsThirst.get(plugin.BukkitSchedulerSuck.MaintainedList.get(i).getPlayerListName()));
