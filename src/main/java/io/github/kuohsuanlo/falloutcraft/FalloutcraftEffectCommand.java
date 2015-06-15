@@ -21,7 +21,7 @@ public class FalloutcraftEffectCommand implements CommandExecutor {
     private final FalloutcraftPlugin plugin;
     private final FalloutcraftPlayerListener listener;
     private int fatigueCounter = 0;
-    private int fatigueCounter_MAX = 1;//secondss
+    private int fatigueCounter_MAX = 1200;//secondss
     private int statusCounter = 0;
     private int statusCounter_MAX = 20;
     public FalloutcraftEffectCommand(FalloutcraftPlugin plugin) {
