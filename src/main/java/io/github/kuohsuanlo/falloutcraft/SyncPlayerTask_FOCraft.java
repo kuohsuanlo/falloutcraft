@@ -10,7 +10,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
-
 class SyncPlayerTask_FOCraft implements Runnable {
     Player player;
     FalloutcraftPlugin focraft;
@@ -26,6 +25,7 @@ class SyncPlayerTask_FOCraft implements Runnable {
         
     }
 }
+
 class SyncPlayerTask_Sleep implements Runnable {
     Player player;
     FalloutcraftPlugin focraft;

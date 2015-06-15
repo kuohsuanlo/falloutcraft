@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
 
+
 class SyncPlayerTask_FOCraft_StatusUpdate implements Runnable {
+
 	public ArrayList<Player> MaintainedList = new ArrayList<Player>();
 	private int sleepTime =0;
 	private FalloutcraftPlugin focraft ;
