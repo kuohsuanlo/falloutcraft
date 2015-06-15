@@ -37,7 +37,6 @@ public class FalloutcraftEffectCommand implements CommandExecutor {
 	        	statusCounter++;
 	        	if(statusCounter > statusCounter_MAX  ){
 	        		for(int i=0;i<plugin.BukkitSchedulerSuck.MaintainedList.size();i++){
-	        			//Add  if (maintained player in getnowonlineplayer ) do vvvvvv
 			      		//plugin.BukkitSchedulerSuck.MaintainedList.get(i).sendMessage("SyncPlayerTask_FOCraft_PlayerLoop");
 			      		plugin.playerListener.handleRadiationEffect(plugin.BukkitSchedulerSuck.MaintainedList.get(i),plugin.falloutstatsRadiation.get(plugin.BukkitSchedulerSuck.MaintainedList.get(i).getPlayerListName()));
 			      		plugin.playerListener.handleThirstEffect(plugin.BukkitSchedulerSuck.MaintainedList.get(i),plugin.falloutstatsThirst.get(plugin.BukkitSchedulerSuck.MaintainedList.get(i).getPlayerListName()));
@@ -47,13 +46,20 @@ public class FalloutcraftEffectCommand implements CommandExecutor {
 	        	}
 	        	
 	  	    	if(fatigueCounter > fatigueCounter_MAX  ){
+	  	    		
 					//sender.sendMessage("MaintainedList.size() : "+plugin.BukkitSchedulerSuck.MaintainedList.size());
 	  	    		for(int i=0;i<plugin.BukkitSchedulerSuck.MaintainedList.size();i++){
-			  	    	if( Math.random()>=0.0){
+	  	    			boolean ith_online = false;
+		  	    		for (Player player : plugin.getServer().getOnlinePlayers()) {
+		  	    			ith_online = player.getPlayerListName().equals( plugin.BukkitSchedulerSuck.MaintainedList.get(i).getPlayerListName());
+		  	    		}	  	    			
+	  	    				
+	  	    			
+			  	    	if( ith_online==true){
 	                		int fatigueRand = (int) ((Math.random()+0.5)*plugin.playerListener.fatiguePerDozen);
 	                		plugin.playerListener.handleFatigueDozen(plugin.BukkitSchedulerSuck.MaintainedList.get(i),fatigueRand);
-		                	
 	                		fatigueCounter=0;
+	                		ith_online=false;
 				  	    }
 	  	    		}
 		        }

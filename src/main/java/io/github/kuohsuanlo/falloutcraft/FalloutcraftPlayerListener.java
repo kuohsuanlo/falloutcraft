@@ -267,7 +267,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","You are under radiant creature attacks. Radiation level §cincreased §f");
     	setMessage("YOUR_RADIATION_LEVEL","\nCurrent §aradiation level§f");
     	//setMessage_eng("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
-    	setMessage("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","You can decrease the radiation level through §edrinking potion or water§f");
+    	setMessage("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","You can decrease the radiation level through using §2Radaway§f. The recipe is \"§bwater bottle§f and §7bone_meal§f\"");
     	setMessage("YOU_DIED_BECAUSE_OF_RADIATION","You have excessvie §cradiation level§f. Your body exploded, and disappeared after a while.");
     	setMessage("SOMEONE_DIED_BECAUSE_OF_RADIATION","'s body exploded, becoming a §emushroom§6-shaped§c-cloud§f, and disappeared after a while.");
     	setMessage("YOUR_RADIATION_0_200_MES","");
@@ -378,7 +378,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage_zhTW("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","你被輻射生物攻擊,輻射劑量§c上升§f了");
     	setMessage_zhTW("YOUR_RADIATION_LEVEL","目前§a輻射劑量§f");
     	//setMessage_zhTW("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§eRad-Away輻射抑制劑§f來降低輻射劑量");
-    	setMessage_zhTW("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以透過§e喝水§f來降低輻射劑量");
+    	setMessage_zhTW("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","你可以使用§2Radaway§f來降低輻射劑量，製作方法為 §b水瓶§f 加上 §7骨粉§f");
     	setMessage_zhTW("YOU_DIED_BECAUSE_OF_RADIATION","你的§c輻射劑量§f超標，發出一道強烈的光芒，過一會就消失了");
     	setMessage_zhTW("SOMEONE_DIED_BECAUSE_OF_RADIATION","發出一道強烈的光芒，化做一陀小型的§e蕈§6狀§c雲§f，過一會就消失了");
     	setMessage_zhTW("YOUR_RADIATION_0_200_MES","");
@@ -429,30 +429,40 @@ public class FalloutcraftPlayerListener implements Listener {
     private int thirst_environment_fire_tick = 20;
     private int thirst_environment_fire_tick_random = 20;
     
-    private int hitDozen_creeper = 20;
-    private int hitDozen_skeleton = 1;
-    private int hitDozen_spider = 1;
-    private int hitDozen_zombie = 1;
+    private int hitDozen_creeper = 40;
+    private int hitDozen_skeleton = 10;
+    private int hitDozen_spider = 3;
+    private int hitDozen_zombie = 5;
+    private int hitDozen_slime = 5;
+    private int hitDozen_ghast = 20;
+    private int hitDozen_zombie_pigman = 10;
+    private int hitDozen_ender = 20;
+    
     
     private int randomFloat = 20;
-    private int foodDozen_apple = 3;
+    private int foodDozen_apple = 5;
     private int foodDozen_baked_potato = 10;
     private int foodDozen_bread = 5;
-    private int foodDozen_carrot = 3;
+    private int foodDozen_carrot = 5;
     private int foodDozen_raw_fish = 10;
     private int foodDozen_cooked_chicken = 10;
     private int foodDozen_cooked_fish = 5;
     private int foodDozen_cooked_porkchop = 10;
-    private int foodDozen_cookie = 1;
+    private int foodDozen_steak = 15;
+    private int foodDozen_cookie = 3;
     private int foodDozen_golen_apple = -40;//curing
     private int foodDozen_golen_carrot = -30;//curing
-    private int foodDozen_melon = 3;
+    private int foodDozen_melon = 5;
     private int foodDozen_mushroom_stew = 10;
     private int foodDozen_poisonous_potato = 50;
     private int foodDozen_potato = 5;
     private int foodDozen_pumpkin_pie = 5;
     private int foodDozen_raw_beef = 15;
     private int foodDozen_raw_chicken = 15;
+    private int foodDozen_raw_porkchop = 15;
+    private int foodDozen_rotten_flesh = 60;
+    private int foodDozen_spider_eye = 40;
+
     
     public String FALLOUTCRAFT = "§2[廢土生存]§f : ";
     public String YOU_HAVE_EATEN = "你食用了";
@@ -919,10 +929,7 @@ public class FalloutcraftPlayerListener implements Listener {
     }
 
     
-    private int hitDozen_slime = 1;
-    private int hitDozen_ghast = 10;
-    private int hitDozen_zombie_pigman = 1;
-    private int hitDozen_ender = 1;
+
 
     private int determineHitDozen(Entity e){
     	if(e.getType()==EntityType.CREEPER){// hit by creeper
@@ -1019,17 +1026,14 @@ public class FalloutcraftPlayerListener implements Listener {
     }
 
 
-    private int foodDozen_raw_porkchop = 15;
-    private int foodDozen_rotten_flesh = 60;
-    private int foodDozen_spider_eye = 40;
-    private int foodDozen_steak = 10;
+
     private int determineFoodDozen(ItemStack i){
     	int randNum = (int) (Math.random()*randomFloat);
     	int dozenNum=0;
     	//dozenNum <0 == curing item
     	if(i.getType().equals(Material.POTION)){
     		if(i.getItemMeta().hasEnchant(Enchantment.FIRE_ASPECT)){
-    			dozenNum = -1*(int) ((Math.random()+0.5)*40);
+    			dozenNum = -1*(int) ((Math.random()+0.5)*60);
     		}
     		else if(i.getItemMeta().hasEnchant(Enchantment.ARROW_DAMAGE)){
     			dozenNum = -1*(int) ((Math.random()+0.5)*80);
@@ -1041,8 +1045,8 @@ public class FalloutcraftPlayerListener implements Listener {
     			dozenNum = -1*(int) ((Math.random()+0.5)*2000);
     		}
     		else if(i.getItemMeta().hasEnchants()==false){
-    			//dozenNum = (int) ((Math.random()-0.3)*20);
-    			dozenNum = -1*(int) ((Math.random()+0.5)*20);
+    			dozenNum = (int) ((Math.random())*20);
+    			//dozenNum = -1*(int) ((Math.random()+0.5)*20);
     		};
     	}
     	else if(i.getType().equals(Material.APPLE)){

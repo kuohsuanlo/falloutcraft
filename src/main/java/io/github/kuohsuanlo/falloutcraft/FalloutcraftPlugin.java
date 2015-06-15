@@ -13,7 +13,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -105,7 +110,50 @@ public class FalloutcraftPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // TODO: Place any custom enable code here including the registration of any events
-
+    	
+    	
+    	///////////////////////////////  Radaway making
+    	ItemStack bottle = new ItemStack(Material.POTION);
+    	
+    	ItemMeta fire_aspect = bottle.getItemMeta();
+    	fire_aspect.addEnchant(Enchantment.FIRE_ASPECT, 1, true) ;
+    	fire_aspect.setDisplayName("¡±2Radaway¡±f");
+    	bottle.setItemMeta(fire_aspect);
+    	
+    	ShapedRecipe radaway = new ShapedRecipe(bottle);
+    	
+    	////////////////////////////////
+    	radaway.shape("* "," B");
+    	radaway.setIngredient('*', Material.INK_SACK,15);
+    	radaway.setIngredient('B', Material.POTION);
+    	getServer().addRecipe(radaway);
+    	radaway.shape("* ","B ");
+    	getServer().addRecipe(radaway);
+    	radaway.shape(" *","B ");
+    	getServer().addRecipe(radaway);
+    	radaway.shape(" *"," B");
+    	getServer().addRecipe(radaway);
+    	////////////////////////////////
+    	radaway.shape("B "," *");
+    	getServer().addRecipe(radaway);
+    	radaway.shape("B ","* ");
+    	getServer().addRecipe(radaway);
+    	radaway.shape(" B","* ");
+    	getServer().addRecipe(radaway);
+    	radaway.shape(" B"," *");
+    	getServer().addRecipe(radaway);
+    	///////////////////////////////////
+    	radaway.shape("  ","B*");
+    	getServer().addRecipe(radaway);
+    	radaway.shape("  ","*B");
+    	getServer().addRecipe(radaway);
+    	radaway.shape("B*","  ");
+    	getServer().addRecipe(radaway);
+    	radaway.shape("*B","  ");
+    	getServer().addRecipe(radaway);
+    	///////////////////////////
+    	
+    	
         // Register our events
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(playerListener, this);
