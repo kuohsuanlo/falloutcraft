@@ -19,9 +19,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 /**
  * Sample plugin for Bukkit
@@ -106,52 +109,105 @@ public class FalloutcraftPlugin extends JavaPlugin {
  			e.printStackTrace();
  		}
     }
-
+    private void addRecipe(){
+    	
+		///////////////////////////////  Radaway making
+		ItemStack bottle = new ItemStack(Material.POTION);
+		
+		ItemMeta bottle_meta = bottle.getItemMeta();
+		PotionMeta potion_meta =(PotionMeta) bottle_meta;
+		
+		bottle_meta.addEnchant(Enchantment.FIRE_ASPECT, 1, true) ;
+		potion_meta.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1, 1), true);
+		
+		bottle_meta.setDisplayName("¡±2Radaway¡±f");	
+		bottle.setItemMeta(bottle_meta);
+		
+		ShapedRecipe radaway = new ShapedRecipe(bottle);
+		
+		////////////////////////////////
+		radaway.shape("* "," B");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		radaway.shape("* ","B ");
+		getServer().addRecipe(radaway);
+		radaway.shape(" *","B ");
+		getServer().addRecipe(radaway);
+		radaway.shape(" *"," B");
+		getServer().addRecipe(radaway);
+		////////////////////////////////
+		radaway.shape("B "," *");
+		getServer().addRecipe(radaway);
+		radaway.shape("B ","* ");
+		getServer().addRecipe(radaway);
+		radaway.shape(" B","* ");
+		getServer().addRecipe(radaway);
+		radaway.shape(" B"," *");
+		getServer().addRecipe(radaway);
+		///////////////////////////////////
+		radaway.shape("  ","B*");
+		getServer().addRecipe(radaway);
+		radaway.shape("  ","*B");
+		getServer().addRecipe(radaway);
+		radaway.shape("B*","  ");
+		getServer().addRecipe(radaway);
+		radaway.shape("*B","  ");
+		getServer().addRecipe(radaway);
+		///////////////////////////
+		
+		
+		
+		///////////////////////////////  Radaway Compact making
+		ItemStack bottle2 = new ItemStack(Material.POTION);
+		ItemMeta bottle_meta_2 = bottle2.getItemMeta();
+		PotionMeta potion_meta_2 =(PotionMeta) bottle_meta_2;
+		
+		bottle_meta_2.addEnchant(Enchantment.FIRE_ASPECT, 2, true) ;
+		potion_meta_2.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1, 1), true);
+		
+		bottle_meta_2.setDisplayName("¡±2Radaway-¡±aDouble¡±f");	
+		bottle2.setItemMeta(bottle_meta_2);
+		
+		ShapedRecipe radaway_2 = new ShapedRecipe(bottle2);
+		
+		////////////////////////////////
+		radaway_2.shape("* "," B");
+		radaway_2.setIngredient('*', Material.BONE);
+		radaway_2.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway_2);
+		radaway_2.shape("* ","B ");
+		getServer().addRecipe(radaway_2);
+		radaway_2.shape(" *","B ");
+		getServer().addRecipe(radaway_2);
+		radaway_2.shape(" *"," B");
+		getServer().addRecipe(radaway_2);
+		////////////////////////////////
+		radaway_2.shape("B "," *");
+		getServer().addRecipe(radaway_2);
+		radaway_2.shape("B ","* ");
+		getServer().addRecipe(radaway_2);
+		radaway_2.shape(" B","* ");
+		getServer().addRecipe(radaway_2);
+		radaway_2.shape(" B"," *");
+		getServer().addRecipe(radaway_2);
+		///////////////////////////////////
+		radaway_2.shape("  ","B*");
+		getServer().addRecipe(radaway_2);
+		radaway_2.shape("  ","*B");
+		getServer().addRecipe(radaway_2);
+		radaway_2.shape("B*","  ");
+		getServer().addRecipe(radaway_2);
+		radaway_2.shape("*B","  ");
+		getServer().addRecipe(radaway_2);
+		///////////////////////////
+		
+		 
+    }
     @Override
     public void onEnable() {
         // TODO: Place any custom enable code here including the registration of any events
-    	
-    	
-    	///////////////////////////////  Radaway making
-    	ItemStack bottle = new ItemStack(Material.POTION);
-    	
-    	ItemMeta fire_aspect = bottle.getItemMeta();
-    	fire_aspect.addEnchant(Enchantment.FIRE_ASPECT, 1, true) ;
-    	fire_aspect.setDisplayName("¡±2Radaway¡±f");
-    	bottle.setItemMeta(fire_aspect);
-    	
-    	ShapedRecipe radaway = new ShapedRecipe(bottle);
-    	
-    	////////////////////////////////
-    	radaway.shape("* "," B");
-    	radaway.setIngredient('*', Material.INK_SACK,15);
-    	radaway.setIngredient('B', Material.POTION);
-    	getServer().addRecipe(radaway);
-    	radaway.shape("* ","B ");
-    	getServer().addRecipe(radaway);
-    	radaway.shape(" *","B ");
-    	getServer().addRecipe(radaway);
-    	radaway.shape(" *"," B");
-    	getServer().addRecipe(radaway);
-    	////////////////////////////////
-    	radaway.shape("B "," *");
-    	getServer().addRecipe(radaway);
-    	radaway.shape("B ","* ");
-    	getServer().addRecipe(radaway);
-    	radaway.shape(" B","* ");
-    	getServer().addRecipe(radaway);
-    	radaway.shape(" B"," *");
-    	getServer().addRecipe(radaway);
-    	///////////////////////////////////
-    	radaway.shape("  ","B*");
-    	getServer().addRecipe(radaway);
-    	radaway.shape("  ","*B");
-    	getServer().addRecipe(radaway);
-    	radaway.shape("B*","  ");
-    	getServer().addRecipe(radaway);
-    	radaway.shape("*B","  ");
-    	getServer().addRecipe(radaway);
-    	///////////////////////////
+    	this.addRecipe();
     	
     	
         // Register our events
@@ -161,8 +217,10 @@ public class FalloutcraftPlugin extends JavaPlugin {
 
         // Register our commands
         getCommand("fostatus").setExecutor(new FalloutcraftStatusCommand(this));
+        getCommand("fosetf").setExecutor(new FalloutcraftStatusCommand(this));
+        getCommand("fosetr").setExecutor(new FalloutcraftStatusCommand(this));
+        getCommand("fosetd").setExecutor(new FalloutcraftStatusCommand(this));
         getCommand("foupdate").setExecutor(new FalloutcraftEffectCommand(this));
-        getCommand("debug").setExecutor(new FalloutcraftDebugCommand(this));
 
         // EXAMPLE: Custom code, here we just output some info so we can check all is well
         PluginDescriptionFile pdfFile = this.getDescription();

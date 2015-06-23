@@ -28,7 +28,7 @@ class SyncPlayerTask_FOCraft_StatusUpdate implements Runnable {
     public void run() {
     	//focraft.getServer().broadcastMessage("SyncPlayerTask_FOCraft_StatusUpdate");
     	focraft.getServer().dispatchCommand(focraft.getServer().getConsoleSender(), "foupdate");
-
+    	
          
     }
 

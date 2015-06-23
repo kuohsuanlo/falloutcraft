@@ -8,21 +8,34 @@ commands:
   foupdate:
     description: update falloutcraft status effect.
     usage: "/foupdate"
-  debug:
-    description: Toggles your debugging status for this plugin.
-    usage: /debug
+  fosetf:
+    description: set the player's fatigue value.
+    usage: "/fosetf playerid value"
+  fosetd:
+    description: set the player's dehydration value.
+    usage: "/fosetd playerid value"
+  fosetr:
+    description: set the player's radiation value.
+    usage: "/fosetr playerid value"
     
 permissions:
     falloutcraft.*:
-        description: Gives access to all doorman commands
+        description: Gives access to all fallout commands
         children:
-            doorman.kick: true
-            doorman.ban: true
-            doorman.knock: true
-            doorman.denied: false
+            falloutcraft.fostatus: true
+            falloutcraft.foupdate: true
+            falloutcraft.setradiation: true
+            falloutcraft.setdehydration: true
+            falloutcraft.setfatigue: true
     falloutcraft.fostatus:
         description: check falloutcraft status.
         default: true
-    falloutcraft.foupdate:
-        description: instantly update the effect supposed to be on player.
+    falloutcraft.setradiation:
+        description: set a player's radiation level
+        default: op
+    falloutcraft.setdehydration:
+        description: set a player's dehydration level
+        default: op
+    falloutcraft.setfatigue:
+        description: set a player's fatigue level
         default: op

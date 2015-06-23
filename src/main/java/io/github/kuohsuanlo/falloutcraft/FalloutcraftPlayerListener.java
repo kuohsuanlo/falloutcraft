@@ -1032,8 +1032,9 @@ public class FalloutcraftPlayerListener implements Listener {
     	int dozenNum=0;
     	//dozenNum <0 == curing item
     	if(i.getType().equals(Material.POTION)){
-    		if(i.getItemMeta().hasEnchant(Enchantment.FIRE_ASPECT)){
-    			dozenNum = -1*(int) ((Math.random()+0.5)*60);
+
+    		if(i.getItemMeta().hasEnchant(Enchantment.FIRE_ASPECT)  ){
+        		dozenNum = -1*(int) ((Math.random()+0.5)*60)*i.getItemMeta().getEnchantLevel(Enchantment.FIRE_ASPECT);
     		}
     		else if(i.getItemMeta().hasEnchant(Enchantment.ARROW_DAMAGE)){
     			dozenNum = -1*(int) ((Math.random()+0.5)*80);
