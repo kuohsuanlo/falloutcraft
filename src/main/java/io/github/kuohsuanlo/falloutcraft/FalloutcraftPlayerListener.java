@@ -766,7 +766,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	       	
     	}
     	else {
-    		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" ,"+NOTHING_HAPPENED);
+    		//player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" ,"+NOTHING_HAPPENED);
     	    
     	}
 		if(nowLevel>=1000){
@@ -1147,7 +1147,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	    	
     	}
     	else {
-    		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" ,"+NOTHING_HAPPENED);
+    		//player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" ,"+NOTHING_HAPPENED);
     	    
     	}
 		if(nowLevel>=1000){
