@@ -49,8 +49,11 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class FalloutcraftPlayerListener implements Listener {
     private final FalloutcraftPlugin plugin;
+    private final Server server;
+    
     public FalloutcraftPlayerListener(FalloutcraftPlugin instance) {
         plugin = instance;
+        server = instance.getServer();
         loadMessages();
         loadConfig();
 
@@ -126,7 +129,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	    
     	YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE = messageData.get("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE");
     	YOUR_RADIATION_LEVEL = messageData.get("YOUR_RADIATION_LEVEL");
-    	//YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = "ßA•i•H≥zπL°±eRad-AwayøÁÆgßÌ®ÓæØ°±f®”≠∞ßCøÁÆgæØ∂q";
+    	//YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = "‰Ω†ÂèØ‰ª•ÈÄèÈÅé¬ßeRad-AwayËºªÂ∞ÑÊäëÂà∂Âäë¬ßf‰æÜÈôç‰ΩéËºªÂ∞ÑÂäëÈáè";
     	YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = messageData.get("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY");
     	YOU_DIED_BECAUSE_OF_RADIATION = messageData.get("YOU_DIED_BECAUSE_OF_RADIATION");
     	SOMEONE_DIED_BECAUSE_OF_RADIATION = messageData.get("SOMEONE_DIED_BECAUSE_OF_RADIATION");
@@ -232,63 +235,63 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage("foodDozen_raw_beef","15");
     	setMessage("foodDozen_raw_chicken","15");
     	         
-    	setMessage("FALLOUTCRAFT","°±2[Falloutcraft]°±f : ");
+    	setMessage("FALLOUTCRAFT","¬ß2[Falloutcraft]¬ßf : ");
     	setMessage("YOU_HAVE_EATEN","You have eaten : ");
-    	setMessage("THRIST_LEVEL_INCREASE","dehydration °±cincreased°±f ");
-    	setMessage("THRIST_LEVEL_DECREASE","dehydration °±bdecreased°±f ");   
-    	setMessage("YOUR_THRIST_LEVEL","\nCurrent °±3dehydration level°±f");
+    	setMessage("THRIST_LEVEL_INCREASE","dehydration ¬ßcincreased¬ßf ");
+    	setMessage("THRIST_LEVEL_DECREASE","dehydration ¬ßbdecreased¬ßf ");   
+    	setMessage("YOUR_THRIST_LEVEL","\nCurrent ¬ß3dehydration level¬ßf");
 
     	setMessage("NOTHING_HAPPENED","nothing happened.");
-    	setMessage("HAS_DIED_DUE_TO_THRIST","has died due to °±6dehydration°±f");
+    	setMessage("HAS_DIED_DUE_TO_THRIST","has died due to ¬ß6dehydration¬ßf");
     	setMessage("YOUR_DEHYDRATION_0_200_MES","You no longer feel thristy.");
-    	setMessage("YOUR_DEHYDRATION_201_400_MES","You feel °±cthirsty°±f. You sometimes take a rest.");
-    	setMessage("YOUR_DEHYDRATION_401_600_MES","You are °±cslightly dehydrated°±f, feeling dizzy sometimes.");
-    	setMessage("YOUR_DEHYDRATION_601_800_MES","You are °±cdehydrated°±f, feeling dizzy sometimes.");
-    	setMessage("YOUR_DEHYDRATION_801_999_MES","You are °±cseverely dehydrated°±f, feeling dizzy sometimes.");
+    	setMessage("YOUR_DEHYDRATION_201_400_MES","You feel ¬ßcthirsty¬ßf. You sometimes take a rest.");
+    	setMessage("YOUR_DEHYDRATION_401_600_MES","You are ¬ßcslightly dehydrated¬ßf, feeling dizzy sometimes.");
+    	setMessage("YOUR_DEHYDRATION_601_800_MES","You are ¬ßcdehydrated¬ßf, feeling dizzy sometimes.");
+    	setMessage("YOUR_DEHYDRATION_801_999_MES","You are ¬ßcseverely dehydrated¬ßf, feeling dizzy sometimes.");
     	setMessage("YOUR_DEHYDRATION_DEATH_MES","You died due to the dehydration.");
-    	setMessage("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","You can decrease the dehydration through °±edrinking potion or water°±f");
+    	setMessage("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","You can decrease the dehydration through ¬ßedrinking potion or water¬ßf");
     	 
-    	setMessage("YOUR_TIREDNESS_INCREASE","Working for a while, your fatigue level °±cincreased°±f ");
-    	setMessage("YOUR_TIREDNESS_DECREASE","Resting for a while, your fatigue level °±bdecreased°±f ");
+    	setMessage("YOUR_TIREDNESS_INCREASE","Working for a while, your fatigue level ¬ßcincreased¬ßf ");
+    	setMessage("YOUR_TIREDNESS_DECREASE","Resting for a while, your fatigue level ¬ßbdecreased¬ßf ");
     	setMessage("YOUR_TIREDNESS_THE_SAME","Working for a while, your energy doesn't drain much.");
-    	setMessage("YOUR_TIRERNESS_LEVEL","\nCurrent °±efatigue level°±f");
+    	setMessage("YOUR_TIRERNESS_LEVEL","\nCurrent ¬ßefatigue level¬ßf");
     	 
     	setMessage("YOUR_TIRERNESS_0_200_MES","You are well-rested and feel energetic.");
     	setMessage("YOUR_TIRERNESS_201_400_MES","You feel energetic.");
-    	setMessage("YOUR_TIRERNESS_401_600_MES","you are °±ca little tired°±f. You sometimes close your eyes.");
-    	setMessage("YOUR_TIRERNESS_601_800_MES","you are °±cvery tired°±f. You sometimes close your eyes and feel dizzy.");
-    	setMessage("YOUR_TIRERNESS_801_999_MES","you are °±eextremly tired°±f. You feel very dizzy.");
+    	setMessage("YOUR_TIRERNESS_401_600_MES","you are ¬ßca little tired¬ßf. You sometimes close your eyes.");
+    	setMessage("YOUR_TIRERNESS_601_800_MES","you are ¬ßcvery tired¬ßf. You sometimes close your eyes and feel dizzy.");
+    	setMessage("YOUR_TIRERNESS_801_999_MES","you are ¬ßeextremly tired¬ßf. You feel very dizzy.");
     	setMessage("YOUR_TIRERNESS_1000_MES","You seem to dreamwalking.");
-    	setMessage("IS_SLEEP_WALKING","°±cdre°±damw°±ealk°±fing");
+    	setMessage("IS_SLEEP_WALKING","¬ßcdre¬ßdamw¬ßealk¬ßfing");
     	setMessage("YOUR_STATUS_IS_NORMAL","Your status is now normal.");
-    	setMessage("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","gain resistance buff : °±bdecrease damage from all sources °±f 20%");
-    	setMessage("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING", "You can °±elie in a bed°±f to rest and recuperate energy.");
+    	setMessage("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","gain resistance buff : ¬ßbdecrease damage from all sources ¬ßf 20%");
+    	setMessage("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING", "You can ¬ßelie in a bed¬ßf to rest and recuperate energy.");
     	 
-    	setMessage("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","You are under radiant creature attacks. Radiation level °±cincreased °±f");
-    	setMessage("YOUR_RADIATION_LEVEL","\nCurrent °±aradiation level°±f");
-    	//setMessage_eng("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","ßA•i•H≥zπL°±eRad-AwayøÁÆgßÌ®ÓæØ°±f®”≠∞ßCøÁÆgæØ∂q");
-    	setMessage("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","You can decrease the radiation level through using °±2Radaway°±f. The recipe is \"°±bwater bottle°±f and °±7bone_meal°±f\"");
-    	setMessage("YOU_DIED_BECAUSE_OF_RADIATION","You have excessvie °±cradiation level°±f. Your body exploded, and disappeared after a while.");
-    	setMessage("SOMEONE_DIED_BECAUSE_OF_RADIATION","'s body exploded, becoming a °±emushroom°±6-shaped°±c-cloud°±f, and disappeared after a while.");
+    	setMessage("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","You are under radiant creature attacks. Radiation level ¬ßcincreased ¬ßf");
+    	setMessage("YOUR_RADIATION_LEVEL","\nCurrent ¬ßaradiation level¬ßf");
+    	//setMessage_eng("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","‰Ω†ÂèØ‰ª•ÈÄèÈÅé¬ßeRad-AwayËºªÂ∞ÑÊäëÂà∂Âäë¬ßf‰æÜÈôç‰ΩéËºªÂ∞ÑÂäëÈáè");
+    	setMessage("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","You can decrease the radiation level through using ¬ß2Radaway¬ßf. The recipe is \"¬ßbwater bottle¬ßf and ¬ß7bone_meal¬ßf\"");
+    	setMessage("YOU_DIED_BECAUSE_OF_RADIATION","You have excessvie ¬ßcradiation level¬ßf. Your body exploded, and disappeared after a while.");
+    	setMessage("SOMEONE_DIED_BECAUSE_OF_RADIATION","'s body exploded, becoming a ¬ßemushroom¬ß6-shaped¬ßc-cloud¬ßf, and disappeared after a while.");
     	setMessage("YOUR_RADIATION_0_200_MES","");
-    	setMessage("YOUR_RADIATION_201_400_MES","Your °±cradiation sickness°±f : °±b*---");
-    	setMessage("YOUR_RADIATION_401_600_MES","Your °±cradiation sickness°±f : °±a**--");
-    	setMessage("YOUR_RADIATION_601_800_MES","Your °±cradiation sickness°±f : °±e***-");
-    	setMessage("YOUR_RADIATION_801_999_MES","Your °±cradiation sickness°±f : °±c****");
-    	setMessage("YOUR_GAIN_NO_EFFECT","Your current °±cradiation level°±f doesn't effect anything.");
-    	setMessage("YOU_GAIN_EFFECT_N","You gain effects : °±anight-vision°±7 Wow! my eyes emit fluorescence!°±f");
-    	setMessage("YOU_GAIN_EFFECT_N_F","You gain effects : °±anight-vision / °±cfatigue");
-    	setMessage("YOU_GAIN_EFFECT_N_F_H_P","You gain effects : °±anight-vision / °±chunger / °±cfatigue / °±bpoisoned ");
-    	setMessage("YOU_GAIN_EFFECT_N_F_H_W","You gain effects : °±anight-vision / °±chunger / °±cfatigue / °±0withered ");
+    	setMessage("YOUR_RADIATION_201_400_MES","Your ¬ßcradiation sickness¬ßf : ¬ßb*---");
+    	setMessage("YOUR_RADIATION_401_600_MES","Your ¬ßcradiation sickness¬ßf : ¬ßa**--");
+    	setMessage("YOUR_RADIATION_601_800_MES","Your ¬ßcradiation sickness¬ßf : ¬ße***-");
+    	setMessage("YOUR_RADIATION_801_999_MES","Your ¬ßcradiation sickness¬ßf : ¬ßc****");
+    	setMessage("YOUR_GAIN_NO_EFFECT","Your current ¬ßcradiation level¬ßf doesn't effect anything.");
+    	setMessage("YOU_GAIN_EFFECT_N","You gain effects : ¬ßanight-vision¬ß7 Wow! my eyes emit fluorescence!¬ßf");
+    	setMessage("YOU_GAIN_EFFECT_N_F","You gain effects : ¬ßanight-vision / ¬ßcfatigue");
+    	setMessage("YOU_GAIN_EFFECT_N_F_H_P","You gain effects : ¬ßanight-vision / ¬ßchunger / ¬ßcfatigue / ¬ßbpoisoned ");
+    	setMessage("YOU_GAIN_EFFECT_N_F_H_W","You gain effects : ¬ßanight-vision / ¬ßchunger / ¬ßcfatigue / ¬ß0withered ");
     	setMessage("YOU_REST_WELL","you are well rested and refreshed");
-    	setMessage("RADIATION_LEVEL_INCREASE","radiation °±cincreased°±f ");
-    	setMessage("RADIATION_LEVEL_DECREASE","radiation °±bdecreased°±f ");   
-    	setMessage("RADIATION_THRIST_LEVEL","\nCurrent °±aradiation level°±f:");
+    	setMessage("RADIATION_LEVEL_INCREASE","radiation ¬ßcincreased¬ßf ");
+    	setMessage("RADIATION_LEVEL_DECREASE","radiation ¬ßbdecreased¬ßf ");   
+    	setMessage("RADIATION_THRIST_LEVEL","\nCurrent ¬ßaradiation level¬ßf:");
 
-    	setMessage("FALLOUTCRART_STATUS","°±7-----------°±2Falloutcraft status°±7-----------");
-    	setMessage("FALLOUTCRART_R_LEVEL_STATUS","°±cRadiation   level°±f:");
-    	setMessage("FALLOUTCRART_D_LEVEL_STATUS","°±3Dehydration level°±f:");
-    	setMessage("FALLOUTCRART_T_LEVEL_STATUS","°±eFatigue     level°±f:");
+    	setMessage("FALLOUTCRART_STATUS","¬ß7-----------¬ß2Falloutcraft status¬ß7-----------");
+    	setMessage("FALLOUTCRART_R_LEVEL_STATUS","¬ßcRadiation   level¬ßf:");
+    	setMessage("FALLOUTCRART_D_LEVEL_STATUS","¬ß3Dehydration level¬ßf:");
+    	setMessage("FALLOUTCRART_T_LEVEL_STATUS","¬ßeFatigue     level¬ßf:");
     }
     private void configConstructing_zhTW(){
     	//https://bukkit.org/threads/tutorial-creating-a-messages-yml-file.154337/
@@ -344,62 +347,62 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage_zhTW("foodDozen_raw_beef","15");
     	setMessage_zhTW("foodDozen_raw_chicken","15");
     	         
-    	setMessage_zhTW("FALLOUTCRAFT","°±2[ºo§g•Õ¶s]°±f : ");
-    	setMessage_zhTW("YOU_HAVE_EATEN","ßA≠π•Œ§F");
-    	setMessage_zhTW("THRIST_LEVEL_INCREASE","§f¥˜µ{´◊°±c§W§…°±f§F");
-    	setMessage_zhTW("THRIST_LEVEL_DECREASE","§f¥˜µ{´◊°±b§U≠∞°±f§F");   
-    	setMessage_zhTW("YOUR_THRIST_LEVEL","•ÿ´e°±3§f¥˜µ{´◊°±f");
-    	setMessage_zhTW("NOTHING_HAPPENED","§∞ªÚ®∆§]®Sµo•Õ");
-    	setMessage_zhTW("HAS_DIED_DUE_TO_THRIST","≤Ê§Ù¶∫§F°A∞Æ¿Í±o≈‹¶®§@≠”∫Î¨¸™∫°±6§Ï§D•Ï°±f");
-    	setMessage_zhTW("YOUR_DEHYDRATION_0_200_MES","ßA§£¶A∑P®Ï§f¥˜");
-    	setMessage_zhTW("YOUR_DEHYDRATION_201_400_MES","ßAƒ±±o°±c¶≥¬I§f¥˜°±f°AÆ…±`∫C§U®”≥›§fÆ");
-    	setMessage_zhTW("YOUR_DEHYDRATION_401_600_MES","ßA°±cª¥´◊≤Ê§Ù°±f°AÆ…±`∫C§U®”≥›§fÆ°A§£Æ…ƒ±±o¿Y∑w");
-    	setMessage_zhTW("YOUR_DEHYDRATION_601_800_MES","ßA°±c§§´◊≤Ê§Ù°±f°AÆ…±`∫C§U®”≥›§fÆ°A§£Æ…ƒ±±o¿Y∑w");
-    	setMessage_zhTW("YOUR_DEHYDRATION_801_999_MES","ßA°±cƒY≠´≤Ê§Ù°±f°Aª›≠n•ﬂßY∏…•R§Ù§¿°A¡◊ßK¶∫§`");
-    	setMessage_zhTW("YOUR_DEHYDRATION_DEATH_MES","ßA≤Ê§Ù¶∫§`§F");
-    	setMessage_zhTW("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","ßA•i•H≥zπL°±e≥‹§U√ƒ§Ù°A•]ßt§@ØÎ§Ù≤~°±f®”∏—¥˜");
+    	setMessage_zhTW("FALLOUTCRAFT","¬ß2[Âª¢ÂúüÁîüÂ≠ò]¬ßf : ");
+    	setMessage_zhTW("YOU_HAVE_EATEN","‰Ω†È£üÁî®‰∫Ü");
+    	setMessage_zhTW("THRIST_LEVEL_INCREASE","Âè£Ê∏¥Á®ãÂ∫¶¬ßc‰∏äÂçá¬ßf‰∫Ü");
+    	setMessage_zhTW("THRIST_LEVEL_DECREASE","Âè£Ê∏¥Á®ãÂ∫¶¬ßb‰∏ãÈôç¬ßf‰∫Ü");   
+    	setMessage_zhTW("YOUR_THRIST_LEVEL","ÁõÆÂâç¬ß3Âè£Ê∏¥Á®ãÂ∫¶¬ßf");
+    	setMessage_zhTW("NOTHING_HAPPENED","‰ªÄÈ∫º‰∫ã‰πüÊ≤íÁôºÁîü");
+    	setMessage_zhTW("HAS_DIED_DUE_TO_THRIST","ËÑ´Ê∞¥Ê≠ª‰∫ÜÔºå‰πæÁá•ÂæóËÆäÊàê‰∏ÄÂÄãÁ≤æÁæéÁöÑ¬ß6Êú®‰πÉ‰ºä¬ßf");
+    	setMessage_zhTW("YOUR_DEHYDRATION_0_200_MES","‰Ω†‰∏çÂÜçÊÑüÂà∞Âè£Ê∏¥");
+    	setMessage_zhTW("YOUR_DEHYDRATION_201_400_MES","‰Ω†Ë¶∫Âæó¬ßcÊúâÈªûÂè£Ê∏¥¬ßfÔºåÊôÇÂ∏∏ÊÖ¢‰∏ã‰æÜÂñòÂè£Ê∞£");
+    	setMessage_zhTW("YOUR_DEHYDRATION_401_600_MES","‰Ω†¬ßcËºïÂ∫¶ËÑ´Ê∞¥¬ßfÔºåÊôÇÂ∏∏ÊÖ¢‰∏ã‰æÜÂñòÂè£Ê∞£Ôºå‰∏çÊôÇË¶∫ÂæóÈ†≠Êöà");
+    	setMessage_zhTW("YOUR_DEHYDRATION_601_800_MES","‰Ω†¬ßc‰∏≠Â∫¶ËÑ´Ê∞¥¬ßfÔºåÊôÇÂ∏∏ÊÖ¢‰∏ã‰æÜÂñòÂè£Ê∞£Ôºå‰∏çÊôÇË¶∫ÂæóÈ†≠Êöà");
+    	setMessage_zhTW("YOUR_DEHYDRATION_801_999_MES","‰Ω†¬ßcÂö¥ÈáçËÑ´Ê∞¥¬ßfÔºåÈúÄË¶ÅÁ´ãÂç≥Ë£úÂÖÖÊ∞¥ÂàÜÔºåÈÅøÂÖçÊ≠ª‰∫°");
+    	setMessage_zhTW("YOUR_DEHYDRATION_DEATH_MES","‰Ω†ËÑ´Ê∞¥Ê≠ª‰∫°‰∫Ü");
+    	setMessage_zhTW("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","‰Ω†ÂèØ‰ª•ÈÄèÈÅé¬ßeÂñù‰∏ãËó•Ê∞¥ÔºåÂåÖÂê´‰∏ÄËà¨Ê∞¥Áì∂¬ßf‰æÜËß£Ê∏¥");
     	 
-    	setMessage_zhTW("YOUR_TIREDNESS_INCREASE","¨°∞ §F§@¨qÆ…∂°  , ßA™∫Øh≠¬µ{´◊°±c§W§…°±f§F");
-    	setMessage_zhTW("YOUR_TIREDNESS_DECREASE","•Æß§F§@¨qÆ…∂°  , ßA™∫Øh≠¬µ{´◊°±b§U≠∞°±f§F");
-    	setMessage_zhTW("YOUR_TIREDNESS_THE_SAME","πL§F§@¨qÆ…∂°°AßAƒ±±o≈È§O®S¶≥§U≠∞§”¶h");
-    	setMessage_zhTW("YOUR_TIRERNESS_LEVEL","•ÿ´e°±eØh≠¬µ{´◊°±f");
+    	setMessage_zhTW("YOUR_TIREDNESS_INCREASE","Ê¥ªÂãï‰∫Ü‰∏ÄÊÆµÊôÇÈñì  , ‰Ω†ÁöÑÁñ≤ÂÄ¶Á®ãÂ∫¶¬ßc‰∏äÂçá¬ßf‰∫Ü");
+    	setMessage_zhTW("YOUR_TIREDNESS_DECREASE","‰ºëÊÅØ‰∫Ü‰∏ÄÊÆµÊôÇÈñì  , ‰Ω†ÁöÑÁñ≤ÂÄ¶Á®ãÂ∫¶¬ßb‰∏ãÈôç¬ßf‰∫Ü");
+    	setMessage_zhTW("YOUR_TIREDNESS_THE_SAME","ÈÅé‰∫Ü‰∏ÄÊÆµÊôÇÈñìÔºå‰Ω†Ë¶∫ÂæóÈ´îÂäõÊ≤íÊúâ‰∏ãÈôçÂ§™Â§ö");
+    	setMessage_zhTW("YOUR_TIRERNESS_LEVEL","ÁõÆÂâç¬ßeÁñ≤ÂÄ¶Á®ãÂ∫¶¬ßf");
     	 
-    	setMessage_zhTW("YOUR_TIRERNESS_0_200_MES","ßA•R§¿•Æß°Aƒ±±o∫ÎØ´¶ ≠ø");
-    	setMessage_zhTW("YOUR_TIRERNESS_201_400_MES","ßAƒ±±o∫ÎØ´§£ø˘");
-    	setMessage_zhTW("YOUR_TIRERNESS_401_600_MES","ßA°±c¶≥®«Øh≠¬°±f°A§£Æ…´ÈØ´");
-    	setMessage_zhTW("YOUR_TIRERNESS_601_800_MES","ßA°±c´D±`Øh≠¬°±f°A§£Æ…´ÈØ´°Aƒ±±o¿Y∑w");
-    	setMessage_zhTW("YOUR_TIRERNESS_801_999_MES","ßA°±c∑•´◊Øh≠¬°±f°A¥X•Gß‚≤¥∑˙µπ≥¨§W§F");
-    	setMessage_zhTW("YOUR_TIRERNESS_1000_MES","ßAƒ±±oßA¶bπ⁄πC");
-    	setMessage_zhTW("IS_SLEEP_WALKING","°±c•ø°±d¶b°±eπ⁄°±fπC");
-    	setMessage_zhTW("YOUR_STATUS_IS_NORMAL","™¨∫A¶^®Ï•ø±`");
-    	setMessage_zhTW("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","¿Ú±oß‹©   : °±b¥Ó§÷©“¶≥∂ÀÆ`°±f 20%");
-    	setMessage_zhTW("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING","ßA•i•H≥zπL°±eΩˆ¶bß…§W°±f°A•Æß´Ï¥_∫ÎØ´");
+    	setMessage_zhTW("YOUR_TIRERNESS_0_200_MES","‰Ω†ÂÖÖÂàÜ‰ºëÊÅØÔºåË¶∫ÂæóÁ≤æÁ•ûÁôæÂÄç");
+    	setMessage_zhTW("YOUR_TIRERNESS_201_400_MES","‰Ω†Ë¶∫ÂæóÁ≤æÁ•û‰∏çÈåØ");
+    	setMessage_zhTW("YOUR_TIRERNESS_401_600_MES","‰Ω†¬ßcÊúâ‰∫õÁñ≤ÂÄ¶¬ßfÔºå‰∏çÊôÇÊÅçÁ•û");
+    	setMessage_zhTW("YOUR_TIRERNESS_601_800_MES","‰Ω†¬ßcÈùûÂ∏∏Áñ≤ÂÄ¶¬ßfÔºå‰∏çÊôÇÊÅçÁ•ûÔºåË¶∫ÂæóÈ†≠Êöà");
+    	setMessage_zhTW("YOUR_TIRERNESS_801_999_MES","‰Ω†¬ßcÊ•µÂ∫¶Áñ≤ÂÄ¶¬ßfÔºåÂπæ‰πéÊääÁúºÁùõÁµ¶Èñâ‰∏ä‰∫Ü");
+    	setMessage_zhTW("YOUR_TIRERNESS_1000_MES","‰Ω†Ë¶∫Âæó‰Ω†Âú®Â§¢ÈÅä");
+    	setMessage_zhTW("IS_SLEEP_WALKING","¬ßcÊ≠£¬ßdÂú®¬ßeÂ§¢¬ßfÈÅä");
+    	setMessage_zhTW("YOUR_STATUS_IS_NORMAL","ÁãÄÊÖãÂõûÂà∞Ê≠£Â∏∏");
+    	setMessage_zhTW("YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING","Áç≤ÂæóÊäóÊÄß  : ¬ßbÊ∏õÂ∞ëÊâÄÊúâÂÇ∑ÂÆ≥¬ßf 20%");
+    	setMessage_zhTW("YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING","‰Ω†ÂèØ‰ª•ÈÄèÈÅé¬ßeË∫∫Âú®Â∫ä‰∏ä¬ßfÔºå‰ºëÊÅØÊÅ¢Âæ©Á≤æÁ•û");
     	 
-    	setMessage_zhTW("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","ßA≥QøÁÆg•Õ™´ß¿ª,øÁÆgæØ∂q°±c§W§…°±f§F");
-    	setMessage_zhTW("YOUR_RADIATION_LEVEL","•ÿ´e°±aøÁÆgæØ∂q°±f");
-    	//setMessage_zhTW("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","ßA•i•H≥zπL°±eRad-AwayøÁÆgßÌ®ÓæØ°±f®”≠∞ßCøÁÆgæØ∂q");
-    	setMessage_zhTW("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","ßA•i•H®œ•Œ°±2Radaway°±f®”≠∞ßCøÁÆgæØ∂q°Aªsß@§Ë™k¨∞ °±b§Ù≤~°±f •[§W °±7∞©Øª°±f");
-    	setMessage_zhTW("YOU_DIED_BECAUSE_OF_RADIATION","ßA™∫°±cøÁÆgæØ∂q°±f∂Wº–°Aµo•X§@πD±jØP™∫•˙®~°AπL§@∑|¥NÆ¯•¢§F");
-    	setMessage_zhTW("SOMEONE_DIED_BECAUSE_OF_RADIATION","µo•X§@πD±jØP™∫•˙®~°A§∆∞µ§@™˚§p´¨™∫°±eø∏°±6™¨°±c∂≥°±f°AπL§@∑|¥NÆ¯•¢§F");
+    	setMessage_zhTW("YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE","‰Ω†Ë¢´ËºªÂ∞ÑÁîüÁâ©ÊîªÊìä,ËºªÂ∞ÑÂäëÈáè¬ßc‰∏äÂçá¬ßf‰∫Ü");
+    	setMessage_zhTW("YOUR_RADIATION_LEVEL","ÁõÆÂâç¬ßaËºªÂ∞ÑÂäëÈáè¬ßf");
+    	//setMessage_zhTW("   YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","‰Ω†ÂèØ‰ª•ÈÄèÈÅé¬ßeRad-AwayËºªÂ∞ÑÊäëÂà∂Âäë¬ßf‰æÜÈôç‰ΩéËºªÂ∞ÑÂäëÈáè");
+    	setMessage_zhTW("YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY","‰Ω†ÂèØ‰ª•‰ΩøÁî®¬ß2Radaway¬ßf‰æÜÈôç‰ΩéËºªÂ∞ÑÂäëÈáèÔºåË£Ω‰ΩúÊñπÊ≥ïÁÇ∫ ¬ßbÊ∞¥Áì∂¬ßf Âä†‰∏ä ¬ß7È™®Á≤â¬ßf");
+    	setMessage_zhTW("YOU_DIED_BECAUSE_OF_RADIATION","‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßfË∂ÖÊ®ôÔºåÁôºÂá∫‰∏ÄÈÅìÂº∑ÁÉàÁöÑÂÖâËäíÔºåÈÅé‰∏ÄÊúÉÂ∞±Ê∂àÂ§±‰∫Ü");
+    	setMessage_zhTW("SOMEONE_DIED_BECAUSE_OF_RADIATION","ÁôºÂá∫‰∏ÄÈÅìÂº∑ÁÉàÁöÑÂÖâËäíÔºåÂåñÂÅö‰∏ÄÈôÄÂ∞èÂûãÁöÑ¬ßeËïà¬ß6ÁãÄ¬ßcÈõ≤¬ßfÔºåÈÅé‰∏ÄÊúÉÂ∞±Ê∂àÂ§±‰∫Ü");
     	setMessage_zhTW("YOUR_RADIATION_0_200_MES","");
-    	setMessage_zhTW("YOUR_RADIATION_201_400_MES","ßA™∫°±cøÁÆgæØ∂q°±f®”®Ï : °±b∑L∂qØ≈");
-    	setMessage_zhTW("YOUR_RADIATION_401_600_MES","ßA™∫°±cøÁÆgæØ∂q°±f®”®Ï : °±aª¥∂qØ≈");
-    	setMessage_zhTW("YOUR_RADIATION_601_800_MES","ßA™∫°±cøÁÆgæØ∂q°±f®”®Ï : °±e§§∂qØ≈");
-    	setMessage_zhTW("YOUR_RADIATION_801_999_MES","ßA™∫°±cøÁÆgæØ∂q°±f®”®Ï : °±cπL∂qØ≈");
-    	setMessage_zhTW("YOUR_GAIN_NO_EFFECT","ßA™∫°±cøÁÆgæØ∂q°±f•ÿ´e§£∑|≥y¶®•Ù¶ÛÆƒ™G");
-    	setMessage_zhTW("YOU_GAIN_EFFECT_N","¿Ú±oÆƒ™G : °±a©]µ¯        °±7´z∂„! ß⁄™∫≤¥∑˙µo•Xø√•˙§F!°±f");
-    	setMessage_zhTW("YOU_GAIN_EFFECT_N_F","¿Ú±oÆƒ™G : °±a©]µ¯ / °±cµÍÆz");
-    	setMessage_zhTW("YOU_GAIN_EFFECT_N_F_H_P","¿Ú±oÆƒ™G : °±a©]µ¯ / °±c∞ßæj  / °±cµÍÆz / °±b§§¨r ");
-    	setMessage_zhTW("YOU_GAIN_EFFECT_N_F_H_W","¿Ú±oÆƒ™G : °±a©]µ¯ / °±c∞ßæj  / °±cµÍÆz / °±0 ≠‰πs");
-    	setMessage_zhTW("YOU_REST_WELL","ßA•R§¿™∫•Æß°A´Ï¥_§F≈È§O");
-    	setMessage_zhTW("RADIATION_LEVEL_INCREASE","øÁÆgæØ∂q°±c§W§…°±f§F");
-    	setMessage_zhTW("RADIATION_LEVEL_DECREASE","øÁÆgæØ∂q°±b§U≠∞°±f§F");   
-    	setMessage_zhTW("RADIATION_THRIST_LEVEL","•ÿ´e°±aøÁÆgæØ∂q°±f:");
+    	setMessage_zhTW("YOUR_RADIATION_201_400_MES","‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßf‰æÜÂà∞ : ¬ßbÂæÆÈáèÁ¥ö");
+    	setMessage_zhTW("YOUR_RADIATION_401_600_MES","‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßf‰æÜÂà∞ : ¬ßaËºïÈáèÁ¥ö");
+    	setMessage_zhTW("YOUR_RADIATION_601_800_MES","‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßf‰æÜÂà∞ : ¬ße‰∏≠ÈáèÁ¥ö");
+    	setMessage_zhTW("YOUR_RADIATION_801_999_MES","‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßf‰æÜÂà∞ : ¬ßcÈÅéÈáèÁ¥ö");
+    	setMessage_zhTW("YOUR_GAIN_NO_EFFECT","‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßfÁõÆÂâç‰∏çÊúÉÈÄ†Êàê‰ªª‰ΩïÊïàÊûú");
+    	setMessage_zhTW("YOU_GAIN_EFFECT_N","Áç≤ÂæóÊïàÊûú : ¬ßaÂ§úË¶ñ        ¬ß7ÂìáÂóö! ÊàëÁöÑÁúºÁùõÁôºÂá∫Ëû¢ÂÖâ‰∫Ü!¬ßf");
+    	setMessage_zhTW("YOU_GAIN_EFFECT_N_F","Áç≤ÂæóÊïàÊûú : ¬ßaÂ§úË¶ñ / ¬ßcËôõÂº±");
+    	setMessage_zhTW("YOU_GAIN_EFFECT_N_F_H_P","Áç≤ÂæóÊïàÊûú : ¬ßaÂ§úË¶ñ / ¬ßcÈ£¢È§ì  / ¬ßcËôõÂº± / ¬ßb‰∏≠ÊØí ");
+    	setMessage_zhTW("YOU_GAIN_EFFECT_N_F_H_W","Áç≤ÂæóÊïàÊûú : ¬ßaÂ§úË¶ñ / ¬ßcÈ£¢È§ì  / ¬ßcËôõÂº± / ¬ß0 ÂáãÈõ∂");
+    	setMessage_zhTW("YOU_REST_WELL","‰Ω†ÂÖÖÂàÜÁöÑ‰ºëÊÅØÔºåÊÅ¢Âæ©‰∫ÜÈ´îÂäõ");
+    	setMessage_zhTW("RADIATION_LEVEL_INCREASE","ËºªÂ∞ÑÂäëÈáè¬ßc‰∏äÂçá¬ßf‰∫Ü");
+    	setMessage_zhTW("RADIATION_LEVEL_DECREASE","ËºªÂ∞ÑÂäëÈáè¬ßb‰∏ãÈôç¬ßf‰∫Ü");   
+    	setMessage_zhTW("RADIATION_THRIST_LEVEL","ÁõÆÂâç¬ßaËºªÂ∞ÑÂäëÈáè¬ßf:");
 
-    	setMessage_zhTW("FALLOUTCRART_STATUS","°±7-----------°±2ºo§gøÁÆg™¨∫A°±7-----------");
-    	setMessage_zhTW("FALLOUTCRART_R_LEVEL_STATUS","°±cøÁÆg≠p∂q°±f:");
-    	setMessage_zhTW("FALLOUTCRART_D_LEVEL_STATUS","°±3§f¥˜µ{´◊°±f:");
-    	setMessage_zhTW("FALLOUTCRART_T_LEVEL_STATUS","°±eØh≠¬µ{´◊°±f:");
+    	setMessage_zhTW("FALLOUTCRART_STATUS","¬ß7-----------¬ß2Âª¢ÂúüËºªÂ∞ÑÁãÄÊÖã¬ß7-----------");
+    	setMessage_zhTW("FALLOUTCRART_R_LEVEL_STATUS","¬ßcËºªÂ∞ÑË®àÈáè¬ßf:");
+    	setMessage_zhTW("FALLOUTCRART_D_LEVEL_STATUS","¬ß3Âè£Ê∏¥Á®ãÂ∫¶¬ßf:");
+    	setMessage_zhTW("FALLOUTCRART_T_LEVEL_STATUS","¬ßeÁñ≤ÂÄ¶Á®ãÂ∫¶¬ßf:");
     }
     //Configuration
     private int thirst_apple = -5;
@@ -429,14 +432,14 @@ public class FalloutcraftPlayerListener implements Listener {
     private int thirst_environment_fire_tick = 20;
     private int thirst_environment_fire_tick_random = 20;
     
-    private int hitDozen_creeper = 40;
+    private int hitDozen_creeper = 50;
     private int hitDozen_skeleton = 10;
-    private int hitDozen_spider = 3;
-    private int hitDozen_zombie = 5;
+    private int hitDozen_spider = 5;
+    private int hitDozen_zombie = 10;
     private int hitDozen_slime = 5;
     private int hitDozen_ghast = 20;
-    private int hitDozen_zombie_pigman = 10;
-    private int hitDozen_ender = 20;
+    private int hitDozen_zombie_pigman = 15;
+    private int hitDozen_ender = 25;
     
     
     private int randomFloat = 20;
@@ -464,62 +467,62 @@ public class FalloutcraftPlayerListener implements Listener {
     private int foodDozen_spider_eye = 40;
 
     
-    public String FALLOUTCRAFT = "°±2[ºo§g•Õ¶s]°±f : ";
-    public String YOU_HAVE_EATEN = "ßA≠π•Œ§F";
-    public String THRIST_LEVEL_INCREASE = "§f¥˜µ{´◊°±c§W§…°±f§F";
-    public String THRIST_LEVEL_DECREASE = "§f¥˜µ{´◊°±b§U≠∞°±f§F";   
-    public String YOUR_THRIST_LEVEL = "•ÿ´e°±3§f¥˜µ{´◊°±f";
-    public String NOTHING_HAPPENED = "§∞ªÚ®∆§]®Sµo•Õ";
-    public String HAS_DIED_DUE_TO_THRIST="≤Ê§Ù¶∫§F°A∞Æ¿Í±o≈‹¶®§@≠”∫Î¨¸™∫°±6§Ï§D•Ï°±f";
-    public String YOUR_DEHYDRATION_0_200_MES = "ßA§£¶A∑P®Ï§f¥˜";
-    public String YOUR_DEHYDRATION_201_400_MES = "ßAƒ±±o°±c¶≥¬I§f¥˜°±f°AÆ…±`∫C§U®”≥›§fÆ";
-    public String YOUR_DEHYDRATION_401_600_MES = "ßA°±cª¥´◊≤Ê§Ù°±f°AÆ…±`∫C§U®”≥›§fÆ°A§£Æ…ƒ±±o¿Y∑w";
-    public String YOUR_DEHYDRATION_601_800_MES = "ßA°±c§§´◊≤Ê§Ù°±f°AÆ…±`∫C§U®”≥›§fÆ°A§£Æ…ƒ±±o¿Y∑w";
-    public String YOUR_DEHYDRATION_801_999_MES = "ßA°±cƒY≠´≤Ê§Ù°±f°Aª›≠n•ﬂßY∏…•R§Ù§¿°A¡◊ßK¶∫§`";
-    public String YOUR_DEHYDRATION_DEATH_MES = "ßA≤Ê§Ù¶∫§`§F";
-    public String YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL = "ßA•i•H≥zπL°±e≥‹§U√ƒ§Ù°A•]ßt§@ØÎ§Ù≤~°±f®”∏—¥˜";
+    public String FALLOUTCRAFT = "¬ß2[Âª¢ÂúüÁîüÂ≠ò]¬ßf : ";
+    public String YOU_HAVE_EATEN = "‰Ω†È£üÁî®‰∫Ü";
+    public String THRIST_LEVEL_INCREASE = "Âè£Ê∏¥Á®ãÂ∫¶¬ßc‰∏äÂçá¬ßf‰∫Ü";
+    public String THRIST_LEVEL_DECREASE = "Âè£Ê∏¥Á®ãÂ∫¶¬ßb‰∏ãÈôç¬ßf‰∫Ü";   
+    public String YOUR_THRIST_LEVEL = "ÁõÆÂâç¬ß3Âè£Ê∏¥Á®ãÂ∫¶¬ßf";
+    public String NOTHING_HAPPENED = "‰ªÄÈ∫º‰∫ã‰πüÊ≤íÁôºÁîü";
+    public String HAS_DIED_DUE_TO_THRIST="ËÑ´Ê∞¥Ê≠ª‰∫ÜÔºå‰πæÁá•ÂæóËÆäÊàê‰∏ÄÂÄãÁ≤æÁæéÁöÑ¬ß6Êú®‰πÉ‰ºä¬ßf";
+    public String YOUR_DEHYDRATION_0_200_MES = "‰Ω†‰∏çÂÜçÊÑüÂà∞Âè£Ê∏¥";
+    public String YOUR_DEHYDRATION_201_400_MES = "‰Ω†Ë¶∫Âæó¬ßcÊúâÈªûÂè£Ê∏¥¬ßfÔºåÊôÇÂ∏∏ÊÖ¢‰∏ã‰æÜÂñòÂè£Ê∞£";
+    public String YOUR_DEHYDRATION_401_600_MES = "‰Ω†¬ßcËºïÂ∫¶ËÑ´Ê∞¥¬ßfÔºåÊôÇÂ∏∏ÊÖ¢‰∏ã‰æÜÂñòÂè£Ê∞£Ôºå‰∏çÊôÇË¶∫ÂæóÈ†≠Êöà";
+    public String YOUR_DEHYDRATION_601_800_MES = "‰Ω†¬ßc‰∏≠Â∫¶ËÑ´Ê∞¥¬ßfÔºåÊôÇÂ∏∏ÊÖ¢‰∏ã‰æÜÂñòÂè£Ê∞£Ôºå‰∏çÊôÇË¶∫ÂæóÈ†≠Êöà";
+    public String YOUR_DEHYDRATION_801_999_MES = "‰Ω†¬ßcÂö¥ÈáçËÑ´Ê∞¥¬ßfÔºåÈúÄË¶ÅÁ´ãÂç≥Ë£úÂÖÖÊ∞¥ÂàÜÔºåÈÅøÂÖçÊ≠ª‰∫°";
+    public String YOUR_DEHYDRATION_DEATH_MES = "‰Ω†ËÑ´Ê∞¥Ê≠ª‰∫°‰∫Ü";
+    public String YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL = "‰Ω†ÂèØ‰ª•ÈÄèÈÅé¬ßeÂñù‰∏ãËó•Ê∞¥ÔºåÂåÖÂê´‰∏ÄËà¨Ê∞¥Áì∂¬ßf‰æÜËß£Ê∏¥";
     
-    public String YOUR_TIREDNESS_INCREASE = "¨°∞ §F§@¨qÆ…∂°  , ßA™∫Øh≠¬µ{´◊°±c§W§…°±f§F";
-    public String YOUR_TIREDNESS_DECREASE = "•Æß§F§@¨qÆ…∂°  , ßA™∫Øh≠¬µ{´◊°±b§U≠∞°±f§F";
-    public String YOUR_TIREDNESS_THE_SAME = "πL§F§@¨qÆ…∂°°AßAƒ±±o≈È§O®S¶≥§U≠∞§”¶h";
-    public String YOUR_TIRERNESS_LEVEL = "•ÿ´e°±eØh≠¬µ{´◊°±f";
+    public String YOUR_TIREDNESS_INCREASE = "Ê¥ªÂãï‰∫Ü‰∏ÄÊÆµÊôÇÈñì  , ‰Ω†ÁöÑÁñ≤ÂÄ¶Á®ãÂ∫¶¬ßc‰∏äÂçá¬ßf‰∫Ü";
+    public String YOUR_TIREDNESS_DECREASE = "‰ºëÊÅØ‰∫Ü‰∏ÄÊÆµÊôÇÈñì  , ‰Ω†ÁöÑÁñ≤ÂÄ¶Á®ãÂ∫¶¬ßb‰∏ãÈôç¬ßf‰∫Ü";
+    public String YOUR_TIREDNESS_THE_SAME = "ÈÅé‰∫Ü‰∏ÄÊÆµÊôÇÈñìÔºå‰Ω†Ë¶∫ÂæóÈ´îÂäõÊ≤íÊúâ‰∏ãÈôçÂ§™Â§ö";
+    public String YOUR_TIRERNESS_LEVEL = "ÁõÆÂâç¬ßeÁñ≤ÂÄ¶Á®ãÂ∫¶¬ßf";
     
-    public String YOUR_TIRERNESS_0_200_MES = "ßA•R§¿•Æß°Aƒ±±o∫ÎØ´¶ ≠ø";
-    public String YOUR_TIRERNESS_201_400_MES = "ßAƒ±±o∫ÎØ´§£ø˘";
-    public String YOUR_TIRERNESS_401_600_MES = "ßA°±c¶≥®«Øh≠¬°±f°A§£Æ…´ÈØ´";
-    public String YOUR_TIRERNESS_601_800_MES = "ßA°±c´D±`Øh≠¬°±f°A§£Æ…´ÈØ´°Aƒ±±o¿Y∑w";
-    public String YOUR_TIRERNESS_801_999_MES = "ßA°±c∑•´◊Øh≠¬°±f°A¥X•Gß‚≤¥∑˙µπ≥¨§W§F";
-    public String YOUR_TIRERNESS_1000_MES = "ßAƒ±±oßA¶bπ⁄πC";
-    public String IS_SLEEP_WALKING=" °±c•ø°±d¶b°±eπ⁄°±fπC";
-    public String YOUR_STATUS_IS_NORMAL = "™¨∫A¶^®Ï•ø±`";
-    public String YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING = "¿Ú±oß‹©   : °±b¥Ó§÷©“¶≥∂ÀÆ`°±f 20%";
-    public String YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING = "ßA•i•H≥zπL°±eΩˆ¶bß…§W°±f°A•Æß´Ï¥_∫ÎØ´";
+    public String YOUR_TIRERNESS_0_200_MES = "‰Ω†ÂÖÖÂàÜ‰ºëÊÅØÔºåË¶∫ÂæóÁ≤æÁ•ûÁôæÂÄç";
+    public String YOUR_TIRERNESS_201_400_MES = "‰Ω†Ë¶∫ÂæóÁ≤æÁ•û‰∏çÈåØ";
+    public String YOUR_TIRERNESS_401_600_MES = "‰Ω†¬ßcÊúâ‰∫õÁñ≤ÂÄ¶¬ßfÔºå‰∏çÊôÇÊÅçÁ•û";
+    public String YOUR_TIRERNESS_601_800_MES = "‰Ω†¬ßcÈùûÂ∏∏Áñ≤ÂÄ¶¬ßfÔºå‰∏çÊôÇÊÅçÁ•ûÔºåË¶∫ÂæóÈ†≠Êöà";
+    public String YOUR_TIRERNESS_801_999_MES = "‰Ω†¬ßcÊ•µÂ∫¶Áñ≤ÂÄ¶¬ßfÔºåÂπæ‰πéÊääÁúºÁùõÁµ¶Èñâ‰∏ä‰∫Ü";
+    public String YOUR_TIRERNESS_1000_MES = "‰Ω†Ë¶∫Âæó‰Ω†Âú®Â§¢ÈÅä";
+    public String IS_SLEEP_WALKING=" ¬ßcÊ≠£¬ßdÂú®¬ßeÂ§¢¬ßfÈÅä";
+    public String YOUR_STATUS_IS_NORMAL = "ÁãÄÊÖãÂõûÂà∞Ê≠£Â∏∏";
+    public String YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING = "Áç≤ÂæóÊäóÊÄß  : ¬ßbÊ∏õÂ∞ëÊâÄÊúâÂÇ∑ÂÆ≥¬ßf 20%";
+    public String YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING = "‰Ω†ÂèØ‰ª•ÈÄèÈÅé¬ßeË∫∫Âú®Â∫ä‰∏ä¬ßfÔºå‰ºëÊÅØÊÅ¢Âæ©Á≤æÁ•û";
     
-    public String YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE = "ßA≥QøÁÆg•Õ™´ß¿ª,øÁÆgæØ∂q°±c§W§…°±f§F";
-    public String YOUR_RADIATION_LEVEL = "•ÿ´e°±aøÁÆgæØ∂q°±f";
-//    public String YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = "ßA•i•H≥zπL°±eRad-AwayøÁÆgßÌ®ÓæØ°±f®”≠∞ßCøÁÆgæØ∂q";
-    public String YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = "ßA•i•H≥zπL°±e≥‹§Ù°±f®”≠∞ßCøÁÆgæØ∂q";
-    public String YOU_DIED_BECAUSE_OF_RADIATION="ßA™∫°±cøÁÆgæØ∂q°±f∂Wº–°Aµo•X§@πD±jØP™∫•˙®~°AπL§@∑|¥NÆ¯•¢§F";
-    public String SOMEONE_DIED_BECAUSE_OF_RADIATION ="µo•X§@πD±jØP™∫•˙®~°A§∆∞µ§@™˚§p´¨™∫°±eø∏°±6™¨°±c∂≥°±f°AπL§@∑|¥NÆ¯•¢§F";
+    public String YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE = "‰Ω†Ë¢´ËºªÂ∞ÑÁîüÁâ©ÊîªÊìä,ËºªÂ∞ÑÂäëÈáè¬ßc‰∏äÂçá¬ßf‰∫Ü";
+    public String YOUR_RADIATION_LEVEL = "ÁõÆÂâç¬ßaËºªÂ∞ÑÂäëÈáè¬ßf";
+//    public String YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = "‰Ω†ÂèØ‰ª•ÈÄèÈÅé¬ßeRad-AwayËºªÂ∞ÑÊäëÂà∂Âäë¬ßf‰æÜÈôç‰ΩéËºªÂ∞ÑÂäëÈáè";
+    public String YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY = "‰Ω†ÂèØ‰ª•ÈÄèÈÅé¬ßeÂñùÊ∞¥¬ßf‰æÜÈôç‰ΩéËºªÂ∞ÑÂäëÈáè";
+    public String YOU_DIED_BECAUSE_OF_RADIATION="‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßfË∂ÖÊ®ôÔºåÁôºÂá∫‰∏ÄÈÅìÂº∑ÁÉàÁöÑÂÖâËäíÔºåÈÅé‰∏ÄÊúÉÂ∞±Ê∂àÂ§±‰∫Ü";
+    public String SOMEONE_DIED_BECAUSE_OF_RADIATION ="ÁôºÂá∫‰∏ÄÈÅìÂº∑ÁÉàÁöÑÂÖâËäíÔºåÂåñÂÅö‰∏ÄÈôÄÂ∞èÂûãÁöÑ¬ßeËïà¬ß6ÁãÄ¬ßcÈõ≤¬ßfÔºåÈÅé‰∏ÄÊúÉÂ∞±Ê∂àÂ§±‰∫Ü";
     public String YOUR_RADIATION_0_200_MES ="";
-    public String YOUR_RADIATION_201_400_MES ="ßA™∫°±cøÁÆgæØ∂q°±f®”®Ï : °±b∑L∂qØ≈";
-    public String YOUR_RADIATION_401_600_MES ="ßA™∫°±cøÁÆgæØ∂q°±f®”®Ï : °±aª¥∂qØ≈";
-    public String YOUR_RADIATION_601_800_MES ="ßA™∫°±cøÁÆgæØ∂q°±f®”®Ï : °±e§§∂qØ≈";
-    public String YOUR_RADIATION_801_999_MES ="ßA™∫°±cøÁÆgæØ∂q°±f®”®Ï : °±cπL∂qØ≈";
-    public String YOUR_GAIN_NO_EFFECT = "ßA™∫°±cøÁÆgæØ∂q°±f•ÿ´e§£∑|≥y¶®•Ù¶ÛÆƒ™G";
-    public String YOU_GAIN_EFFECT_N = "¿Ú±oÆƒ™G : °±a©]µ¯        °±7´z∂„! ß⁄™∫≤¥∑˙µo•Xø√•˙§F!°±f";
-    public String YOU_GAIN_EFFECT_N_F = "¿Ú±oÆƒ™G : °±a©]µ¯ / °±cµÍÆz";
-    public String YOU_GAIN_EFFECT_N_F_H_P = "¿Ú±oÆƒ™G : °±a©]µ¯ / °±c∞ßæj  / °±cµÍÆz / °±b§§¨r ";
-    public String YOU_GAIN_EFFECT_N_F_H_W = "¿Ú±oÆƒ™G : °±a©]µ¯ / °±c∞ßæj  / °±cµÍÆz / °±0 ≠‰πs";
-    public String YOU_REST_WELL = "ßA•R§¿™∫•Æß°A´Ï¥_§F≈È§O";
-    public String RADIATION_LEVEL_INCREASE = "øÁÆgæØ∂q°±c§W§…°±f§F";
-    public String RADIATION_LEVEL_DECREASE = "øÁÆgæØ∂q°±b§U≠∞°±f§F";   
-    public String RADIATION_THRIST_LEVEL = "•ÿ´e°±aøÁÆgæØ∂q°±f:";
+    public String YOUR_RADIATION_201_400_MES ="‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßf‰æÜÂà∞ : ¬ßbÂæÆÈáèÁ¥ö";
+    public String YOUR_RADIATION_401_600_MES ="‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßf‰æÜÂà∞ : ¬ßaËºïÈáèÁ¥ö";
+    public String YOUR_RADIATION_601_800_MES ="‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßf‰æÜÂà∞ : ¬ße‰∏≠ÈáèÁ¥ö";
+    public String YOUR_RADIATION_801_999_MES ="‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßf‰æÜÂà∞ : ¬ßcÈÅéÈáèÁ¥ö";
+    public String YOUR_GAIN_NO_EFFECT = "‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßfÁõÆÂâç‰∏çÊúÉÈÄ†Êàê‰ªª‰ΩïÊïàÊûú";
+    public String YOU_GAIN_EFFECT_N = "Áç≤ÂæóÊïàÊûú : ¬ßaÂ§úË¶ñ        ¬ß7ÂìáÂóö! ÊàëÁöÑÁúºÁùõÁôºÂá∫Ëû¢ÂÖâ‰∫Ü!¬ßf";
+    public String YOU_GAIN_EFFECT_N_F = "Áç≤ÂæóÊïàÊûú : ¬ßaÂ§úË¶ñ / ¬ßcËôõÂº±";
+    public String YOU_GAIN_EFFECT_N_F_H_P = "Áç≤ÂæóÊïàÊûú : ¬ßaÂ§úË¶ñ / ¬ßcÈ£¢È§ì  / ¬ßcËôõÂº± / ¬ßb‰∏≠ÊØí ";
+    public String YOU_GAIN_EFFECT_N_F_H_W = "Áç≤ÂæóÊïàÊûú : ¬ßaÂ§úË¶ñ / ¬ßcÈ£¢È§ì  / ¬ßcËôõÂº± / ¬ß0 ÂáãÈõ∂";
+    public String YOU_REST_WELL = "‰Ω†ÂÖÖÂàÜÁöÑ‰ºëÊÅØÔºåÊÅ¢Âæ©‰∫ÜÈ´îÂäõ";
+    public String RADIATION_LEVEL_INCREASE = "ËºªÂ∞ÑÂäëÈáè¬ßc‰∏äÂçá¬ßf‰∫Ü";
+    public String RADIATION_LEVEL_DECREASE = "ËºªÂ∞ÑÂäëÈáè¬ßb‰∏ãÈôç¬ßf‰∫Ü";   
+    public String RADIATION_THRIST_LEVEL = "ÁõÆÂâç¬ßaËºªÂ∞ÑÂäëÈáè¬ßf:";
 
-    public String FALLOUTCRART_STATUS = "°±7-----------°±2ºo§gøÁÆg™¨∫A°±7-----------";
-    public String FALLOUTCRART_R_LEVEL_STATUS = "°±cøÁÆg≠p∂q°±f:";
-    public String FALLOUTCRART_D_LEVEL_STATUS = "°±3§f¥˜µ{´◊°±f:";
-    public String FALLOUTCRART_T_LEVEL_STATUS = "°±eØh≠¬µ{´◊°±f:";
+    public String FALLOUTCRART_STATUS = "¬ß7-----------¬ß2Âª¢ÂúüËºªÂ∞ÑÁãÄÊÖã¬ß7-----------";
+    public String FALLOUTCRART_R_LEVEL_STATUS = "¬ßcËºªÂ∞ÑË®àÈáè¬ßf:";
+    public String FALLOUTCRART_D_LEVEL_STATUS = "¬ß3Âè£Ê∏¥Á®ãÂ∫¶¬ßf:";
+    public String FALLOUTCRART_T_LEVEL_STATUS = "¬ßeÁñ≤ÂÄ¶Á®ãÂ∫¶¬ßf:";
     
 
     
@@ -553,7 +556,7 @@ public class FalloutcraftPlayerListener implements Listener {
     		plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) 0);
     	}
 
-    	player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    	server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
     	plugin.BukkitSchedulerSuck.addPlayer(player);
 
     }
@@ -570,7 +573,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	handleThirstFoodDozen(player,e.getItem());
     	//handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
     	
-    	player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    	server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
     }
 
     
@@ -583,7 +586,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	else{
     		player = (Player)e.getEntity();
     		handleThirstEnvironmentDozen(player,e.getCause());
-    		player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    		server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
     		return;
     	}
   
@@ -704,37 +707,36 @@ public class FalloutcraftPlayerListener implements Listener {
     	if(nowLevel>=1000){
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_DEATH_MES);
 			String message = (player.getPlayerListName() +HAS_DIED_DUE_TO_THRIST);
-			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_801_999_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_601_800_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_401_600_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_201_400_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_0_200_MES);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 
 
@@ -760,10 +762,11 @@ public class FalloutcraftPlayerListener implements Listener {
 
     	if(dozenNum>0){
     		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" , "+THRIST_LEVEL_INCREASE+dozenNum+", "+YOUR_THRIST_LEVEL+":"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
-        	}
+    		displayDehydrationDozen(player,dozenNum);
+    		}
     	else if(dozenNum<0){
     		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" , "+THRIST_LEVEL_DECREASE+-1*dozenNum+", "+YOUR_THRIST_LEVEL+":"+ plugin.falloutstatsThirst.get(player.getPlayerListName())+"/1000");
-    	       	
+    		displayDehydrationDozen(player,dozenNum);
     	}
     	else {
     		//player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" ,"+NOTHING_HAPPENED);
@@ -772,37 +775,36 @@ public class FalloutcraftPlayerListener implements Listener {
 		if(nowLevel>=1000){
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_DEATH_MES);
 			String message = (player.getPlayerListName() +" "+HAS_DIED_DUE_TO_THRIST);
-			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_801_999_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_601_800_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_401_600_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_201_400_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_DEHYDRATION_0_200_MES);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 
     	
@@ -827,10 +829,11 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	if(dozenNum>0){
     		player.sendMessage(FALLOUTCRAFT+YOUR_TIREDNESS_INCREASE+dozenNum+", "+YOUR_TIRERNESS_LEVEL+":"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
-        	}
+    		displayFatigueDozen(player,dozenNum);
+    		}
     	else if(dozenNum<0){
     		player.sendMessage(FALLOUTCRAFT+YOUR_TIREDNESS_DECREASE+(-1)*dozenNum+", "+YOUR_TIRERNESS_LEVEL+":"+ plugin.falloutstatsFatigue.get(player.getPlayerListName())+"/1000");
-        	   	
+    		displayFatigueDozen(player,dozenNum);  	
     	}
     	else {
     		player.sendMessage(FALLOUTCRAFT+YOUR_TIREDNESS_THE_SAME);
@@ -839,38 +842,37 @@ public class FalloutcraftPlayerListener implements Listener {
 		if(nowLevel>=1000  && lastLevel<1000){
 			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_1000_MES);
 			String message = (player.getPlayerListName() +" "+IS_SLEEP_WALKING);
-			Server server = Bukkit.getServer();
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_801_999_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_601_800_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_401_600_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_TIRENESS_THROUGH_SLEEPING);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_201_400_MES);
     		player.sendMessage(FALLOUTCRAFT+YOUR_STATUS_IS_NORMAL);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_TIRERNESS_0_200_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_RESISTANCE_BUFF_BECAUSE_OF_WELL_RESTING);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 
     	
@@ -895,7 +897,7 @@ public class FalloutcraftPlayerListener implements Listener {
 				player.teleport(block.getLocation().add(0, 1, 0));		
 		    	handleFatigueDozen(player,-1000);
 
-		    	event.getPlayer().getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_Sleep(player,plugin), 1);
+		    	server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_Sleep(player,plugin), 1);
 		    	player.sendMessage(FALLOUTCRAFT+YOU_REST_WELL);
 			}
 
@@ -905,7 +907,7 @@ public class FalloutcraftPlayerListener implements Listener {
     public void onPlayerOnBedResting(PlayerBedEnterEvent event) {
     	Player player = event.getPlayer();
     	handleFatigueDozen(player,-1000);
-    	event.getPlayer().getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_Sleep(player,plugin), 1);
+    	server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_Sleep(player,plugin), 1);
 	}
 
     @EventHandler
@@ -919,7 +921,7 @@ public class FalloutcraftPlayerListener implements Listener {
     		player = (Player)event.getEntity();
     		if(handleRadiationHitDozen(player,event.getDamager())){
     			
-    			player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    			server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
     			
     		}
     		return;
@@ -927,9 +929,47 @@ public class FalloutcraftPlayerListener implements Listener {
   
     	
     }
+    private void displayDehydrationDozen(Player player,int dozenNum){
+    	if (dozenNum>0){
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"‚Üë"+dozenNum+"\",color:\"dark_red\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"‚ùÜ\",color:\"dark_aqua\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
+    	}
+    	else if (dozenNum<0){
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"‚Üì"+dozenNum*(-1)+"\",color:\"aqua\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"‚ùÜ\",color:\"dark_aqua\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
+    	}
 
-    
+    }
+    private void displayFatigueDozen(Player player,int dozenNum){
+    	
+    	if (dozenNum>0){
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"‚Üë"+dozenNum+"\",color:\"dark_red\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"Zz\",color:\"yellow\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
+    	}
+    	else if (dozenNum<0){
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"‚Üì"+dozenNum*(-1)+"\",color:\"aqua\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"Zz\",color:\"yellow\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
+    	}
 
+    }
+    private void displayRadiationDozen(Player player,int dozenNum){
+    	
+    	if (dozenNum>0){
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"‚Üë"+dozenNum+"\",color:\"dark_red\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"‚ò¢\",color:\"dark_green\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
+    	}
+    	else if (dozenNum<0){
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"‚Üì"+dozenNum*(-1)+"\",color:\"aqua\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"‚ò¢\",color:\"dark_green\"}");
+    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
+    	}
+
+    }
 
     private int determineHitDozen(Entity e){
     	if(e.getType()==EntityType.CREEPER){// hit by creeper
@@ -960,7 +1000,7 @@ public class FalloutcraftPlayerListener implements Listener {
         	return hitDozen_ender;
     	}
     	else{
-    		return 5;
+    		return 1;
     	}
     }
     protected boolean handleRadiationHitDozen(Player player,Entity e){
@@ -977,7 +1017,8 @@ public class FalloutcraftPlayerListener implements Listener {
     	
 
     	if(dozenNum>0){
-    		player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE+dozenNum+", "+YOUR_RADIATION_LEVEL+":"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		//player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_INCREASE_BECAUSE_ATTACK_BY_CREATURE+dozenNum+", "+YOUR_RADIATION_LEVEL+":"+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		displayRadiationDozen(player,dozenNum);
     	}
     	else if(dozenNum==0){
     		return false;
@@ -989,35 +1030,35 @@ public class FalloutcraftPlayerListener implements Listener {
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_801_999_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F_H_W);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_601_800_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F_H_P);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_401_600_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_201_400_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if(nowLevel<200){
-			//player.sendMessage(FALLOUTCRAFT+" : ßA™∫°±cøÁÆgæØ∂q°±f•ÿ´e§£∑|≥y¶®•Ù¶ÛÆƒ™G°C");
+			//player.sendMessage(FALLOUTCRAFT+" : ‰Ω†ÁöÑ¬ßcËºªÂ∞ÑÂäëÈáè¬ßfÁõÆÂâç‰∏çÊúÉÈÄ†Êàê‰ªª‰ΩïÊïàÊûú„ÄÇ");
 
 		}
 		return true;
@@ -1141,10 +1182,11 @@ public class FalloutcraftPlayerListener implements Listener {
     	
     	if(dozenNum>0){
     		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" , "+RADIATION_LEVEL_INCREASE+dozenNum+", "+RADIATION_THRIST_LEVEL+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
+    		displayRadiationDozen(player,dozenNum);
     	}
     	else if(dozenNum<0){
     		player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" , "+RADIATION_LEVEL_DECREASE+-1*dozenNum+", "+RADIATION_THRIST_LEVEL+ plugin.falloutstatsRadiation.get(player.getPlayerListName())+"/1000");
-    	    	
+    		displayRadiationDozen(player,dozenNum);
     	}
     	else {
     		//player.sendMessage(FALLOUTCRAFT+YOU_HAVE_EATEN+name+" ,"+NOTHING_HAPPENED);
@@ -1157,32 +1199,32 @@ public class FalloutcraftPlayerListener implements Listener {
 			server.broadcastMessage(message);
 		}
 		else if((nowLevel>=800  && lastLevel<800) ){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_801_999_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F_H_W);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=600  && lastLevel<600)  ||  (nowLevel<800  && lastLevel>=800)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_601_800_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F_H_P);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=400  && lastLevel<400)  ||  (nowLevel<600  && lastLevel>=600)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_401_600_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N_F);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if((nowLevel>=200  && lastLevel<200)  ||  (nowLevel<400  && lastLevel>=400)){
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 			player.sendMessage(FALLOUTCRAFT+YOUR_RADIATION_201_400_MES);
     		player.sendMessage(FALLOUTCRAFT+YOU_GAIN_EFFECT_N);
     		player.sendMessage(FALLOUTCRAFT+YOU_CAN_DECREASE_RADIATION_LEVEL_BY_TAKING_RADAWAY);
-			player.sendMessage("°±7-----------------------------------------");
+			player.sendMessage("¬ß7-----------------------------------------");
 		}
 		else if(nowLevel<200  && lastLevel>=200){
 			player.sendMessage(FALLOUTCRAFT+YOUR_GAIN_NO_EFFECT);

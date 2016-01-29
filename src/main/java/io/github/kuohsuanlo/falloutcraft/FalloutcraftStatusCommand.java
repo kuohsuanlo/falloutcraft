@@ -24,7 +24,6 @@ public class FalloutcraftStatusCommand implements CommandExecutor {
         this.plugin = plugin;
         this.listener = plugin.playerListener;
     }
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("fostatus")) { // If the player typed /basic then do the following...
 
