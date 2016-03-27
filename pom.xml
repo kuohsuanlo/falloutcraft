@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.kuohsuanlo</groupId>
   <artifactId>falloutcraft</artifactId>
-  <version>1.0.2d</version>
+  <version>1.0.2e</version>
   <name>FalloutCraftPlugin</name>
   <url>http://dev.bukkit.org/bukkit-plugins/falloutcraft/</url>
 
@@ -14,18 +14,19 @@
   </repositories>
 
   <dependencies>
-<!--Spigot-API-->
+	<!--Spigot-API-->
 	<dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.8-R0.1-SNAPSHOT</version>
+      <version>1.9-R0.1-SNAPSHOT</version>
 	</dependency>
 	<!--Bukkit API-->
 	<dependency>
        <groupId>org.bukkit</groupId>
        <artifactId>bukkit</artifactId>
-       <version>1.8-R0.1-SNAPSHOT</version>
+       <version>1.9-R0.1-SNAPSHOT</version>
 	</dependency>
+	<!--Title API-->
   </dependencies>
 
   <build>

@@ -43,6 +43,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+
 /**
  * Handle events for all Player related events
  * @author Dinnerbone
@@ -50,7 +51,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class FalloutcraftPlayerListener implements Listener {
     private final FalloutcraftPlugin plugin;
     private final Server server;
-    
     public FalloutcraftPlayerListener(FalloutcraftPlugin instance) {
         plugin = instance;
         server = instance.getServer();
@@ -95,6 +95,60 @@ public class FalloutcraftPlayerListener implements Listener {
         }
     }
     private void loadConfig(){
+    	thirst_apple= Integer.valueOf(messageData.get("thirst_apple")); 
+		thirst_baked_potato= Integer.valueOf(messageData.get("thirst_baked_potato")); 
+		thirst_bread= Integer.valueOf(messageData.get("thirst_bread"));  
+		thirst_carrot= Integer.valueOf(messageData.get("thirst_carrot"));  
+		thirst_raw_fish= Integer.valueOf(messageData.get("thirst_raw_fish"));  
+		thirst_cooked_chicken= Integer.valueOf(messageData.get("thirst_cooked_chicken"));  
+		thirst_cooked_fish= Integer.valueOf(messageData.get("thirst_cooked_fish"));  
+		thirst_cooked_porkchop= Integer.valueOf(messageData.get("thirst_cooked_porkchop"));  
+		thirst_cookie= Integer.valueOf(messageData.get("thirst_cookie")); 
+		thirst_golen_apple= Integer.valueOf(messageData.get("thirst_golen_apple"));  
+		thirst_golen_carrot= Integer.valueOf(messageData.get("thirst_golen_carrot"));  
+		thirst_melon= Integer.valueOf(messageData.get("thirst_melon"));  
+		thirst_mushroom_stew= Integer.valueOf(messageData.get("thirst_mushroom_stew"));  
+		thirst_beetroot_stew= Integer.valueOf(messageData.get("thirst_beetroot_stew"));  
+		thirst_beetroot= Integer.valueOf(messageData.get("thirst_beetroot"));  
+		thirst_poisonous_potato= Integer.valueOf(messageData.get("thirst_poisonous_potato"));  
+		thirst_potato= Integer.valueOf(messageData.get("thirst_potato"));  
+		thirst_pumpkin_pie= Integer.valueOf(messageData.get("thirst_pumpkin_pie"));  
+		thirst_raw_beef= Integer.valueOf(messageData.get("thirst_raw_beef"));  
+		thirst_raw_chicken= Integer.valueOf(messageData.get("thirst_raw_chicken"));  
+		thirst_raw_porkchop= Integer.valueOf(messageData.get("thirst_raw_porkchop"));  
+		thirst_rotten_flesh= Integer.valueOf(messageData.get("thirst_rotten_flesh"));  
+		thirst_spider_eye= Integer.valueOf(messageData.get("thirst_spider_eye"));  
+		thirst_steak= Integer.valueOf(messageData.get("thirst_steak"));  
+		thirst_environment_fire= Integer.valueOf(messageData.get("thirst_environment_fire")); 
+		thirst_environment_fire_tick= Integer.valueOf(messageData.get("thirst_environment_fire_tick"));  
+		thirst_environment_fire_tick_random= Integer.valueOf(messageData.get("thirst_environment_fire_tick_random"));  
+		hitDozen_creeper= Integer.valueOf(messageData.get("hitDozen_creeper"));  
+		hitDozen_skeleton= Integer.valueOf(messageData.get("hitDozen_skeleton")); 
+		hitDozen_spider= Integer.valueOf(messageData.get("hitDozen_spider")); 
+		hitDozen_zombie= Integer.valueOf(messageData.get("hitDozen_zombie")); 
+		randomFloat= Integer.valueOf(messageData.get("randomFloat"));  
+		foodDozen_apple= Integer.valueOf(messageData.get("foodDozen_apple")); 
+		foodDozen_baked_potato= Integer.valueOf(messageData.get("foodDozen_baked_potato"));  
+		foodDozen_bread= Integer.valueOf(messageData.get("foodDozen_bread")); 
+		foodDozen_carrot= Integer.valueOf(messageData.get("foodDozen_carrot")); 
+		foodDozen_raw_fish= Integer.valueOf(messageData.get("foodDozen_raw_fish"));  
+		foodDozen_cooked_chicken= Integer.valueOf(messageData.get("foodDozen_cooked_chicken"));  
+		foodDozen_cooked_fish= Integer.valueOf(messageData.get("foodDozen_cooked_fish")); 
+		foodDozen_cooked_porkchop= Integer.valueOf(messageData.get("foodDozen_cooked_porkchop"));  
+		foodDozen_cookie= Integer.valueOf(messageData.get("foodDozen_cookie")); 
+		foodDozen_golen_apple= Integer.valueOf(messageData.get("foodDozen_golen_apple"));  
+		foodDozen_golen_carrot= Integer.valueOf(messageData.get("foodDozen_golen_carrot"));  
+		foodDozen_melon= Integer.valueOf(messageData.get("foodDozen_melon")); 
+		foodDozen_mushroom_stew= Integer.valueOf(messageData.get("foodDozen_mushroom_stew"));  
+		foodDozen_beetroot_stew= Integer.valueOf(messageData.get("foodDozen_beetroot_stew"));  
+		foodDozen_beetroot= Integer.valueOf(messageData.get("foodDozen_beetroot"));  
+		foodDozen_poisonous_potato= Integer.valueOf(messageData.get("foodDozen_poisonous_potato"));  
+		foodDozen_potato= Integer.valueOf(messageData.get("foodDozen_potato")); 
+		foodDozen_pumpkin_pie= Integer.valueOf(messageData.get("foodDozen_pumpkin_pie")); 
+		foodDozen_raw_beef= Integer.valueOf(messageData.get("foodDozen_raw_beef"));  
+		foodDozen_raw_chicken= Integer.valueOf(messageData.get("foodDozen_raw_chicken"));  
+
+	
     	
     	FALLOUTCRAFT = messageData.get("FALLOUTCRAFT");
     	YOU_HAVE_EATEN = messageData.get("YOU_HAVE_EATEN");
@@ -152,6 +206,8 @@ public class FalloutcraftPlayerListener implements Listener {
     	FALLOUTCRART_R_LEVEL_STATUS = messageData.get("FALLOUTCRART_R_LEVEL_STATUS");
     	FALLOUTCRART_D_LEVEL_STATUS = messageData.get("FALLOUTCRART_D_LEVEL_STATUS");
     	FALLOUTCRART_T_LEVEL_STATUS = messageData.get("FALLOUTCRART_T_LEVEL_STATUS");
+    	
+    	
     }
     private void setMessage(String name, String message) {
         File f = new File(pathOfMessageyml);
@@ -196,6 +252,8 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage("thirst_golen_carrot","-10");//curing
     	setMessage("thirst_melon","-5");
     	setMessage("thirst_mushroom_stew","-10");
+    	setMessage("thirst_beetroot_stew","-10");
+    	setMessage("thirst_beetroot","10");
     	setMessage("thirst_poisonous_potato","50");
     	setMessage("thirst_potato","10");
     	setMessage("thirst_pumpkin_pie","60");
@@ -205,6 +263,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage("thirst_rotten_flesh","60");
     	setMessage("thirst_spider_eye","50");
     	setMessage("thirst_steak","40");
+    	setMessage("thirst_milk","-30");
     	         
     	setMessage("thirst_environment_fire","0");
     	setMessage("thirst_environment_fire_tick","20");
@@ -229,11 +288,14 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage("foodDozen_golen_carrot","-30");//curing
     	setMessage("foodDozen_melon","3");
     	setMessage("foodDozen_mushroom_stew","10");
+    	setMessage("foodDozen_beetroot_stew","10");
+    	setMessage("foodDozen_beetroot","5");
     	setMessage("foodDozen_poisonous_potato","50");
     	setMessage("foodDozen_potato","5");
     	setMessage("foodDozen_pumpkin_pie","5");
     	setMessage("foodDozen_raw_beef","15");
     	setMessage("foodDozen_raw_chicken","15");
+    	setMessage("foodDozen_milk","15");
     	         
     	setMessage("FALLOUTCRAFT","§2[Falloutcraft]§f : ");
     	setMessage("YOU_HAVE_EATEN","You have eaten : ");
@@ -308,6 +370,8 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage_zhTW("thirst_golen_carrot","-10");//curing
     	setMessage_zhTW("thirst_melon","-5");
     	setMessage_zhTW("thirst_mushroom_stew","-10");
+    	setMessage_zhTW("thirst_beetroot_stew","-10");
+    	setMessage_zhTW("thirst_beetroot","10");
     	setMessage_zhTW("thirst_poisonous_potato","50");
     	setMessage_zhTW("thirst_potato","10");
     	setMessage_zhTW("thirst_pumpkin_pie","60");
@@ -317,6 +381,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage_zhTW("thirst_rotten_flesh","60");
     	setMessage_zhTW("thirst_spider_eye","50");
     	setMessage_zhTW("thirst_steak","40");
+    	setMessage_zhTW("thirst_milk","-30");
     	         
     	setMessage_zhTW("thirst_environment_fire","0");
     	setMessage_zhTW("thirst_environment_fire_tick","20");
@@ -341,11 +406,14 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage_zhTW("foodDozen_golen_carrot","-30");//curing
     	setMessage_zhTW("foodDozen_melon","3");
     	setMessage_zhTW("foodDozen_mushroom_stew","10");
+    	setMessage_zhTW("foodDozen_beetroot_stew","10");
+    	setMessage_zhTW("foodDozen_beetroot","5");
     	setMessage_zhTW("foodDozen_poisonous_potato","50");
     	setMessage_zhTW("foodDozen_potato","5");
     	setMessage_zhTW("foodDozen_pumpkin_pie","5");
     	setMessage_zhTW("foodDozen_raw_beef","15");
     	setMessage_zhTW("foodDozen_raw_chicken","15");
+    	setMessage_zhTW("foodDozen_milk","15");
     	         
     	setMessage_zhTW("FALLOUTCRAFT","§2[廢土生存]§f : ");
     	setMessage_zhTW("YOU_HAVE_EATEN","你食用了");
@@ -418,6 +486,8 @@ public class FalloutcraftPlayerListener implements Listener {
     private int thirst_golen_carrot = -10;//curing
     private int thirst_melon = -5;
     private int thirst_mushroom_stew = -10;
+    private int thirst_beetroot_stew  = -10;
+    private int thirst_beetroot = 10;
     private int thirst_poisonous_potato = 50;
     private int thirst_potato = 10;
     private int thirst_pumpkin_pie = 60;
@@ -427,6 +497,7 @@ public class FalloutcraftPlayerListener implements Listener {
     private int thirst_rotten_flesh = 60;
     private int thirst_spider_eye = 50;
     private int thirst_steak = 40;
+    private int thirst_milk = -30;
     
     private int thirst_environment_fire = 0;
     private int thirst_environment_fire_tick = 20;
@@ -452,11 +523,14 @@ public class FalloutcraftPlayerListener implements Listener {
     private int foodDozen_cooked_fish = 5;
     private int foodDozen_cooked_porkchop = 10;
     private int foodDozen_steak = 15;
+    private int foodDozen_milk = 15;
     private int foodDozen_cookie = 3;
     private int foodDozen_golen_apple = -40;//curing
     private int foodDozen_golen_carrot = -30;//curing
     private int foodDozen_melon = 5;
     private int foodDozen_mushroom_stew = 10;
+    private int foodDozen_beetroot_stew = 10;
+    private int foodDozen_beetroot = 5;
     private int foodDozen_poisonous_potato = 50;
     private int foodDozen_potato = 5;
     private int foodDozen_pumpkin_pie = 5;
@@ -640,7 +714,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	} 
     	else if(i.getType().equals(Material.GOLDEN_APPLE)){
     		dozenNum = (int) (thirst_golen_apple + randNum*(Math.signum(thirst_golen_apple)));
-    	} 
+    	}  
     	else if(i.getType().equals(Material.GOLDEN_CARROT)){
     		dozenNum = (int) (thirst_golen_carrot + randNum*(Math.signum(thirst_golen_carrot)));
     	}
@@ -649,6 +723,15 @@ public class FalloutcraftPlayerListener implements Listener {
     	}
     	else if(i.getType().equals(Material.MUSHROOM_SOUP)){
     		dozenNum = (int) (thirst_mushroom_stew + randNum*(Math.signum(thirst_mushroom_stew)));
+    	}
+    	else if(i.getType().equals(Material.BEETROOT_SOUP)){
+    		dozenNum = (int) (thirst_beetroot_stew + randNum*(Math.signum(thirst_beetroot_stew)));
+    	}
+    	else if(i.getType().equals(Material.BEETROOT)){
+    		dozenNum = (int) (thirst_beetroot + randNum*(Math.signum(thirst_beetroot)));
+    	}
+    	else if(i.getType().equals(Material.MILK_BUCKET)){
+    		dozenNum = (int) (thirst_milk + randNum*(Math.signum(thirst_milk)));
     	}
     	else if(i.getType().equals(Material.POISONOUS_POTATO)){
     		dozenNum = (int) (thirst_poisonous_potato + randNum*(Math.signum(thirst_poisonous_potato)));
@@ -929,45 +1012,39 @@ public class FalloutcraftPlayerListener implements Listener {
   
     	
     }
+    
     private void displayDehydrationDozen(Player player,int dozenNum){
-    	if (dozenNum>0){
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"↑"+dozenNum+"\",color:\"dark_red\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"❆\",color:\"dark_aqua\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
-    	}
-    	else if (dozenNum<0){
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"↓"+dozenNum*(-1)+"\",color:\"aqua\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"❆\",color:\"dark_aqua\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
-    	}
+
+        	if (dozenNum>0){
+        		//TitleAPI.sendTitle(player,10,10,10,"text:\"❆\",color:\"dark_aqua\"","text:\"↑"+dozenNum+"\",color:\"dark_red\"");
+        	}
+        	else if (dozenNum<0){
+        		//TitleAPI.sendTitle(player,10,10,10,"text:\"❆\",color:\"dark_aqua\"","text:\"↓"+dozenNum*(-1)+"\",color:\"aqua\"");
+        	}
+    	
+
 
     }
     private void displayFatigueDozen(Player player,int dozenNum){
+
+	    	if (dozenNum>0){
+	    		//TitleAPI.sendTitle(player,10,10,10,"text:\"Zz\",color:\"yellow\"","text:\"↑"+dozenNum+"\",color:\"dark_red\"");
+	    	}
+	    	else if (dozenNum<0){
+	    		//TitleAPI.sendTitle(player,10,10,10,"text:\"Zz\",color:\"yellow\"","text:\"↓"+dozenNum*(-1)+"\",color:\"aqua\"");
+	    	}
     	
-    	if (dozenNum>0){
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"↑"+dozenNum+"\",color:\"dark_red\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"Zz\",color:\"yellow\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
-    	}
-    	else if (dozenNum<0){
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"↓"+dozenNum*(-1)+"\",color:\"aqua\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"Zz\",color:\"yellow\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
-    	}
 
     }
     private void displayRadiationDozen(Player player,int dozenNum){
     	
-    	if (dozenNum>0){
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"↑"+dozenNum+"\",color:\"dark_red\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"☢\",color:\"dark_green\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
-    	}
-    	else if (dozenNum<0){
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" subtitle {text:\"↓"+dozenNum*(-1)+"\",color:\"aqua\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" title {text:\"☢\",color:\"dark_green\"}");
-    		server.dispatchCommand(server.getConsoleSender(), "title "+player.getPlayerListName()+" times 10 10 10");
-    	}
+	    	if (dozenNum>0){
+	    		//TitleAPI.sendTitle(player,10,10,10,"text:\"☢\",color:\"dark_green\"","text:\"↑"+dozenNum+"\",color:\"dark_red\"");
+	    	}
+	    	else if (dozenNum<0){
+	    		//TitleAPI.sendTitle(player,10,10,10,"text:\"☢\",color:\"dark_green\"","text:\"↓"+dozenNum*(-1)+"\",color:\"aqua\"");
+	    	}
+    	
 
     }
 
@@ -1129,6 +1206,15 @@ public class FalloutcraftPlayerListener implements Listener {
     	}
     	else if(i.getType().equals(Material.MUSHROOM_SOUP)){
     		dozenNum = (int) (foodDozen_mushroom_stew + randNum*(Math.signum(foodDozen_mushroom_stew)));
+    	}
+    	else if(i.getType().equals(Material.BEETROOT_SOUP)){
+    		dozenNum = (int) (foodDozen_beetroot_stew + randNum*(Math.signum(foodDozen_beetroot_stew)));
+    	}
+    	else if(i.getType().equals(Material.BEETROOT)){
+    		dozenNum = (int) (foodDozen_beetroot + randNum*(Math.signum(foodDozen_beetroot)));
+    	}
+    	else if(i.getType().equals(Material.MILK_BUCKET)){
+    		dozenNum = (int) (foodDozen_milk + randNum*(Math.signum(foodDozen_milk)));
     	}
     	else if(i.getType().equals(Material.POISONOUS_POTATO)){
     		dozenNum = (int) (foodDozen_poisonous_potato + randNum*(Math.signum(foodDozen_poisonous_potato)));

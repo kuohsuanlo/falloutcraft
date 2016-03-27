@@ -5,6 +5,7 @@ commands:
   fostatus:
     description: check falloutcraft status.
     usage: "/fostatus"
+    aliases: [fos]
   foupdate:
     description: update falloutcraft status effect.
     usage: "/foupdate"

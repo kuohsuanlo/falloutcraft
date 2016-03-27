@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -209,7 +210,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
         // TODO: Place any custom enable code here including the registration of any events
     	this.addRecipe();
     	
-    	
+    	 
         // Register our events
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(playerListener, this);
@@ -294,6 +295,18 @@ public class FalloutcraftPlugin extends JavaPlugin {
         
 
     }
+    /*
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("TitleAPI") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return econ != null;
+    }*/
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {
             return debugees.get(player);
