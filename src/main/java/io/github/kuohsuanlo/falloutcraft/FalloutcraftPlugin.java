@@ -289,7 +289,6 @@ public class FalloutcraftPlugin extends JavaPlugin {
    			e.printStackTrace();
    		}
         BukkitSchedulerSuck = new SyncPlayerTask_FOCraft_StatusUpdate(0,this);
-    	//player.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
         this.getServer().getScheduler().scheduleSyncRepeatingTask(this, BukkitSchedulerSuck, 0, 20);
 
         
