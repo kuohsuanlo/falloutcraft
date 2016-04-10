@@ -215,7 +215,12 @@ public class FalloutcraftPlugin extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(playerListener, this);
         pm.registerEvents(blockListener, this);
-
+        if (pm.isPluginEnabled("PlaceholderAPI")) {
+        	new AddPlaceholder(this).hook();
+        } else {
+            throw new RuntimeException("Could not find PlaceholderAPI!! Plugin can not work without it!");
+        }
+        
         // Register our commands
         getCommand("fostatus").setExecutor(new FalloutcraftStatusCommand(this));
         getCommand("fosetf").setExecutor(new FalloutcraftStatusCommand(this));
