@@ -424,8 +424,8 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage_zhTW("HAS_DIED_DUE_TO_THRIST","脫水死了，乾燥得變成一個精美的§6木乃伊§f");
     	setMessage_zhTW("YOUR_DEHYDRATION_0_200_MES","你不再感到口渴");
     	setMessage_zhTW("YOUR_DEHYDRATION_201_400_MES","你覺得§c有點口渴§f，時常慢下來喘口氣");
-    	setMessage_zhTW("YOUR_DEHYDRATION_401_600_MES","你§c輕度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
-    	setMessage_zhTW("YOUR_DEHYDRATION_601_800_MES","你§c中度脫水§f，時常慢下來喘口氣，不時覺得頭暈");
+    	setMessage_zhTW("YOUR_DEHYDRATION_401_600_MES","你§c輕度脫水§f，時常慢下來喘口氣");
+    	setMessage_zhTW("YOUR_DEHYDRATION_601_800_MES","你§c中度脫水§f，時常慢下來喘口氣");
     	setMessage_zhTW("YOUR_DEHYDRATION_801_999_MES","你§c嚴重脫水§f，需要立即補充水分，避免死亡");
     	setMessage_zhTW("YOUR_DEHYDRATION_DEATH_MES","你脫水死亡了");
     	setMessage_zhTW("YOU_CAN_DRINK_WATER_OR_POTION_TO_DECREASE_THRIST_LEVEL","你可以透過§e喝下藥水，包含一般水瓶§f來解渴");
@@ -563,9 +563,9 @@ public class FalloutcraftPlayerListener implements Listener {
     
     public String YOUR_TIRERNESS_0_200_MES = "你充分休息，覺得精神百倍";
     public String YOUR_TIRERNESS_201_400_MES = "你覺得精神不錯";
-    public String YOUR_TIRERNESS_401_600_MES = "你§c有些疲倦§f，不時恍神";
-    public String YOUR_TIRERNESS_601_800_MES = "你§c非常疲倦§f，不時恍神，覺得頭暈";
-    public String YOUR_TIRERNESS_801_999_MES = "你§c極度疲倦§f，幾乎把眼睛給閉上了";
+    public String YOUR_TIRERNESS_401_600_MES = "你§c有些疲倦§f，挖礦速度降地，攻擊減少";
+    public String YOUR_TIRERNESS_601_800_MES = "你§c非常疲倦§f，挖礦速度降地，攻擊減少";
+    public String YOUR_TIRERNESS_801_999_MES = "你§c極度疲倦§f，挖礦速度降地，攻擊減少";
     public String YOUR_TIRERNESS_1000_MES = "你覺得你在夢遊";
     public String IS_SLEEP_WALKING=" §c正§d在§e夢§f遊";
     public String YOUR_STATUS_IS_NORMAL = "狀態回到正常";
@@ -977,7 +977,8 @@ public class FalloutcraftPlayerListener implements Listener {
 			World w = player.getWorld();
 			Long time = w.getTime();
 			if (time >= 0 && time <= 13000){
-				player.teleport(block.getLocation().add(0, 1, 0));		
+				//player.teleport(block.getLocation().add(0, 1, 0));	
+				player.teleport(block.getLocation());		
 		    	handleFatigueDozen(player,-1000);
 
 		    	server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_Sleep(player,plugin), 1);
@@ -1325,8 +1326,8 @@ public class FalloutcraftPlayerListener implements Listener {
     protected void handleFatigueEffect(Player player , float nowLevel){
     	if(nowLevel>=1000){
     		synchronized(this){
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 5),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 400, 5),true);
+    			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 800, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 800, 1),true);
     		}
 
     		/*
@@ -1337,25 +1338,24 @@ public class FalloutcraftPlayerListener implements Listener {
      	}
     	else if(nowLevel>=800){
 
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 4),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 400, 5),true);
-    		
-    		
+    		//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 1),true);
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 400, 1),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 400, 1),true);
 
     	}
     	else if(nowLevel>=600){
 
-
-    			player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 2),true);
-    			player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 200, 5),true);
-    		
+    		//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 1),true);
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 200, 1),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 200, 1),true);
     		
     	}
     	else if(nowLevel>=400){
 
 
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS , 100, 5),true);
+        		//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
+    			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 100, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 100, 1),true);
     		
     	}
     	else if(nowLevel>=200){
@@ -1380,25 +1380,25 @@ public class FalloutcraftPlayerListener implements Listener {
      		player.setHealth(0);
      	}
     	else if(nowLevel>=800){
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 1),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 400, 2),true);
+        		//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 800, 2),true);
     		
 
     	}
     	else if(nowLevel>=600){
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 1),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 200, 2),true);
+        		//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 400, 2),true);
     		
 
     	}
     	else if(nowLevel>=400){
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 100, 1),true);
+        		//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 200, 1),true);
     		
 
     	}
     	else if(nowLevel>=200){
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 50, 1),true);
+        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 100, 1),true);
     		
 
     	}
