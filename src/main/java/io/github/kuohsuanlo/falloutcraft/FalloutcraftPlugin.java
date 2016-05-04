@@ -36,6 +36,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
 	protected final FalloutcraftPlayerListener playerListener = new FalloutcraftPlayerListener(this);
     private final FalloutcraftBlockListener blockListener = new FalloutcraftBlockListener();
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
+    private final FalloutcraftStatusCommand commander = new FalloutcraftStatusCommand(this);
     protected HashMap<String, Float> falloutstatsHunger = new HashMap<String, Float>();
     protected HashMap<String, Float> falloutstatsThirst = new HashMap<String, Float>();
     protected HashMap<String, String> falloutstatsThirstFromDB = new HashMap<String, String>();
@@ -222,16 +223,13 @@ public class FalloutcraftPlugin extends JavaPlugin {
         }
         
         // Register our commands
-        getCommand("fostatus").setExecutor(new FalloutcraftStatusCommand(this));
-        getCommand("fosetf").setExecutor(new FalloutcraftStatusCommand(this));
-        getCommand("fosetr").setExecutor(new FalloutcraftStatusCommand(this));
-        getCommand("fosetd").setExecutor(new FalloutcraftStatusCommand(this));
+        this.getCommand("fostatus").setExecutor(commander);
         
-        getCommand("foaddf").setExecutor(new FalloutcraftStatusCommand(this));
-        getCommand("foaddr").setExecutor(new FalloutcraftStatusCommand(this));
-        getCommand("foaddd").setExecutor(new FalloutcraftStatusCommand(this));
+        this.getCommand("fosetf").setExecutor(commander);
+        this.getCommand("fosetr").setExecutor(commander);
+        this.getCommand("fosetd").setExecutor(commander);
         
-        getCommand("foupdate").setExecutor(new FalloutcraftEffectCommand(this));
+        this.getCommand("foupdate").setExecutor(new FalloutcraftEffectCommand(this));
 
         // EXAMPLE: Custom code, here we just output some info so we can check all is well
         PluginDescriptionFile pdfFile = this.getDescription();

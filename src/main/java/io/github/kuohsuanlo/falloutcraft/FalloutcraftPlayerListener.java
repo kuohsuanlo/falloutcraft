@@ -147,6 +147,7 @@ public class FalloutcraftPlayerListener implements Listener {
 		foodDozen_pumpkin_pie= Integer.valueOf(messageData.get("foodDozen_pumpkin_pie")); 
 		foodDozen_raw_beef= Integer.valueOf(messageData.get("foodDozen_raw_beef"));  
 		foodDozen_raw_chicken= Integer.valueOf(messageData.get("foodDozen_raw_chicken"));  
+		foodDozen_chorus= Integer.valueOf(messageData.get("foodDozen_chorus"));  
 
 	
     	
@@ -264,6 +265,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage("thirst_spider_eye","50");
     	setMessage("thirst_steak","40");
     	setMessage("thirst_milk","-30");
+    	setMessage("thirst_chorus","-10");
     	         
     	setMessage("thirst_environment_fire","0");
     	setMessage("thirst_environment_fire_tick","20");
@@ -296,6 +298,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage("foodDozen_raw_beef","15");
     	setMessage("foodDozen_raw_chicken","15");
     	setMessage("foodDozen_milk","15");
+    	setMessage("foodDozen_chorus","50");
     	         
     	setMessage("FALLOUTCRAFT","§2[Falloutcraft]§f : ");
     	setMessage("YOU_HAVE_EATEN","You have eaten : ");
@@ -382,6 +385,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage_zhTW("thirst_spider_eye","50");
     	setMessage_zhTW("thirst_steak","40");
     	setMessage_zhTW("thirst_milk","-30");
+    	setMessage_zhTW("thirst_chorus","-10");
     	         
     	setMessage_zhTW("thirst_environment_fire","0");
     	setMessage_zhTW("thirst_environment_fire_tick","20");
@@ -414,6 +418,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	setMessage_zhTW("foodDozen_raw_beef","15");
     	setMessage_zhTW("foodDozen_raw_chicken","15");
     	setMessage_zhTW("foodDozen_milk","15");
+    	setMessage_zhTW("foodDozen_chorus","50");
     	         
     	setMessage_zhTW("FALLOUTCRAFT","§2[廢土生存]§f : ");
     	setMessage_zhTW("YOU_HAVE_EATEN","你食用了");
@@ -498,6 +503,7 @@ public class FalloutcraftPlayerListener implements Listener {
     private int thirst_spider_eye = 50;
     private int thirst_steak = 40;
     private int thirst_milk = -30;
+    private int thirst_chorus = -10;
     
     private int thirst_environment_fire = 0;
     private int thirst_environment_fire_tick = 20;
@@ -539,7 +545,7 @@ public class FalloutcraftPlayerListener implements Listener {
     private int foodDozen_raw_porkchop = 15;
     private int foodDozen_rotten_flesh = 60;
     private int foodDozen_spider_eye = 40;
-
+    private int foodDozen_chorus = 50;
     
     public String FALLOUTCRAFT = "§2[廢土生存]§f : ";
     public String YOU_HAVE_EATEN = "你食用了";
@@ -759,6 +765,9 @@ public class FalloutcraftPlayerListener implements Listener {
     	}
     	else if(i.getType().equals(Material.COOKED_BEEF)){
     		dozenNum = (int) (thirst_steak + randNum*(Math.signum(thirst_steak)));
+    	}
+    	else if(i.getType().equals(Material.CHORUS_FRUIT)){
+    		dozenNum = (int) (thirst_chorus + randNum*(Math.signum(thirst_chorus)));
     	}
     	else{
     		dozenNum = (int) (Math.random()*30);
@@ -1244,6 +1253,9 @@ public class FalloutcraftPlayerListener implements Listener {
     	else if(i.getType().equals(Material.COOKED_BEEF)){
     		dozenNum = (int) (foodDozen_steak + randNum*(Math.signum(foodDozen_steak)));
     	}
+    	else if(i.getType().equals(Material.CHORUS_FRUIT)){
+    		dozenNum = (int) (foodDozen_chorus + randNum*(Math.signum(foodDozen_chorus)));
+    	}
     	else{
     		dozenNum = (int) (Math.random()*30);
     	}
@@ -1325,37 +1337,24 @@ public class FalloutcraftPlayerListener implements Listener {
     protected int fatigueSecondsPerDozen = 600; //20mins
     protected void handleFatigueEffect(Player player , float nowLevel){
     	if(nowLevel>=1000){
-    		synchronized(this){
-    			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 800, 1),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 800, 1),true);
-    		}
-
-    		/*
-    		for (PotionEffect effect : player.getActivePotionEffects())
-    	        player.removePotionEffect(effect.getType());
-    		plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) 0);
-     		player.setHealth(0);*/
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 1200, 2),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 1200, 2),true);
+    		
      	}
     	else if(nowLevel>=800){
 
-    		//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 400, 1),true);
-			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 400, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 400, 1),true);
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 1200, 1),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 1200, 1),true);
 
     	}
     	else if(nowLevel>=600){
-
-    		//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 200, 1),true);
-			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 200, 1),true);
-    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 200, 1),true);
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 600, 1),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 600, 0),true);
     		
     	}
     	else if(nowLevel>=400){
-
-
-        		//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION , 100, 1),true);
-    			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 100, 1),true);
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 100, 1),true);
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS , 600, 0),true);
+			player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING , 600, 0),true);
     		
     	}
     	else if(nowLevel>=200){
@@ -1363,7 +1362,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	}
     	else if(nowLevel<200){
 
-        		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE , 1000, 0),true);
+    		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE , 1000, 0),true);
     		
     	}
     	

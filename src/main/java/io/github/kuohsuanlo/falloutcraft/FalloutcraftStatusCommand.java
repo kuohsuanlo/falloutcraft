@@ -47,34 +47,6 @@ public class FalloutcraftStatusCommand implements CommandExecutor {
 	        }
 
 		}
-		else if (cmd.getName().equalsIgnoreCase("foaddf")) { // If the player typed /basic then do the following...
-	        if (args.length == 2 ) {
-	        	if (sender.hasPermission("falloutcraft.addfatigue")){
-	        		
-	            	if(plugin.falloutstatsFatigue.containsKey(args[0])){
-	            		float after_value = Float.valueOf(args[1])+plugin.falloutstatsFatigue.get(args[0]);
-	            		if(after_value<0){
-	            			after_value=0;
-	            		}
-	            		else if(after_value>1000){
-	            			after_value=1000;
-	            		}
-	            		plugin.falloutstatsFatigue.put(args[0], after_value);
-	            		sender.sendMessage("¡±cSuccessfully add player "+args[0]+" 's fatigue to "+after_value);
-	            		return true;
-	            	}
-	            	else{
-	            		sender.sendMessage("¡±cNo such user.");
-	            	}
-		            	
-		            
-	        	}
-	        	else{
-	        		sender.sendMessage("¡±cYou don't have the permission.");
-	        		return false;
-	        	}
-	        }
-		}
 		else if (cmd.getName().equalsIgnoreCase("fosetf")) { // If the player typed /basic then do the following...
 	        if (args.length == 2 ) {
 	        	if (sender.hasPermission("falloutcraft.setfatigue")){
@@ -95,21 +67,19 @@ public class FalloutcraftStatusCommand implements CommandExecutor {
 	        		return false;
 	        	}
 	        }
-		}
-		else if (cmd.getName().equalsIgnoreCase("foaddd")) { // If the player typed /basic then do the following...
-	        if (args.length == 2 ) {
-	        	if (sender.hasPermission("falloutcraft.adddehydration")){
+	        else if (args.length == 3 &&  args[2].equals("add")) {
+	        	if (sender.hasPermission("falloutcraft.setfatigue")){
 	        		
-	            	if(plugin.falloutstatsThirst.containsKey(args[0])){
-	            		float after_value = Float.valueOf(args[1])+plugin.falloutstatsThirst.get(args[0]);
+	            	if(plugin.falloutstatsFatigue.containsKey(args[0])){
+	            		float after_value = Float.valueOf(args[1])+plugin.falloutstatsFatigue.get(args[0]);
 	            		if(after_value<0){
 	            			after_value=0;
 	            		}
 	            		else if(after_value>1000){
 	            			after_value=1000;
 	            		}
-	            		plugin.falloutstatsThirst.put(args[0], after_value);
-	            		sender.sendMessage("¡±cSuccessfully add player "+args[0]+" 's dehydration to "+after_value);
+	            		plugin.falloutstatsFatigue.put(args[0], after_value);
+	            		sender.sendMessage("¡±cSuccessfully add player "+args[0]+" 's fatigue to "+after_value);
 	            		return true;
 	            	}
 	            	else{
@@ -144,21 +114,19 @@ public class FalloutcraftStatusCommand implements CommandExecutor {
 	        		return false;
 	        	}
 	        }
-		}
-		else if (cmd.getName().equalsIgnoreCase("foaddr")) { // If the player typed /basic then do the following...
-	        if (args.length == 2 ) {
-	        	if (sender.hasPermission("falloutcraft.addradiation")){
+	        else if (args.length == 3  &&  args[2].equals("add")) {
+	        	if (sender.hasPermission("falloutcraft.setdehydration")){
 	        		
-	            	if(plugin.falloutstatsRadiation.containsKey(args[0])){
-	            		float after_value = Float.valueOf(args[1])+plugin.falloutstatsRadiation.get(args[0]);
+	            	if(plugin.falloutstatsThirst.containsKey(args[0])){
+	            		float after_value = Float.valueOf(args[1])+plugin.falloutstatsThirst.get(args[0]);
 	            		if(after_value<0){
 	            			after_value=0;
 	            		}
 	            		else if(after_value>1000){
 	            			after_value=1000;
 	            		}
-	            		plugin.falloutstatsRadiation.put(args[0], after_value);
-	            		sender.sendMessage("¡±cSuccessfully add player "+args[0]+" 's radiation to "+after_value);
+	            		plugin.falloutstatsThirst.put(args[0], after_value);
+	            		sender.sendMessage("¡±cSuccessfully add player "+args[0]+" 's dehydration to "+after_value);
 	            		return true;
 	            	}
 	            	else{
@@ -187,6 +155,32 @@ public class FalloutcraftStatusCommand implements CommandExecutor {
 		            	}
 		            	
 		            }
+	        	}
+	        	else{
+	        		sender.sendMessage("¡±cYou don't have the permission.");
+	        		return false;
+	        	}
+	        }
+	        else if (args.length == 3  &&  args[2].equals("add")) {
+	        	if (sender.hasPermission("falloutcraft.setradiation")){
+	        		
+	            	if(plugin.falloutstatsRadiation.containsKey(args[0])){
+	            		float after_value = Float.valueOf(args[1])+plugin.falloutstatsRadiation.get(args[0]);
+	            		if(after_value<0){
+	            			after_value=0;
+	            		}
+	            		else if(after_value>1000){
+	            			after_value=1000;
+	            		}
+	            		plugin.falloutstatsRadiation.put(args[0], after_value);
+	            		sender.sendMessage("¡±cSuccessfully add player "+args[0]+" 's radiation to "+after_value);
+	            		return true;
+	            	}
+	            	else{
+	            		sender.sendMessage("¡±cNo such user.");
+	            	}
+		            	
+		            
 	        	}
 	        	else{
 	        		sender.sendMessage("¡±cYou don't have the permission.");

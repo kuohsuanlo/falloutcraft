@@ -4,7 +4,7 @@
   <artifactId>falloutcraft</artifactId>
   <name>FalloutCraftPlugin</name>
   <url>http://dev.bukkit.org/bukkit-plugins/falloutcraft/</url>
-
+  <version>1.0.3</version>
   <repositories>
     <repository>
       <id>spigot-repo</id>
