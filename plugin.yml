@@ -1,6 +1,5 @@
 name: Falloutcraft
 main: io.github.kuohsuanlo.falloutcraft.FalloutcraftPlugin
-version: 1.0.2f
 softdepend: [PlaceholderAPI]
 commands:
   fostatus:
@@ -19,10 +18,15 @@ commands:
   fosetr:
     description: set the player's radiation value.
     usage: "/fosetr playerid value"
-  fobook:
-    description: give a book to the player.
-    usage: "/fobook"
-    aliases: [fob]
+  foaddf:
+    description: add the player's fatigue value.
+    usage: "/foaddf playerid value"
+  foaddd:
+    description: add the player's dehydration value.
+    usage: "/foaddd playerid value"
+  foaddr:
+    description: add the player's radiation value.
+    usage: "/foaddr playerid value"
 
 permissions:
     falloutcraft.*:
@@ -36,6 +40,15 @@ permissions:
     falloutcraft.fostatus:
         description: check falloutcraft status.
         default: true
+    falloutcraft.addradiation:
+        description: add a player's radiation level
+        default: op
+    falloutcraft.adddehydration:
+        description: add a player's dehydration level
+        default: op
+    falloutcraft.addfatigue:
+        description: add a player's fatigue level
+        default: op
     falloutcraft.setradiation:
         description: set a player's radiation level
         default: op

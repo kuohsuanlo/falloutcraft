@@ -226,6 +226,11 @@ public class FalloutcraftPlugin extends JavaPlugin {
         getCommand("fosetf").setExecutor(new FalloutcraftStatusCommand(this));
         getCommand("fosetr").setExecutor(new FalloutcraftStatusCommand(this));
         getCommand("fosetd").setExecutor(new FalloutcraftStatusCommand(this));
+        
+        getCommand("foaddf").setExecutor(new FalloutcraftStatusCommand(this));
+        getCommand("foaddr").setExecutor(new FalloutcraftStatusCommand(this));
+        getCommand("foaddd").setExecutor(new FalloutcraftStatusCommand(this));
+        
         getCommand("foupdate").setExecutor(new FalloutcraftEffectCommand(this));
 
         // EXAMPLE: Custom code, here we just output some info so we can check all is well
