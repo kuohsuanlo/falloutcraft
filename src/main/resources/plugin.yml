@@ -1,24 +1,24 @@
 name: Falloutcraft
 main: io.github.kuohsuanlo.falloutcraft.FalloutcraftPlugin
-version: ${version}
+version: 1.0.3
+softdepend: [PlaceholderAPI]
 commands:
-  fostatus:
-    description: check falloutcraft status.
-    usage: "/fostatus"
-    aliases: [fos]
-  foupdate:
-    description: update falloutcraft status effect.
-    usage: "/foupdate"
-  fosetf:
-    description: set the player's fatigue value.
-    usage: "/fosetf playerid value"
-  fosetd:
-    description: set the player's dehydration value.
-    usage: "/fosetd playerid value"
-  fosetr:
-    description: set the player's radiation value.
-    usage: "/fosetr playerid value"
-    
+    fostatus:
+        description: check falloutcraft status.
+        usage: /fostatus
+        aliases: [fos]
+    foupdate:
+        description: see the spigot page
+        usage: /foupdate
+    fosetf:
+        description: see the spigot page
+        usage: /fosetf playerid value <add>
+    fosetd:
+        description: see the spigot page
+        usage: /fosetd playerid value <add>
+    fosetr:
+        description: see the spigot page
+        usage: /fosetr playerid value <add>
 permissions:
     falloutcraft.*:
         description: Gives access to all fallout commands
@@ -28,6 +28,9 @@ permissions:
             falloutcraft.setradiation: true
             falloutcraft.setdehydration: true
             falloutcraft.setfatigue: true
+            falloutcraft.addradiation: true
+            falloutcraft.adddehydration: true
+            falloutcraft.addfatigue: true
     falloutcraft.fostatus:
         description: check falloutcraft status.
         default: true

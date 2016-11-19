@@ -1086,6 +1086,9 @@ public class FalloutcraftPlayerListener implements Listener {
     	else if(e.getType()==EntityType.SILVERFISH){
         	return hitDozen_ender;
     	}
+    	else if(e.getType()==EntityType.SNOWBALL){
+        	return 0;
+    	}
     	else{
     		return 1;
     	}
