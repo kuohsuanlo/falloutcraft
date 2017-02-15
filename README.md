@@ -1,9 +1,10 @@
 # falloutcraft
 Fallout System in Minecraft (Radiation, Fatigue, Thirst, Hunger)
-
-
 ![ScreenShot](https://www.spigotmc.org/attachments/foc_logo-png.123360/)
+
 Now minecraft can have fatigue, dehydration, radiation level. Just like fallout! Enjoy your Apocalyptic Survival game.
+
+
 
 ![ScreenShot](https://www.spigotmc.org/attachments/plugins-png.118236/)
 
