@@ -51,7 +51,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
     protected String pathOfFalloutcraftDB_Radiation="./plugins/Falloutcraft/FalloutcraftDB_Radiation";
     protected String pathOfFalloutcraftDB_Thirst="./plugins/Falloutcraft/FalloutcraftDB_Thirst";
     
-    protected SyncPlayerTask_FOCraft_StatusUpdate BukkitSchedulerSuck;
+    protected FalloutcraftSyncTaskPlayerStatusUpdate BukkitSchedulerSuck;
     @Override
     public void onDisable() {
         try {
@@ -124,7 +124,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
 		bottle_meta.addEnchant(Enchantment.FIRE_ASPECT, 1, true) ;
 		potion_meta.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1, 1), true);
 		
-		bottle_meta.setDisplayName("¡±2Radaway¡±f");	
+		bottle_meta.setDisplayName("ï¿½ï¿½2Radawayï¿½ï¿½f");	
 		bottle.setItemMeta(bottle_meta);
 		
 		ShapedRecipe radaway = new ShapedRecipe(bottle);
@@ -170,7 +170,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
 		bottle_meta_2.addEnchant(Enchantment.FIRE_ASPECT, 2, true) ;
 		potion_meta_2.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1, 1), true);
 		
-		bottle_meta_2.setDisplayName("¡±2Radaway-¡±aDouble¡±f");	
+		bottle_meta_2.setDisplayName("ï¿½ï¿½2Radaway-ï¿½ï¿½aDoubleï¿½ï¿½f");	
 		bottle2.setItemMeta(bottle_meta_2);
 		
 		ShapedRecipe radaway_2 = new ShapedRecipe(bottle2);
@@ -299,7 +299,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
    			// TODO Auto-generated catch block
    			e.printStackTrace();
    		}
-        BukkitSchedulerSuck = new SyncPlayerTask_FOCraft_StatusUpdate(0,this);
+        BukkitSchedulerSuck = new FalloutcraftSyncTaskPlayerStatusUpdate(0,this);
         this.getServer().getScheduler().scheduleSyncRepeatingTask(this, BukkitSchedulerSuck, 0, 20);
 
         
