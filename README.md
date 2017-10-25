@@ -4,7 +4,7 @@ Jar Download link: [Spigot Page](https://www.spigotmc.org/resources/falloutcraft
 
 I am personally a Fallout fan. Why not bringing fallout's hardcore survival mode to minecraft ![bed](https://www.csie.ntu.edu.tw/~b98902055/items/2-0.png)?
 This plugin is a minecraft server-side spigot plugin in order to enhance the experience of:
-  - Fallout System in Minecraft (Radiation, Fatigue, Thirst, Hunger)
+  - Fallout System in Minecraft (Radiation, Fatigue, Thirst)
   - Just like fallout! Enjoy your Apocalyptic Survival game.
 
 ![](https://www.spigotmc.org/attachments/plugins-png.118236/)
