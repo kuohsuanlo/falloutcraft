@@ -636,7 +636,7 @@ public class FalloutcraftPlayerListener implements Listener {
     		plugin.falloutstatsFatigue.put(player.getPlayerListName(), (float) 0);
     	}
 
-    	server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    	server.getScheduler().scheduleSyncDelayedTask(plugin, new FalloutcraftSyncTaskPlayerGeneral(player,plugin), 1);
     	plugin.BukkitSchedulerSuck.addPlayer(player);
 
     }
@@ -653,7 +653,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	handleThirstFoodDozen(player,e.getItem());
     	//handleThirstEffect(player,plugin.falloutstatsThirst.get(player.getPlayerListName()));
     	
-    	server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    	server.getScheduler().scheduleSyncDelayedTask(plugin, new FalloutcraftSyncTaskPlayerGeneral(player,plugin), 1);
     }
 
     
@@ -666,7 +666,7 @@ public class FalloutcraftPlayerListener implements Listener {
     	else{
     		player = (Player)e.getEntity();
     		handleThirstEnvironmentDozen(player,e.getCause());
-    		server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    		server.getScheduler().scheduleSyncDelayedTask(plugin, new FalloutcraftSyncTaskPlayerGeneral(player,plugin), 1);
     		return;
     	}
   
@@ -1014,7 +1014,7 @@ public class FalloutcraftPlayerListener implements Listener {
     		player = (Player)event.getEntity();
     		if(handleRadiationHitDozen(player,event.getDamager())){
     			
-    			server.getScheduler().scheduleSyncDelayedTask(plugin, new SyncPlayerTask_FOCraft(player,plugin), 1);
+    			server.getScheduler().scheduleSyncDelayedTask(plugin, new FalloutcraftSyncTaskPlayerGeneral(player,plugin), 1);
     			
     		}
     		return;
