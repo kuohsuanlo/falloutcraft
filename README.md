@@ -56,12 +56,14 @@ This plugin run with best experience the following plugins :
 3. Start to set your own config withing config.yml.
 
 ### Configuration setting
-Since all of the increase, decrease amount of radiation/dehydration is customisable. I only take one of them as example. 
+1. The messages are all configurable.  You can edit them based on the name tag like [SOMEONE_DIED_BECAUSE_OF_RADIATION]. 
+2. Color codes escapes are represented with '§'.
+3. Since all of the increase, decrease amount of radiation/dehydration is customisable. I only take one of them as example. 
 ```sh
 thirst_poisonous_potato: '50'
 # then value >0, increase the dehydration level, otherwise <0 decreases.
 YOUR_RADIATION_0_200_MES: ''
-# when radation reaches 200 from 400. Show these texts. Defaultly blank. Color codes escapes are represented with '§'.
+# when radation reaches 200 from 400. Show these texts. Defaultly blank. 
 YOUR_RADIATION_201_400_MES: 'Your §cradiation sickness§f : §b*---'
 # when radation reaches 201~400. Show these texts.
 YOUR_RADIATION_401_600_MES: 'Your §cradiation sickness§f : §a**--'
@@ -69,7 +71,6 @@ YOUR_RADIATION_601_800_MES: 'Your §cradiation sickness§f : §e***-'
 YOUR_RADIATION_801_999_MES: 'Your §cradiation sickness§f : §c****'
 # Trivial.
 ```
-
 ----
 ### Permission nodes
 | nodes | description |default|
