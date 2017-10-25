@@ -128,37 +128,78 @@ public class FalloutcraftPlugin extends JavaPlugin {
 		bottle.setItemMeta(bottle_meta);
 		
 		ShapedRecipe radaway = new ShapedRecipe(bottle);
-		
+
 		////////////////////////////////
+		radaway.shape("* ","B ");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle);
 		radaway.shape("* "," B");
 		radaway.setIngredient('*', Material.INK_SACK,15);
 		radaway.setIngredient('B', Material.POTION);
 		getServer().addRecipe(radaway);
-		radaway.shape("* ","B ");
-		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle);
 		radaway.shape(" *","B ");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
 		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle);
 		radaway.shape(" *"," B");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
 		getServer().addRecipe(radaway);
-		////////////////////////////////
-		radaway.shape("B "," *");
-		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle);
 		radaway.shape("B ","* ");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
 		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle);
+		radaway.shape("B "," *");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle);
 		radaway.shape(" B","* ");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
 		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle);
 		radaway.shape(" B"," *");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
 		getServer().addRecipe(radaway);
-		///////////////////////////////////
-		radaway.shape("  ","B*");
-		getServer().addRecipe(radaway);
-		radaway.shape("  ","*B");
-		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle);
 		radaway.shape("B*","  ");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
 		getServer().addRecipe(radaway);
+
+		radaway = new ShapedRecipe(bottle);
 		radaway.shape("*B","  ");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
 		getServer().addRecipe(radaway);
-		///////////////////////////
+		
+		radaway = new ShapedRecipe(bottle);
+		radaway.shape("  ","*B");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+
+		radaway = new ShapedRecipe(bottle);
+		radaway.shape("* ","B*");
+		radaway.setIngredient('*', Material.INK_SACK,15);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
 		
 		
 		
@@ -170,44 +211,174 @@ public class FalloutcraftPlugin extends JavaPlugin {
 		bottle_meta_2.addEnchant(Enchantment.FIRE_ASPECT, 2, true) ;
 		potion_meta_2.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1, 1), true);
 		
-		bottle_meta_2.setDisplayName("¡±2Radaway-¡±aDouble¡±f");	
+		bottle_meta_2.setDisplayName("¡±2Radaway-¡±aII¡±f");	
 		bottle2.setItemMeta(bottle_meta_2);
 		
-		ShapedRecipe radaway_2 = new ShapedRecipe(bottle2);
+		radaway = new ShapedRecipe(bottle2);
 		
 		////////////////////////////////
-		radaway_2.shape("* "," B");
-		radaway_2.setIngredient('*', Material.BONE);
-		radaway_2.setIngredient('B', Material.POTION);
-		getServer().addRecipe(radaway_2);
-		radaway_2.shape("* ","B ");
-		getServer().addRecipe(radaway_2);
-		radaway_2.shape(" *","B ");
-		getServer().addRecipe(radaway_2);
-		radaway_2.shape(" *"," B");
-		getServer().addRecipe(radaway_2);
-		////////////////////////////////
-		radaway_2.shape("B "," *");
-		getServer().addRecipe(radaway_2);
-		radaway_2.shape("B ","* ");
-		getServer().addRecipe(radaway_2);
-		radaway_2.shape(" B","* ");
-		getServer().addRecipe(radaway_2);
-		radaway_2.shape(" B"," *");
-		getServer().addRecipe(radaway_2);
-		///////////////////////////////////
-		radaway_2.shape("  ","B*");
-		getServer().addRecipe(radaway_2);
-		radaway_2.shape("  ","*B");
-		getServer().addRecipe(radaway_2);
-		radaway_2.shape("B*","  ");
-		getServer().addRecipe(radaway_2);
-		radaway_2.shape("*B","  ");
-		getServer().addRecipe(radaway_2);
+		radaway.shape("* ","B ");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape("* "," B");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape(" *","B ");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape(" *"," B");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape("B ","* ");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape("B "," *");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape(" B","* ");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape(" B"," *");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape("B*","  ");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape("*B","  ");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape("  ","*B");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+
+		radaway = new ShapedRecipe(bottle2);
+		radaway.shape("* ","B*");
+		radaway.setIngredient('*', Material.BONE);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
 		///////////////////////////
 		
-		 
-    }
+				 
+		///////////////////////////////  Radaway Compact making
+		ItemStack bottle3 = new ItemStack(Material.POTION);
+		ItemMeta bottle_meta_3 = bottle3.getItemMeta();
+		PotionMeta potion_meta_3 =(PotionMeta) bottle_meta_3;
+		
+		bottle_meta_3.addEnchant(Enchantment.FIRE_ASPECT, 4, true) ;
+		potion_meta_3.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1, 1), true);
+		
+		bottle_meta_3.setDisplayName("¡±2Radaway-¡±aIV¡±f");	
+		bottle3.setItemMeta(bottle_meta_3);
+		
+		radaway = new ShapedRecipe(bottle3);
+		
+		////////////////////////////////
+		radaway.shape("* ","B ");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape("* "," B");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape(" *","B ");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape(" *"," B");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape("B ","* ");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape("B "," *");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape(" B","* ");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape(" B"," *");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape("B*","  ");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape("*B","  ");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape("  ","*B");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		radaway = new ShapedRecipe(bottle3);
+		radaway.shape("* ","B*");
+		radaway.setIngredient('*', Material.BONE_BLOCK);
+		radaway.setIngredient('B', Material.POTION);
+		getServer().addRecipe(radaway);
+		
+		///////////////////////////
+				
+	}
     @Override
     public void onEnable() {
         // TODO: Place any custom enable code here including the registration of any events
