@@ -7,6 +7,9 @@ This plugin is a minecraft server-side spigot plugin in order to enhance the exp
   - Fallout System in Minecraft (Radiation, Fatigue, Thirst, Hunger)
   - Just like fallout! Enjoy your Apocalyptic Survival game.
 
+![](https://www.spigotmc.org/attachments/plugins-png.118236/)
+
+---------
 
   ### Features : 
   Enhanced survival mechanism : 
