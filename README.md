@@ -1,10 +1,12 @@
 # FalloutCraft--- Powered by [LogoCat](https://mcuuid.net/?q=logocat) 
 [![mcfallout](https://i.imgur.com/o6S7V07.png)](https://mcfallout.net)
+Jar Download link: [Spigot Page](https://www.spigotmc.org/resources/falloutcraft.20984/)
 
+I am personally a Fallout fan. Why not bringing fallout's hardcore survival mode to minecraft ![bed](https://www.csie.ntu.edu.tw/~b98902055/items/2-0.png)?
 This plugin is a minecraft server-side spigot plugin in order to enhance the experience of:
-
   - Fallout System in Minecraft (Radiation, Fatigue, Thirst, Hunger)
   - Just like fallout! Enjoy your Apocalyptic Survival game.
+
 
   ### Features : 
   Enhanced survival mechanism : 
