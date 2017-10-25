@@ -37,8 +37,8 @@ Radaway is the only way to decrease your radiation level other than Golen Apple 
     3. Level 4 Radawat : bone block ![](https://www.csie.ntu.edu.tw/~b98902055/items/216-0.png) + water bottle ![](https://www.csie.ntu.edu.tw/~b98902055/items/373-0.png)
 
 Media Demo:
-  - Text output (show when player receives changes on one of the survival mechanism)![m](https://imgur.com/jpM8iBX.png)
-  - [placeholderapi] support (show with [titlemanager])![m](https://i.imgur.com/5PMMPNr.png)
+  - [Image  1](https://imgur.com/jpM8iBX.png)  : Text output (show when player receives changes on one of the survival mechanism)
+  - [Image 2](https://i.imgur.com/5PMMPNr.png) : placeholderapi support (show with titlemanager) 
 
 ----
 ### Environment 
