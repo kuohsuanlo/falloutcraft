@@ -16,42 +16,29 @@
         </repository>
   </repositories>
   <dependencies>
-<<<<<<< HEAD
-    <!--Spigot API-->
-    <dependency>
-           <groupId>org.spigotmc</groupId>
-           <artifactId>spigot-api</artifactId>
-           <version>1.12.1-R0.1-SNAPSHOT</version>
-=======
 	 <!--Spigot API-->
     <dependency>
            <groupId>org.spigotmc</groupId>
            <artifactId>spigot-api</artifactId>
            <version>1.12.2-R0.1-SNAPSHOT</version>
->>>>>>> origin/master
            <scope>provided</scope>
     </dependency>
     <!--Bukkit API-->
     <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-<<<<<<< HEAD
             <version>1.12.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
     </dependency>
     
 	<!--Placeholder API-->
-        <dependency>
-         <groupId>me.clip</groupId>
-          <artifactId>placeholderapi</artifactId>
-          <version>2.0.8</version>
-         <scope>provided</scope>
-        </dependency>
-=======
-            <version>1.12.2-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+    <dependency>
+       <groupId>me.clip</groupId>
+       <artifactId>placeholderapi</artifactId>
+       <version>2.0.8</version>
+       <scope>provided</scope>
+     
     </dependency>
->>>>>>> origin/master
   </dependencies>
 
   <build>
