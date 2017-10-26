@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -123,8 +124,8 @@ public class FalloutcraftPlugin extends JavaPlugin {
 		
 		bottle_meta.addEnchant(Enchantment.FIRE_ASPECT, 1, true) ;
 		potion_meta.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1, 1), true);
-		
-		bottle_meta.setDisplayName("ï¿½ï¿½2Radawayï¿½ï¿½f");	
+
+		bottle_meta.setDisplayName(ChatColor.DARK_GREEN+"Radaway"+ChatColor.RESET);	
 		bottle.setItemMeta(bottle_meta);
 		
 		ShapedRecipe radaway = new ShapedRecipe(bottle);
@@ -211,11 +212,9 @@ public class FalloutcraftPlugin extends JavaPlugin {
 		bottle_meta_2.addEnchant(Enchantment.FIRE_ASPECT, 2, true) ;
 		potion_meta_2.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1, 1), true);
 		
-<<<<<<< HEAD
-		bottle_meta_2.setDisplayName("¡±2Radaway-¡±aII¡±f");	
-=======
-		bottle_meta_2.setDisplayName("ï¿½ï¿½2Radaway-ï¿½ï¿½aDoubleï¿½ï¿½f");	
->>>>>>> origin/master
+
+		bottle_meta_2.setDisplayName(ChatColor.DARK_GREEN+"Radaway-"+ChatColor.GREEN+"Double"+ChatColor.RESET);	
+
 		bottle2.setItemMeta(bottle_meta_2);
 		
 		radaway = new ShapedRecipe(bottle2);
@@ -303,7 +302,7 @@ public class FalloutcraftPlugin extends JavaPlugin {
 		bottle_meta_3.addEnchant(Enchantment.FIRE_ASPECT, 4, true) ;
 		potion_meta_3.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1, 1), true);
 		
-		bottle_meta_3.setDisplayName("¡±2Radaway-¡±aIV¡±f");	
+		bottle_meta_3.setDisplayName("q2Radaway-qaIVqf");	
 		bottle3.setItemMeta(bottle_meta_3);
 		
 		radaway = new ShapedRecipe(bottle3);
